@@ -1,2 +1,2 @@
 # elevenlibrary
-An excellent library management systen for AngularJS projects.
+An excellent library management system for AngularJS projects.
