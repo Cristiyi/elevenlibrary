@@ -7,31 +7,37 @@
         </div>
     </div>
     <!-- Page -->
-    <div id="Page">
+    <div id="Page" ng-controller="BookListCtrl">
         <div id="wrapper">
-            <!-- left menu -->
-            <div id="SideColumn">
-                <h3>Discover</h3>
-                <ul class="nav">
-                    <li><a href="#">Popular</a></li>
-                    <li><a href="#">All Books</a></li>
-                    <li><a href="#">Be Free</a></li>
-                    <li><a href="#">I borrowed</a></li>
-                </ul>
-                <span class="line"></span>
-                <h3>User</h3>
-                <ul class="nav">
-                    <li><a href="#">Sign up</a></li>
-                    <li><a href="#">Log in</a></li>
-                    <li><a href="#">About</a></li>
-                </ul>
-            </div>
-            <!-- picture grid -->
-            <div class="gridItem">
-                <div class="saveWrapper">
-                    <a href="javascript:void(0);">
-                        <img src="images/2.jpg">
-                    </a>
+            <div id="ColumnContainer">
+                <div class="Grid">
+                    <!-- left menu -->
+                    <div id="SideColumn">
+                        <h3>Discover</h3>
+                        <ul class="nav">
+                            <li><a href="#">Popular</a></li>
+                            <li><a href="#">All Books</a></li>
+                            <li><a href="#">Be Free</a></li>
+                            <li><a href="#">I borrowed</a></li>
+                        </ul>
+                        <span class="line"></span>
+                        <h3>User</h3>
+                        <ul class="nav">
+                            <li><a href="#">Sign up</a></li>
+                            <li><a href="#">Log in</a></li>
+                            <li><a href="#">About</a></li>
+                        </ul>
+                    </div>
+                    <!-- picture grid -->
+                    <div ng-repeat="book in books">
+                        <div class="gridItem">
+                            <div class="saveWrapper">
+                                <a ng-href="book/{{ book.id }}">
+                                    <img ng-src="images/{{ book.imageUrl }}" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

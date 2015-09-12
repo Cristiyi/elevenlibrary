@@ -4150,10 +4150,6 @@ a#bookmark:hover {
     display: block
 }
 
-.Grid {
-    opacity: 0
-}
-
 #RelatedImagesModule .ImgLink img {
     width: 218px;
     max-width: 218px;

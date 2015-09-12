@@ -1,17 +1,18 @@
 var route = angular.module('main', [
-	'ngRoute',
-	'ngResource'
-	]);
+    'ngRoute',
+    'BookListCtrl',
+    'ngService'
+]);
 
-route.config(['$routeProvider', function($routeProvider) {
+route.config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider
         .when('/', {
             templateUrl: 'views/home.html',
-            controller: function() {
-                console.log('finished injecting home.html');
-            }
+            controller: 'BookListCtrl'
         })
         .otherwise({
             redirectTo: '/'
         });
+
+        $locationProvider.html5Mode(true);
 }]);
