@@ -7,16 +7,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1,minimum-scale=0.5,maximum-scale=2.0">
     <base href="/app/">
     <link rel="stylesheet" href="css/app.css" />
-    <script type="text/javascript" src="lib/angular.js"></script>
-    <script type="text/javascript" src="lib/angular-route.min.js"></script>
-    <script type="text/javascript" src="lib/angular-resource.min.js"></script>
-    <script src="js/app.js"></script>
-    <script src="js/controllers/controllers.js"></script>
-    <script src="js/services/services.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/jquery-bridget/jquery.bridget.js"></script>
+    <script src="bower_components/get-style-property/get-style-property.js"></script>
+    <script src="bower_components/get-size/get-size.js"></script>
+    <script src="bower_components/eventEmitter/EventEmitter.js"></script>
+    <script src="bower_components/eventie/eventie.js"></script>
+    <script src="bower_components/doc-ready/doc-ready.js"></script>
+    <script src="bower_components/matches-selector/matches-selector.js"></script>
+    <script src="bower_components/outlayer/item.js"></script>
+    <script src="bower_components/outlayer/outlayer.js"></script>
+    <script src="bower_components/masonry/masonry.js"></script>
+    <script src="bower_components/imagesloaded/imagesloaded.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="lib/angular-resource.min.js"></script>
+    <script src="lib/ng-infinite-scroll.min.js"></script>
+    <script src="bower_components/angular-masonry/angular-masonry.js"></script>
+    <style>
+        body {
+            margin-top: 1em;
+        }
+
+        .masonry-brick {
+            margin: 1em;
+            display: none;
+        }
+
+        .masonry-brick.loaded {
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
     <div ng-view></div>
+    <script src="js/app.js"></script>
+    <script src="js/controllers/controllers.js"></script>
+    <script src="js/services/services.js"></script>
 </body>
 
 </html>

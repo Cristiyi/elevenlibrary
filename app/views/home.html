@@ -1,40 +1,58 @@
-<div id="App">
+<div id="App" ng-app="bookListApp">
     <!-- Header -->
     <div id="Header">
         <a href="javascript:void(0);" id="logo" title="ElevenLibrary">ElevenLibrary</a>
         <div id="pageControl">
-            <a class="search" href="#">Search</a>
+            <a href="#" class="searchTrigger">Search<em></em></a>
         </div>
     </div>
     <!-- Page -->
-    <div id="Page" ng-controller="BookListCtrl">
+    <div id="Page" ng-controller="bookListCtrl">
         <div id="wrapper">
             <div id="ColumnContainer">
-                <div class="Grid">
-                    <!-- left menu -->
-                    <div id="SideColumn">
-                        <h3>Discover</h3>
-                        <ul class="nav">
-                            <li><a href="#">Popular</a></li>
-                            <li><a href="#">All Books</a></li>
-                            <li><a href="#">Be Free</a></li>
-                            <li><a href="#">I borrowed</a></li>
-                        </ul>
-                        <span class="line"></span>
-                        <h3>User</h3>
-                        <ul class="nav">
-                            <li><a href="#">Sign up</a></li>
-                            <li><a href="#">Log in</a></li>
-                            <li><a href="#">About</a></li>
-                        </ul>
-                    </div>
-                    <!-- picture grid -->
-                    <div ng-repeat="book in books">
-                        <div class="gridItem">
-                            <div class="saveWrapper">
-                                <a ng-href="book/{{ book.id }}">
-                                    <img ng-src="images/{{ book.imageUrl }}" />
-                                </a>
+                <div ng-show="showScrollToTop" id="ScrollToTop" class="grey button round3px" stype="display:block;" ng-click="scrollToTop()">
+                    <span>Top</span>
+                </div>
+                <!-- left menu -->
+                <div id="SideColumn" style="margin-top: 10px;">
+                    <h3>Discover</h3>
+                    <ul class="nav">
+                        <li><a href="" ng-click="showPopularBooks()">Popular</a></li>
+                        <li><a href="" ng-click="showAllBooks()">All Books</a></li>
+                        <li><a href="" ng-click="showFreeBooks()">Be Free</a></li>
+                        <li><a href="" ng-click="showMyBooks()">I borrowed</a></li>
+                    </ul>
+                    <span class="line"></span>
+                    <h3>User</h3>
+                    <ul class="nav">
+                        <li><a href="#">Sign up</a></li>
+                        <li><a href="#">Log in</a></li>
+                        <li><a href="#">About</a></li>
+                    </ul>
+                </div>
+                <!-- picture grid -->
+                <div class="Grid" style="margin-left:220px;" infinite-scroll="showMoreBooks()">
+                    <div masonry>
+                        <div class="masonry-brick" ng-repeat="book in books">
+                            <div class="gridItem" style="border-radius: 8px; box-shadow: 0 0 11px #ddd;background-color: #fff; " ng-class="{aHover: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+                                <div class="bookShot" style="padding: 10px;">
+                                    <div class="saveWrapper">
+                                        <a ng-href="{{ book.id }}">
+                                            <img style="width:206px;"ng-src="{{ book.src }}" />
+                                        </a>
+                                        <!-- style="opacity:0.9;display:block;" -->
+                                        <a class="saveOverlay">
+                                            <h4 style="font-size:18px; font-weight: 300;">Title: {{ book.id }}</h3>
+                                            <p style="font-size:16px; font-weight: 300; margin-top: 20px;">This is description</p>
+                                        </a>
+                                    </div>
+                                    <div class="bookInfoFooter">
+                                        <ul class="bookInfoFooter">
+                                            <li class="comment"><span>{{ book.commentNum }}</span></li>
+                                            <li class="like"><span>{{ book.likeNum }}</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

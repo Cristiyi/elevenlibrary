@@ -1,6 +1,6 @@
 var route = angular.module('main', [
     'ngRoute',
-    'BookListCtrl',
+    'bookListApp',
     'ngService'
 ]);
 
@@ -8,7 +8,7 @@ route.config(['$routeProvider','$locationProvider', function($routeProvider, $lo
     $routeProvider
         .when('/', {
             templateUrl: 'views/home.html',
-            controller: 'BookListCtrl'
+            controller: 'bookListCtrl'
         })
         .otherwise({
             redirectTo: '/'
