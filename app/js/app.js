@@ -1,18 +1,36 @@
-var route = angular.module('main', [
-    'ngRoute',
-    'bookListApp',
-    'ngService'
+var mainApp = angular.module('mainApp', [
+    'ui.router',
+    'bookListApp'
 ]);
 
-route.config(['$routeProvider','$locationProvider', function($routeProvider, $locationProvider) {
-    $routeProvider
-        .when('/', {
-            templateUrl: 'views/home.html',
-            controller: 'bookListCtrl'
+mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
+    $urlRouterProvider.otherwise('/books/popular');
+
+    $stateProvider
+        .state('books', {
+            url: '/books',
+            templateUrl: 'views/main.html'
         })
-        .otherwise({
-            redirectTo: '/'
+        .state('books.popular', {
+            url: '/popular',
+            templateUrl: 'views/popular.html',
+            controller: 'ShowPopularBooks'
+        })
+        .state('books.allbooks', {
+            url: '/allbooks',
+            templateUrl: 'views/allbooks.html',
+            controller: 'ShowAllBooks'
+        })
+        .state('books.free', {
+            url: '/free',
+            templateUrl: 'views/free.html',
+            controller: 'ShowFreeBooks'
+        })
+        .state('books.mybooks', {
+            url: '/mybooks',
+            templateUrl: 'views/mybooks.html',
+            controller: 'ShowMyBooks'
         });
 
-        $locationProvider.html5Mode(true);
-}]);
+    $locationProvider.html5Mode(true);
+});

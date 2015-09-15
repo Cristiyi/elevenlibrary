@@ -8,6 +8,19 @@ video {
     vertical-align: baseline
 }
 
+body {
+    margin-top: 1em;
+}
+
+.masonry-brick {
+    margin: 1em;
+    display: none;
+}
+
+.masonry-brick.loaded {
+    display: block;
+}
+
 audio:not([controls]) {
     display: none;
     height: 0
@@ -289,7 +302,7 @@ img {
     border: 0
 }
 
-.aHover a.saveOverlay{
+.aHover a.saveOverlay {
     opacity: 0.9;
     display: block;
 }
