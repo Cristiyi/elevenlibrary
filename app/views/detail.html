@@ -1,0 +1,38 @@
+<div  ng-app="bookDetailApp" ng-controller="BookDetailCtrl" style="width: 600px; margin-left: 220px; top: 10px; position: relative">
+    <h2 style="font-size: 26px">{{ book.title }}</h2>
+    <div class="article">
+        <div class="indent">
+            <div class="subject">
+                <div style="float:left">
+                    <a class="nbg" ng-href="{{ book.src }}">
+                        <img ng-src="{{ book.src }}" alt="{{ book.src }}" />
+                    </a>
+                </div>
+                <div id="info" style="float:left">
+                    <span class="pl">作者:xxx</span>
+                    <br>
+                    <span class="pl">ISBN:000000000000</span>
+                    <br>
+                    <span class="pl">页数:</span>
+                    <br>
+                    <span class="pl">类别:科技类</span>
+                    <br>
+                    <span class="pl">定价：39.80</span>
+                    <br>
+                </div>
+            </div>
+            <div style="clear:both">
+                <button type="button">借阅</button>
+                <button type="button">打分</button>
+                <button type="button">评论</button>
+            </div>
+            <div class="relatedinfo" style="clear:both">
+                <h2>Description</h2>
+                <div class="description">
+                    <p>你的失恋、你的难过、你的挫折、你的坚强、你的振作、你的快乐……你能够和别人分享的一切，都是你的故事。每个人的故事都是特别的，因为世界上的你，独一无二。 《这世界，缺你不可》是中国好哥哥吴大伟的首部暖心故事和励志随笔集。《这世界，缺你不可》里的14个故事，有充满幻想的莫奈花园、被规则和流言卡住的方脸猫、充满遗憾与美好的初恋……这些都是作者想象中的、身边发生的、曾经经历过的故事，关于亲情、友情、爱情及梦想与奋斗。作者以他丰富的想象力，为我们描述了一个个奇幻绚烂的世界，又以细腻柔软的情感带给我们感动和温暖。在这个世界上，在每个人的身边，总有特别的人，也有特别的事，他们是我们的动力，也是我们存在的意义。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

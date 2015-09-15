@@ -1,10 +1,11 @@
 var mainApp = angular.module('mainApp', [
     'ui.router',
-    'bookListApp'
+    'bookListApp',
+    'bookDetailApp'
 ]);
 
-mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
-    $urlRouterProvider.otherwise('/books/popular');
+mainApp.config(function($stateProvider, $urlRouterProvider) {
+    // $urlRouterProvider.otherwise('/books/popular');
 
     $stateProvider
         .state('books', {
@@ -30,7 +31,10 @@ mainApp.config(function($stateProvider, $urlRouterProvider, $locationProvider) {
             url: '/mybooks',
             templateUrl: 'views/mybooks.html',
             controller: 'ShowMyBooks'
+        })
+        .state('books.detail', {
+            url:'/:bookId',
+            templateUrl: 'views/detail.html',
+            controller: 'BookDetailCtrl'
         });
-
-    $locationProvider.html5Mode(true);
 });

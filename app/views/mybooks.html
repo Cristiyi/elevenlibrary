@@ -4,7 +4,7 @@
             <div class="gridItem" style="border-radius: 8px; box-shadow: 0 0 11px #ddd;background-color: #fff; " ng-class="{aHover: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
                 <div class="bookShot" style="padding: 10px;">
                     <div class="saveWrapper">
-                        <a ng-href="{{ book.id }}">
+                        <a ng-href="#/books/{{ book.id }}">
                             <img style="width:206px;" ng-src="{{ book.src }}" />
                         </a>
                         <!-- style="opacity:0.9;display:block;" -->
