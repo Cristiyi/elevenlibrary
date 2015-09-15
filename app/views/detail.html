@@ -1,36 +1,188 @@
-<div  ng-app="bookDetailApp" ng-controller="BookDetailCtrl" style="width: 600px; margin-left: 220px; top: 10px; position: relative">
-    <h2 style="font-size: 26px">{{ book.title }}</h2>
-    <div class="article">
-        <div class="indent">
-            <div class="subject">
-                <div style="float:left">
-                    <a class="nbg" ng-href="{{ book.src }}">
-                        <img ng-src="{{ book.src }}" alt="{{ book.src }}" />
-                    </a>
+<div ng-app="bookDetailApp" ng-controller="BookDetailCtrl" style="width: 600px; margin-left: 220px; top: 10px; position: relative">
+    <div id="content" class="group">
+        <h1>{{ book.title }}</h1>
+        <div class="non-overlay group">
+            <div class="main-shot">
+                <div class="the-shot">
+                    <div class="book-pic">
+                        <a ng-href="{{book.src}}">
+                            <img src="{{book.src}}" alt="" />
+                        </a>
+                    </div>
+                    <div class="book-info">
+                        <span>作者：XXX</span>
+                        <br>
+                        <span>ISBN：9876543210</span>
+                        <br>
+                        <span>出版社：大连XXX出版社</span>
+                        <br>
+                        <span>页数：304</span>
+                        <br>
+                        <span>定价:39.5</span>
+                        <br>
+                    </div>
                 </div>
-                <div id="info" style="float:left">
-                    <span class="pl">作者:xxx</span>
-                    <br>
-                    <span class="pl">ISBN:000000000000</span>
-                    <br>
-                    <span class="pl">页数:</span>
-                    <br>
-                    <span class="pl">类别:科技类</span>
-                    <br>
-                    <span class="pl">定价：39.80</span>
-                    <br>
+                <div class="screenshot-meta">
+                    <div id="like-section" class="meta-act">
+                        <div class="group fav">
+                            <a class="meta-act-link meta-like" href="/shots/2244342-Facebook-Event-Themes/fans">152 likes</a>
+                        </div>
+                    </div>
+                    <div class="meta-act">
+                        <div class="bucket ">
+                            <a class="meta-act-link meta-bucket" href="/shots/2244342-Facebook-Event-Themes/buckets">8 buckets</a>
+                        </div>
+                    </div>
+                    <div class="meta-act meta-act-views meta-act-full">
+                        <span class="meta-act-link meta-views">2,347 <em>views</em></span>
+                    </div>
+                    <div class="social-media meta-act meta-act-full">
+                        <a href="#" class="meta-act-link meta-share">Share</a>
+                        <div id="share-links">
+                            <div class="group">
+                                <div id="share-button-twitter" class="meta-share-wrap">
+                                    <span class="share-icons share-icon-twitter"></span><span class="shot-social-count">4</span>
+                                </div>
+                                <div id="share-button-fb" class="meta-share-wrap">
+                                    <span class="share-icons share-icon-fb"></span><span class="shot-social-count">63</span>
+                                </div>
+                                <div id="share-button-pin" class="meta-share-wrap">
+                                    <span class="share-icons share-icon-pin"></span><span class="shot-social-count">3</span>
+                                </div>
+                            </div>
+                            <div class="meta-link">
+                                <input type="url" id="share-form-url" value="http://drbl.in/pYaw" readonly="">
+                                <a id="meta-short-url" href="http://drbl.in/pYaw" class="meta-link-text">http://drbl.in/pYaw</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="meta-act meta-act-full">
+                        <div class="meta-act-link meta-colors">
+                            <a rel="tipsy" class="drop" href="/shots/2244342-Facebook-Event-Themes/colors.aco" original-title="Download this color palette (.aco)"><img width="16" height="16" src="https://d13yacurqjgara.cloudfront.net/assets/icon-colordrop-2x-df0df6f93f4d5a27f66ef1aadbf82149.png" alt="Icon colordrop 2x"></a>
+                            <ul class="color-chips group">
+                                <li class="color">
+                                    <a style="background-color: #352C40" title="#352C40" href="/colors/352C40">#352C40</a>
+                                </li>
+                                <li class="color">
+                                    <a style="background-color: #45619D" title="#45619D" href="/colors/45619D">#45619D</a>
+                                </li>
+                                <li class="color">
+                                    <a style="background-color: #FEFEFE" title="#FEFEFE" href="/colors/FEFEFE">#FEFEFE</a>
+                                </li>
+                                <li class="color">
+                                    <a style="background-color: #9C5E77" title="#9C5E77" href="/colors/9C5E77">#9C5E77</a>
+                                </li>
+                                <li class="color">
+                                    <a style="background-color: #E1763A" title="#E1763A" href="/colors/E1763A">#E1763A</a>
+                                </li>
+                                <li class="color">
+                                    <a style="background-color: #F6D92F" title="#F6D92F" href="/colors/F6D92F">#F6D92F</a>
+                                </li>
+                                <li class="color">
+                                    <a style="background-color: #4AD581" title="#4AD581" href="/colors/4AD581">#4AD581</a>
+                                </li>
+                                <li class="color">
+                                    <a style="background-color: #D6D6D8" title="#D6D6D8" href="/colors/D6D6D8">#D6D6D8</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="tags-section">
+                        <ol id="tags" class="popular-tags group">
+                            <li id="tag-li-5286" class="tag">
+                                <a rel="tag" href="/jasperhauser/tags/balloons"> <strong>balloons</strong>
+                                </a>
+                            </li>
+                            <li id="tag-li-1636" class="tag">
+                                <a rel="tag" href="/jasperhauser/tags/event"> <strong>event</strong>
+                                </a>
+                            </li>
+                            <li id="tag-li-341" class="tag">
+                                <a rel="tag" href="/jasperhauser/tags/facebook"> <strong>facebook</strong>
+                                </a>
+                            </li>
+                            <li id="tag-li-2137" class="tag">
+                                <a rel="tag" href="/jasperhauser/tags/flower"> <strong>flower</strong>
+                                </a>
+                            </li>
+                            <li id="tag-li-9151" class="tag">
+                                <a rel="tag" href="/jasperhauser/tags/gifts"> <strong>gifts</strong>
+                                </a>
+                            </li>
+                            <li id="tag-li-968" class="tag">
+                                <a rel="tag" href="/jasperhauser/tags/leaves"> <strong>leaves</strong>
+                                </a>
+                            </li>
+                            <li id="tag-li-1444" class="tag">
+                                <a rel="tag" href="/jasperhauser/tags/theme"> <strong>theme</strong>
+                                </a>
+                            </li>
+                        </ol>
+                    </div>
+                    <h3 class="meta-head">More from Jasper Hauser</h3>
+                    <ol class="more-thumbs">
+                        <li class="multi-thumb">
+                            <a href="/shots/2186015-Darkroom-2-App-Icon">
+                                <img alt="Darkroom 2 App Icon" src="https://d13yacurqjgara.cloudfront.net/users/1018/screenshots/2186015/artboard_1_teaser.png">
+                            </a>
+                        </li>
+                        <li class="multi-thumb">
+                            <a href="/shots/1936275-Darkroom-in-app-icons">
+                                <img alt="Darkroom in app icons" src="https://d13yacurqjgara.cloudfront.net/users/1018/screenshots/1936275/recent-darkroom_2x_teaser.png">
+                            </a>
+                        </li>
+                        <li class="multi-thumb">
+                            <a href="/shots/1549837-Coverflow-Icon">
+                                <img alt="Coverflow Icon" src="https://d13yacurqjgara.cloudfront.net/users/1018/screenshots/1549837/dribbble-coverflow_teaser.png">
+                            </a>
+                        </li>
+                        <li class="multi-thumb">
+                            <a href="/shots/1549834-Xtorrent-Icon">
+                                <img alt="Xtorrent Icon" src="https://d13yacurqjgara.cloudfront.net/users/1018/screenshots/1549834/dribbble-xtorrent_teaser.png">
+                            </a>
+                        </li>
+                    </ol>
+                    <h3 class="meta-head">More from Facebook</h3>
+                    <ol class="more-thumbs">
+                        <li class="multi-thumb">
+                            <a href="/shots/2242518-Comment-Replies-in-Facebook-Groups">
+                                <img alt="Comment Replies in Facebook Groups" src="https://d13yacurqjgara.cloudfront.net/users/521316/screenshots/2242518/dribbblethreadedcommentssmall_teaser.png">
+                            </a>
+                        </li>
+                        <li class="multi-thumb">
+                            <a href="/shots/2239136-Messenger-for-Apple-Watch">
+                                <img alt="Messenger for Apple Watch" src="https://d13yacurqjgara.cloudfront.net/users/3331/screenshots/2239136/messenger-empty_teaser.gif">
+                            </a>
+                        </li>
+                        <li class="multi-thumb">
+                            <a href="/shots/2228958-Listen-to-Jerry">
+                                <img alt="Listen to Jerry" src="https://d13yacurqjgara.cloudfront.net/users/52/screenshots/2228958/please_do_not_hesitate_11x17_teaser.png">
+                            </a>
+                        </li>
+                        <li class="multi-thumb">
+                            <a href="/shots/2228241-Retro-Parse-Poster-2">
+                                <img alt="Retro Parse Poster #2" src="https://d13yacurqjgara.cloudfront.net/users/14865/screenshots/2228241/hack-dribbble_teaser.jpg">
+                            </a>
+                        </li>
+                    </ol>
                 </div>
-            </div>
-            <div style="clear:both">
-                <button type="button">借阅</button>
-                <button type="button">打分</button>
-                <button type="button">评论</button>
-            </div>
-            <div class="relatedinfo" style="clear:both">
-                <h2>Description</h2>
-                <div class="description">
-                    <p>你的失恋、你的难过、你的挫折、你的坚强、你的振作、你的快乐……你能够和别人分享的一切，都是你的故事。每个人的故事都是特别的，因为世界上的你，独一无二。 《这世界，缺你不可》是中国好哥哥吴大伟的首部暖心故事和励志随笔集。《这世界，缺你不可》里的14个故事，有充满幻想的莫奈花园、被规则和流言卡住的方脸猫、充满遗憾与美好的初恋……这些都是作者想象中的、身边发生的、曾经经历过的故事，关于亲情、友情、爱情及梦想与奋斗。作者以他丰富的想象力，为我们描述了一个个奇幻绚烂的世界，又以细腻柔软的情感带给我们感动和温暖。在这个世界上，在每个人的身边，总有特别的人，也有特别的事，他们是我们的动力，也是我们存在的意义。
-                    </p>
+                <div class="shot-desc">
+                    <p>No need to scour the interwebs for a suitable picture for your event anymore!! Conveniently use one of the handful of illustrated themes made for Events on Facebook.</p>
+                    <p>I had quite a bit of fun making a new set of themes, coming out soon, and humbly being in the company of amazingly talented illustrators like Jez Burrows, Michael Jeter and Eight Hour Day who designed the first batch of themes already out!</p>
+                </div>
+                <div id="comments-section">
+                    <h2 class="count section ">8 Responses</h2>
+                    <ol id="comments" class="comments">
+                        <li id="comment-4691303" class="response comment group " data-user-id="399148">
+                            <h2>Matteo Pasuto</h2>
+                            <div class="comment-body">
+                                <p>Will this be available for iOS as well? Super slick illustrations guys!!</p>
+                            </div>
+                            <p class="comment-meta">
+                                <a href="#comment-4691303" class="posted">about 19 hours ago</a>
+                            </p>
+                        </li>
+                    </ol>
                 </div>
             </div>
         </div>
