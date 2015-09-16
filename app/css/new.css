@@ -98,7 +98,6 @@ body {
 
 a:link,
 a:visited {
-    color: #3a8bbb;
     outline: none;
     text-decoration: none
 }
@@ -135,7 +134,7 @@ input[type="submit"] {
 
 #content {
     position: relative;
-    max-width: 970px;
+    max-width: 1070px;
     margin: 0 auto;
     padding: 0;
     font-size: 1.2em
@@ -3651,7 +3650,7 @@ h3 ul.color-chips li a {
 div.main-shot {
     position: relative;
     float: left;
-    width: 74.226804123711%
+    width: 84.226804123711%
 }
 
 #screenshot-dash {
@@ -3922,8 +3921,37 @@ div.fans div.fans-shot a img {
 
 div.the-shot {
     float: left;
-    margin: 0 0 10px 0;
-    width: 440px
+    margin: 5px 0 10px 0;
+    width: 540px
+}
+
+div.the-shot div.book-pic {
+    float: left;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    height: 300px;
+}
+
+div.the-shot div.book-info {
+    float: left;
+    margin-left: 50px;
+    width: auto;
+    height: 300px;
+}
+
+div.the-shot div.book-info div.meta-act {
+    padding: 15px;
+    font-size: 18px;
+}
+
+div.the-shot div.book-info div.book-action {
+    margin-top: 60px;
+    font-size: 18px;
+}
+
+div.the-shot div.book-info div.book-action a {
+    margin: 10px;
 }
 
 .main-shot.full-800 div.the-shot {
@@ -4342,7 +4370,6 @@ h3.meta-head {
     font-weight: 500;
     line-height: 1;
     color: #777777;
-    border-top: 1px solid #dddddd
 }
 
 h3.meta-head a {
@@ -4383,21 +4410,7 @@ div.meta-act a.meta-act-link:hover {
 div.meta-act a.meta-like,
 div.meta-act span.meta-like {
     background-position: 12px 10px;
-    background-image: url(/assets/icon-shot-like-2d12a64624da31f08a3abad7b978921e.png)
-}
-
-@media (-webkit-min-device-pixel-ratio: 1.5),
-(min--moz-device-pixel-ratio: 1.5),
-(-o-min-device-pixel-ratio: 3 / 2),
-(min-device-pixel-ratio: 1.5),
-(min-resolution: 1.5dppx) {
-    div.meta-act a.meta-like,
-    div.meta-act span.meta-like {
-        background-image: url(/assets/icon-shot-like-2x-8b4c6e5a22905dc9577ad14a28a79078.png);
-        -webkit-background-size: 16px 64px;
-        -moz-background-size: 16px 64px;
-        background-size: 16px 64px
-    }
+    background-image: url(../images/like_new.png)
 }
 
 div.meta-act a.meta-like:hover {
@@ -4408,6 +4421,30 @@ div.meta-act span.meta-views {
     background-position: 12px 12px;
     background-image: url(/assets/icon-views-4ac5153d0e17b9685d5a895d51eff768.png);
     background-image: url(/assets/icon-views-4ac5153d0e17b9685d5a895d51eff768.png)
+}
+
+div.meta-act div.evaluate {
+    padding-left: 12px;
+    padding-top: 5px;
+}
+
+div.meta-act a.meta-evaluate {
+    display: inline;
+    float: left;
+    font-size: 13px;
+    padding: 12px 12px 5px 12px;
+    margin: 12px 0px 12px 0px;
+    font-weight: normal;
+    line-height: 1;
+    color: #999999;
+    background-repeat: no-repeat;
+    background-position: 0px -50px;
+    background-image: url(../images/like_new.png);
+    z-index: 555
+}
+
+div.meta-act a.meta-evaluate:hover {
+    background-position: 0px 0px
 }
 
 @media (-webkit-min-device-pixel-ratio: 1.5),
@@ -4488,7 +4525,7 @@ div.meta-act div.bucketed a.meta-bucket {
 
 div.meta-act a.meta-share {
     background-position: 12px 8px;
-    background-image: url(/assets/icon-shot-share-060cc7aa84b2d3d7cc14465127c43491.png)
+    background-image: url(../images/borrow.png)
 }
 
 @media (-webkit-min-device-pixel-ratio: 1.5),
@@ -4887,7 +4924,8 @@ div.meta-act:hover .help-pop {
 
 ol.more-thumbs {
     margin: 5px 12px;
-    overflow: hidden
+    overflow: hidden;
+    border-bottom: 1px solid #dddddd
 }
 
 ol.more-thumbs li {
@@ -4926,7 +4964,7 @@ ol.more-thumbs li strong {
 div.shot-desc {
     clear: left;
     float: left;
-    width: 440px;
+    width: 540px;
     margin: 15px 0 0 0;
     font-size: 16px;
     line-height: 1.5;
@@ -4952,7 +4990,7 @@ div.shot-desc a {
     position: relative;
     clear: left;
     float: left;
-    width: 440px;
+    width: 540px;
     margin: 25px 0
 }
 
@@ -4981,6 +5019,17 @@ ol.comments li {
     position: relative
 }
 
+ol.comments li div.user_pic {
+    float: left;
+    margin-top: 5px;
+    margin-right: 10px;
+}
+
+ol.comments li div.user_pic img {
+    width: 40px;
+    height: 40px
+}
+
 ol.comments li.response {
     float: none;
     width: auto;
@@ -4994,6 +5043,12 @@ ol.comments li.response {
 
 ol.comments li:last-child {
     border-bottom: none
+}
+
+ol.comments li div.user_pic {
+    float: left;
+    margin-top: 5px;
+    margin-right: 10px;
 }
 
 ol.comments li h2 {
@@ -5047,13 +5102,13 @@ ol.comments li h2 a:hover img {
 }
 
 ol.comments li div.comment-body {
-    width: 388px;
+    width: 480px;
     margin: 0 0 0 42px;
     overflow: hidden
 }
 
 ol.comments li div.comment-body a {
-    font-weight: 500
+    font-weight: 500;
 }
 
 ol.comments li div.comment-body p {
@@ -5081,6 +5136,7 @@ ol.activity li p.comment-meta {
 }
 
 ol.comments li p.comment-meta a {
+    margin-left: 10px;
     color: #999999
 }
 

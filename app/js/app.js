@@ -5,7 +5,7 @@ var mainApp = angular.module('mainApp', [
 ]);
 
 mainApp.config(function($stateProvider, $urlRouterProvider) {
-    // $urlRouterProvider.otherwise('/books/popular');
+    $urlRouterProvider.otherwise('/books/popular');
 
     $stateProvider
         .state('books', {

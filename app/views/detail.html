@@ -1,167 +1,94 @@
-<div ng-app="bookDetailApp" ng-controller="BookDetailCtrl" style="width: 600px; margin-left: 220px; top: 10px; position: relative">
+<div ng-app="bookDetailApp" ng-controller="BookDetailCtrl" style="left: 80px; position: relative">
     <div id="content" class="group">
         <h1>{{ book.title }}</h1>
-        <div class="non-overlay group">
+        <div class="group">
             <div class="main-shot">
                 <div class="the-shot">
                     <div class="book-pic">
                         <a ng-href="{{book.src}}">
-                            <img src="{{book.src}}" alt="" />
+                            <img style="max-width: 210px; height: 290px" src="{{book.src}}" alt="" />
                         </a>
                     </div>
                     <div class="book-info">
-                        <span>作者：XXX</span>
-                        <br>
-                        <span>ISBN：9876543210</span>
-                        <br>
-                        <span>出版社：大连XXX出版社</span>
-                        <br>
-                        <span>页数：304</span>
-                        <br>
-                        <span>定价:39.5</span>
-                        <br>
+                        <div class="meta-act">
+                            <span>Author: Daniel Golden</span>
+                        </div>
+                        <div class="meta-act">
+                            <span>ISBN：9876543210</span>
+                        </div>
+                        <div class="meta-act">
+                            <span>Publisher：XXXXXXX</span>
+                        </div>
+                        <div class="meta-act">
+                            <span>Page Count: 304</span>
+                        </div>
+                        <div class="meta-act">
+                            <span>Price: 39.5</span>
+                        </div>
                     </div>
                 </div>
                 <div class="screenshot-meta">
-                    <div id="like-section" class="meta-act">
+                    <div class="meta-act">
                         <div class="group fav">
-                            <a class="meta-act-link meta-like" href="/shots/2244342-Facebook-Event-Themes/fans">152 likes</a>
+                            <a class="meta-act-link meta-like" href="">15 likes</a>
                         </div>
                     </div>
                     <div class="meta-act">
-                        <div class="bucket ">
-                            <a class="meta-act-link meta-bucket" href="/shots/2244342-Facebook-Event-Themes/buckets">8 buckets</a>
+                        <div class="group fav evaluate">
+                            <a class="meta-evaluate" href=""></a>
+                            <a class="meta-evaluate" href=""></a>
+                            <a class="meta-evaluate" href=""></a>
+                            <a class="meta-evaluate" href=""></a>
+                            <a class="meta-evaluate" href=""></a>
+                            <a class="meta-act-link" href="">(30 evaluation)</a>
                         </div>
-                    </div>
-                    <div class="meta-act meta-act-views meta-act-full">
-                        <span class="meta-act-link meta-views">2,347 <em>views</em></span>
                     </div>
                     <div class="social-media meta-act meta-act-full">
-                        <a href="#" class="meta-act-link meta-share">Share</a>
-                        <div id="share-links">
-                            <div class="group">
-                                <div id="share-button-twitter" class="meta-share-wrap">
-                                    <span class="share-icons share-icon-twitter"></span><span class="shot-social-count">4</span>
-                                </div>
-                                <div id="share-button-fb" class="meta-share-wrap">
-                                    <span class="share-icons share-icon-fb"></span><span class="shot-social-count">63</span>
-                                </div>
-                                <div id="share-button-pin" class="meta-share-wrap">
-                                    <span class="share-icons share-icon-pin"></span><span class="shot-social-count">3</span>
-                                </div>
-                            </div>
-                            <div class="meta-link">
-                                <input type="url" id="share-form-url" value="http://drbl.in/pYaw" readonly="">
-                                <a id="meta-short-url" href="http://drbl.in/pYaw" class="meta-link-text">http://drbl.in/pYaw</a>
-                            </div>
-                        </div>
+                        <a href="" class="meta-act-link meta-share">Borrowed (to 2015/09/30)</a>
                     </div>
-                    <div class="meta-act meta-act-full">
-                        <div class="meta-act-link meta-colors">
-                            <a rel="tipsy" class="drop" href="/shots/2244342-Facebook-Event-Themes/colors.aco" original-title="Download this color palette (.aco)"><img width="16" height="16" src="https://d13yacurqjgara.cloudfront.net/assets/icon-colordrop-2x-df0df6f93f4d5a27f66ef1aadbf82149.png" alt="Icon colordrop 2x"></a>
-                            <ul class="color-chips group">
-                                <li class="color">
-                                    <a style="background-color: #352C40" title="#352C40" href="/colors/352C40">#352C40</a>
-                                </li>
-                                <li class="color">
-                                    <a style="background-color: #45619D" title="#45619D" href="/colors/45619D">#45619D</a>
-                                </li>
-                                <li class="color">
-                                    <a style="background-color: #FEFEFE" title="#FEFEFE" href="/colors/FEFEFE">#FEFEFE</a>
-                                </li>
-                                <li class="color">
-                                    <a style="background-color: #9C5E77" title="#9C5E77" href="/colors/9C5E77">#9C5E77</a>
-                                </li>
-                                <li class="color">
-                                    <a style="background-color: #E1763A" title="#E1763A" href="/colors/E1763A">#E1763A</a>
-                                </li>
-                                <li class="color">
-                                    <a style="background-color: #F6D92F" title="#F6D92F" href="/colors/F6D92F">#F6D92F</a>
-                                </li>
-                                <li class="color">
-                                    <a style="background-color: #4AD581" title="#4AD581" href="/colors/4AD581">#4AD581</a>
-                                </li>
-                                <li class="color">
-                                    <a style="background-color: #D6D6D8" title="#D6D6D8" href="/colors/D6D6D8">#D6D6D8</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="tags-section">
-                        <ol id="tags" class="popular-tags group">
-                            <li id="tag-li-5286" class="tag">
-                                <a rel="tag" href="/jasperhauser/tags/balloons"> <strong>balloons</strong>
-                                </a>
-                            </li>
-                            <li id="tag-li-1636" class="tag">
-                                <a rel="tag" href="/jasperhauser/tags/event"> <strong>event</strong>
-                                </a>
-                            </li>
-                            <li id="tag-li-341" class="tag">
-                                <a rel="tag" href="/jasperhauser/tags/facebook"> <strong>facebook</strong>
-                                </a>
-                            </li>
-                            <li id="tag-li-2137" class="tag">
-                                <a rel="tag" href="/jasperhauser/tags/flower"> <strong>flower</strong>
-                                </a>
-                            </li>
-                            <li id="tag-li-9151" class="tag">
-                                <a rel="tag" href="/jasperhauser/tags/gifts"> <strong>gifts</strong>
-                                </a>
-                            </li>
-                            <li id="tag-li-968" class="tag">
-                                <a rel="tag" href="/jasperhauser/tags/leaves"> <strong>leaves</strong>
-                                </a>
-                            </li>
-                            <li id="tag-li-1444" class="tag">
-                                <a rel="tag" href="/jasperhauser/tags/theme"> <strong>theme</strong>
-                                </a>
-                            </li>
-                        </ol>
-                    </div>
-                    <h3 class="meta-head">More from Jasper Hauser</h3>
+                    <h3 class="meta-head">More Similar Books</h3>
                     <ol class="more-thumbs">
                         <li class="multi-thumb">
-                            <a href="/shots/2186015-Darkroom-2-App-Icon">
-                                <img alt="Darkroom 2 App Icon" src="https://d13yacurqjgara.cloudfront.net/users/1018/screenshots/2186015/artboard_1_teaser.png">
+                            <a href="">
+                                <img ng-src="images/img (28).jpg">
                             </a>
                         </li>
                         <li class="multi-thumb">
-                            <a href="/shots/1936275-Darkroom-in-app-icons">
-                                <img alt="Darkroom in app icons" src="https://d13yacurqjgara.cloudfront.net/users/1018/screenshots/1936275/recent-darkroom_2x_teaser.png">
+                            <a href="">
+                                <img ng-src="images/img (29).jpg">
                             </a>
                         </li>
                         <li class="multi-thumb">
-                            <a href="/shots/1549837-Coverflow-Icon">
-                                <img alt="Coverflow Icon" src="https://d13yacurqjgara.cloudfront.net/users/1018/screenshots/1549837/dribbble-coverflow_teaser.png">
+                            <a href="">
+                                <img ng-src="images/img (30).jpg">
                             </a>
                         </li>
                         <li class="multi-thumb">
-                            <a href="/shots/1549834-Xtorrent-Icon">
-                                <img alt="Xtorrent Icon" src="https://d13yacurqjgara.cloudfront.net/users/1018/screenshots/1549834/dribbble-xtorrent_teaser.png">
+                            <a href="">
+                                <img ng-src="images/img (31).jpg">
                             </a>
                         </li>
                     </ol>
-                    <h3 class="meta-head">More from Facebook</h3>
+                    <h3 class="meta-head">More Popular Books</h3>
                     <ol class="more-thumbs">
                         <li class="multi-thumb">
-                            <a href="/shots/2242518-Comment-Replies-in-Facebook-Groups">
-                                <img alt="Comment Replies in Facebook Groups" src="https://d13yacurqjgara.cloudfront.net/users/521316/screenshots/2242518/dribbblethreadedcommentssmall_teaser.png">
+                            <a href="">
+                                <img ng-src="images/img (97).jpg">
                             </a>
                         </li>
                         <li class="multi-thumb">
-                            <a href="/shots/2239136-Messenger-for-Apple-Watch">
-                                <img alt="Messenger for Apple Watch" src="https://d13yacurqjgara.cloudfront.net/users/3331/screenshots/2239136/messenger-empty_teaser.gif">
+                            <a href="">
+                                <img ng-src="images/img (23).jpg">
                             </a>
                         </li>
                         <li class="multi-thumb">
-                            <a href="/shots/2228958-Listen-to-Jerry">
-                                <img alt="Listen to Jerry" src="https://d13yacurqjgara.cloudfront.net/users/52/screenshots/2228958/please_do_not_hesitate_11x17_teaser.png">
+                            <a href="">
+                                <img ng-src="images/img (24).jpg">
                             </a>
                         </li>
                         <li class="multi-thumb">
-                            <a href="/shots/2228241-Retro-Parse-Poster-2">
-                                <img alt="Retro Parse Poster #2" src="https://d13yacurqjgara.cloudfront.net/users/14865/screenshots/2228241/hack-dribbble_teaser.jpg">
+                            <a href="">
+                                <img ng-src="images/img (25).jpg">
                             </a>
                         </li>
                     </ol>
@@ -171,16 +98,77 @@
                     <p>I had quite a bit of fun making a new set of themes, coming out soon, and humbly being in the company of amazingly talented illustrators like Jez Burrows, Michael Jeter and Eight Hour Day who designed the first batch of themes already out!</p>
                 </div>
                 <div id="comments-section">
-                    <h2 class="count section ">8 Responses</h2>
+                    <h2 class="count section ">5 Comments</h2>
                     <ol id="comments" class="comments">
-                        <li id="comment-4691303" class="response comment group " data-user-id="399148">
-                            <h2>Matteo Pasuto</h2>
-                            <div class="comment-body">
-                                <p>Will this be available for iOS as well? Super slick illustrations guys!!</p>
+                        <li class="response comment group ">
+                            <div class="user_pic">
+                                <img src="images/pic/1.jpg">
                             </div>
-                            <p class="comment-meta">
-                                <a href="#comment-4691303" class="posted">about 19 hours ago</a>
-                            </p>
+                            <div class="comments">
+                                <h2>Steve</h2>
+                                <div class="comment-body">
+                                    <p>Incredible! I can't wait to see more! Also, what kind of library card would I need to check one out?</p>
+                                </div>
+                                <p class="comment-meta">
+                                    <a class="posted">about 3 hours ago</a>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="response comment group ">
+                            <div class="user_pic">
+                                <img src="images/pic/2.jpg">
+                            </div>
+                            <div class="comments">
+                                <h2>Charlene</h2>
+                                <div class="comment-body">
+                                    <p>Always excited about new posts from you guys. You do such great work over at Stripe.</p>
+                                </div>
+                                <p class="comment-meta">
+                                    <a class="posted">about 2 hours ago</a>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="response comment group ">
+                            <div class="user_pic">
+                                <img src="images/pic/3.jpg">
+                            </div>
+                            <div class="comments">
+                                <h2>Bella</h2>
+                                <div class="comment-body">
+                                    <p>Awesome! :) ... looking forward to test this new integration</p>
+                                </div>
+                                <p class="comment-meta">
+                                    <a class="posted">about 2 hours ago</a>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="response comment group ">
+                            <div class="user_pic">
+                                <img src="images/pic/4.jpg">
+                            </div>
+                            <div class="comments">
+                                <h2>Ally</h2>
+                                <div class="comment-body">
+                                    <p>Sweet!</p>
+                                </div>
+                                <p class="comment-meta">
+                                    <a class="posted">about 1 hours ago</a>
+                                </p>
+                            </div>
+                        </li>
+                        <li class="response comment group ">
+                            <div class="user_pic">
+                                <img src="images/pic/5.jpg">
+                            </div>
+                            <div class="comments">
+                                <h2>Sven</h2>
+                                <div class="comment-body">
+                                    <p>I really like how you keep your style, subtle gradients, nice interactions. Way to go. Plus this feature is killer to be honest :)</p>
+                                </div>
+                                <p class="comment-meta">
+                                    <a class="posted">about 1 hours ago</a>
+                                </p>
+                            </div>
                         </li>
                     </ol>
                 </div>
