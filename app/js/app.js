@@ -32,6 +32,16 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'views/mybooks.html',
             controller: 'ShowMyBooks'
         })
+		.state('books.login', {
+            url: '/login',
+            templateUrl: 'views/login.ejs',
+            controller: 'login'
+        })
+		.state('books.register', {
+            url: '/register',
+            templateUrl: 'views/register.html',
+            controller: 'register'
+        })
         .state('books.detail', {
             url:'/:bookId',
             templateUrl: 'views/detail.html',
