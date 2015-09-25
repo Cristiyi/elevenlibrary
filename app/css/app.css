@@ -577,3 +577,63 @@ span.comment-meta-likes {
     font-size: .78em;
     line-height: 1
 }
+/*! add by Bella */
+.styled-form
+{
+	margin:0 220px auto;
+	background-color: #fff;
+	box-sizing:border-box;
+	height: auto;
+	width:30%;
+    max-width:400px;
+	min-width:320px;
+	/*background-image: -moz-linear-gradient(center top , #fff, #eee);*/
+	vertical-align:central;
+	text-align:center;
+
+}
+.inputs input
+{
+    background: #f1f1f1 url(../images/login-sprite.png) no-repeat;
+	border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff;
+    margin: 0 0 10px;
+    padding: 15px 15px 15px 30px;
+    width: 75%;
+}
+.username {
+    background-position: 5px -2px !important;
+}
+.password
+{
+    background-position: 5px -52px !important;
+}
+.intranetid
+{
+    background-position: 5px -100px !important;
+}
+.phonenumber
+{
+    background-position: 5px -152px !important;
+}
+#submit {
+    background-color: #ffb94b;
+	 border-style: solid;
+	  border-color: #d69e31 #e3a037 #d5982d;
+    border-radius: 3px;
+	height: 35px;
+	color: #8f5a0a;
+	width: 100px;
+}
+#actions a {
+    color: #3151a2;
+    float: right;
+    line-height: 35px;
+    margin-left: 10px;
+}
+#err
+{
+	color:red
+}
+/*! add by bella */
