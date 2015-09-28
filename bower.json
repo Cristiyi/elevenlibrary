@@ -1,12 +1,6 @@
 {
   "name": "elevenlibrary",
   "version": "0.1.0",
-  "authors": [
-    "zjjsven <suniya.zjj@outlook.com>"
-  ],
-  "description": "elevenlibrary components",
-  "license": "MIT",
-  "homepage": "https://github.com/ibm-cms/elevenlibrary",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -18,18 +12,16 @@
   "dependencies": {
     "angular": "~1.4.0",
     "angular-route": "~1.4.0",
+    "angular-resource": "~1.4.0",
     "angular-loader": "~1.4.0",
     "angular-mocks": "~1.4.0",
     "angular-masonry": "~0.12.0",
     "angular-ui-router": "~0.2.15",
-    "html5-boilerplate": "~5.2.0",
     "ngInfiniteScroll": "~1.2.1",
     "masonry": "~3.2.3",
     "imagesloaded": "~3.1.7",
     "jquery": "~2.1.4",
-    "jquery-bridget": "1.1.0"
-  },
-  "resolutions": {
-    "outlayer": "~1.4.0"
+    "jquery-bridget": "1.1.0",
+    "bootstrap": "~3.3.5"
   }
 }
