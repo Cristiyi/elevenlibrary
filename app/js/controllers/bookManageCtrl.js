@@ -1,7 +1,7 @@
 var bookManageApp = angular.module('bookManageApp', []);
 
-bookManageApp.controller('ManageBooksCtrl', function($scope, Book) {
-  $scope.books = Book.query();
+bookManageApp.controller('ManageBooksCtrl', function($scope) {
+  $scope.books = [];
 });
 
 bookManageApp.controller('ManageBookCtrl', function($scope) {
