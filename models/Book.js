@@ -1,9 +1,11 @@
 var mongoose = require('mongoose');
-exports.BookSchema = new mongoose.Schema({
-  ip: Number,
+var BookSchema = new mongoose.Schema({
+  id: Number,
   name: String,
   likeNum: Number,
   commentNum: Number,
   isFree: Boolean
 });
+
+module.exports = mongoose.model('Book', BookSchema);
 
