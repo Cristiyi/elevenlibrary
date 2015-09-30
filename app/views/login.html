@@ -1,0 +1,38 @@
+<div id="LoginPage" ng-Controller="LoginCtrl">
+  <div id="Header">
+    <a href="#/" id="logo">ElevenLibrary</a>
+  </div>
+  <div id="Content">
+    <h1 class="pageTitle">Log in to your account</h1>
+    <div id="Login">
+      <div id="LoginForm">
+        <form name="login_form" novalidateng-submit="login()">
+          <ul>
+            <li>
+              <!-- Username -->
+              <div class="fieldContainer userField">
+                <input type="text" class="field" ng-model="user.intrID" placeholder="Email" required>
+              </div>
+            </li>
+            <li>
+              <!-- Password -->
+              <div class="fieldContainer passField">
+                <input type="password" class="field" ng-model="user.pwd" placeholder="Password" required>
+              </div>
+            </li>
+          </ul>
+          <button type="submit" class="loginTrigger btn btn-info" ng-click="login()">Log in</button>
+        </form>
+      </div>
+      <div ng-show="login_form.email.$dirty && login_form.email.$invalid">
+      <span id="LoginError" ng-show="login_form.email.$error.required">Your email is required</span>
+      </div>
+      <div id="LoginBelow">
+        <p>
+          <a href="#/login" class="forgotPassLink">Forgot your password?</a>
+          <span class="signupText">Don't have an account? <a href="#/register">Sign up now</a></span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -2,7 +2,8 @@ var mainApp = angular.module('mainApp', [
     'ui.router',
     'bookListApp',
     'bookDetailApp',
-    'bookManageApp'
+    'bookManageApp',
+    'userApp'
 ]);
 
 mainApp.config(function($stateProvider, $urlRouterProvider) {
@@ -33,15 +34,15 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: 'views/mybooks.html',
             controller: 'ShowMyBooks'
         })
-		.state('books.login', {
+		.state('login', {
             url: '/login',
-            templateUrl: 'views/login.ejs',
-            controller: 'login'
+            templateUrl: 'views/login.html',
+            controller: 'LoginCtrl'
         })
-		.state('books.register', {
+		.state('register', {
             url: '/register',
             templateUrl: 'views/register.html',
-            controller: 'register'
+            controller: 'RegCtrl'
         })
         .state('books.detail', {
             url:'/:bookId',

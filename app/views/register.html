@@ -1,14 +1,41 @@
-   <div ng-controller="register">
-   <form class="styled-form" id="register" action="/register" method="post">
-     <h1>---  Register  ---</h1>
-   <fieldset class="inputs">
-        <input class="username" type="text" placeholder="Username" autofocus required>
-        <input class="intranetid" type="text" placeholder="IntranetID" autofocus required>
-        <input class="password" type="password" placeholder="Password" required>
-        <input class="phonenumber" type="phonenumber" placeholder="phonenumber" required>
-    </fieldset>
-    <fieldset id="actions">
-        <input type="submit" id="submit" value="register">
-    </fieldset>
-   </form>
-   </div>
+<div id="Header">
+  <a href="#/" id="logo">ElevenLibrary</a>
+</div>
+<div id="Content" class="allCol" ng-controller="RegCtrl">
+  <h1 class="pageTitle medium setWidth">Enter your profile details to get started.</h1>
+  <div id="SignupContainer">
+    <form id="SignupForm" name="reg_form" novalidateng-submit="register()">
+      <ul>
+        <li>
+          <!-- Email -->
+          <div class="fieldContainer">
+            <input type="text" class="field" name="email" tabindex="1" ng-model="user.intrID" placeholder="Email">
+          </div>
+        </li>
+        <li>
+          <!-- Username -->
+          <div class="fieldContainer">
+            <input type="text" class="field" name="username" tabindex="2" ng-model="user.name" placeholder="Username">
+          </div>
+        </li>
+        <li>
+          <!-- Password -->
+          <div class="fieldContainer">
+            <input type="password" class="field" name="password" tabindex="3" ng-model="user.pwd" placeholder="Password">
+          </div>
+        </li>
+        <li>
+          <!-- Re-enter Password -->
+          <div class="fieldContainer">
+            <input type="text" class="field" name="confirm_password" tabindex="4" ng-model="user.rpwd" placeholder="Re-enter Password">
+          </div>
+        </li>
+        <li>
+          <div id="MainErrorTray" class="errorTray round-3"></div>
+        </li>
+      </ul>
+      <p class="subPageText base">I accept ElevenLibrary’s <a href="#/about" target="_blank">Content Rules</a>.</p>
+      <button type="submit" class="registerBtn btn btn-info" ng-click="register()">Create and Log in</button>
+    </form>
+  </div>
+</div>

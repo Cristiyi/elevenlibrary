@@ -1,639 +1,961 @@
 * {
-    margin: 0;
-    padding: 0;
-    font-size: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: 100%;
 }
 
 body {
-    vertical-align: baseline;
-    border: 0;
-    outline: 0;
-    background: transparent;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 62.5%;
-    text-rendering: optimizeLegibility;
-    background: #fff;
+  vertical-align: baseline;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 62.5%;
+  text-rendering: optimizeLegibility;
+  background: #fff;
 }
 
-a {
-    background: 0 0;
-    outline: 0;
-    color: #222;
-    text-decoration: none
+a,
+a:active,
+a:focus,
+a:hover {
+  background: 0 0;
+  outline: 0;
+  color: #222;
+  text-decoration: none;
+  outline: 0;
+}
+
+*,
+:after,
+:before {
+  box-sizing: content-box
 }
 
 li,
 ol,
 ul {
-    list-style: none;
+  list-style: none;
+}
+
+button,
+input {
+  line-height: normal
 }
 
 
 /*HomePage*/
 
 #Header {
-    z-index: 1;
-    -webkit-backface-visibility: hidden;
-    width: auto;
-    height: 137px;
-    display: block;
-    position: relative;
-    margin-left: 50px
+  z-index: 1;
+  -webkit-backface-visibility: hidden;
+  width: auto;
+  height: 137px;
+  display: block;
+  position: relative;
+  margin-left: 50px
 }
 
 #logo {
-    display: block;
-    position: relative;
-    top: 50px;
-    left: 0;
-    text-indent: -9999px;
-    background-image: url(../images/logo.png);
-    background-repeat: no-repeat;
-    height: 41px;
-    width: 205px;
+  display: block;
+  position: relative;
+  top: 50px;
+  left: 0;
+  text-indent: -9999px;
+  background-image: url(../images/logo.png);
+  background-repeat: no-repeat;
+  height: 41px;
+  width: 205px;
 }
 
 #pageControl {
-    width: 320px;
-    height: 23px;
-    position: absolute;
-    top: 51px;
-    left: 385px;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 12px;
-    font-weight: 700;
+  width: 320px;
+  height: 23px;
+  position: absolute;
+  top: 51px;
+  left: 385px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .searchTrigger {
-    position: relative;
-    top: 18px;
-    height: 10px;
-    width: 10px;
-    margin: 0 0 0 6px
+  position: relative;
+  top: 18px;
+  height: 10px;
+  width: 10px;
+  margin: 0 0 0 6px
 }
 
 .searchTrigger em {
-    display: inline-block;
-    position: relative;
-    background-image: url(../images/icon.png);
-    background-position: -32px -25px;
-    background-repeat: no-repeat;
-    height: 10px;
-    width: 10px;
-    margin: 0 0 0 6px
+  display: inline-block;
+  position: relative;
+  background-image: url(../images/icon.png);
+  background-position: -32px -25px;
+  background-repeat: no-repeat;
+  height: 10px;
+  width: 10px;
+  margin: 0 0 0 6px
 }
 
 #wrapper {
-    position: relative;
-    width: auto;
-    min-width: 902px;
-    margin-left: 50px;
-    border: none;
+  position: relative;
+  width: auto;
+  min-width: 902px;
+  margin-left: 50px;
+  border: none;
 }
 
 #ColumnContainer {
-    position: relative;
-    min-height: 600px;
-    margin: 0 auto
+  position: relative;
+  min-height: 600px;
+  margin: 0 auto
 }
 
 #SideColumn {
-    width: 206px;
-    float: left;
-    background: 0 0;
-    z-index: 2;
-    margin-right: 26px
+  width: 206px;
+  float: left;
+  background: 0 0;
+  z-index: 2;
+  margin-right: 26px
 }
 
 #SideColumn h3 {
-    font-size: 12px;
-    color: #222;
-    margin: 0 0 10px
+  font-size: 14px;
+  font-weight: bold;
+  color: #222;
+  margin: 0 0 10px
 }
 
 #SideColumn h3.headerUserName {
-    font-size: 13px
+  font-size: 13px
 }
 
 #SideColumn .line {
-    display: block;
-    width: 120px;
-    height: 1px;
-    margin: 0 0 15px;
-    background-color: #ececec
+  display: block;
+  width: 120px;
+  height: 1px;
+  margin: 0 0 15px;
+  background-color: #ececec
 }
 
 .nav {
-    font-size: 12px;
-    line-height: 17px;
-    margin: 0 0 14px;
+  font-size: 12px;
+  line-height: 17px;
+  margin: 0 0 14px;
 }
 
 .nav li a {
-    color: #555;
+  color: #555;
 }
 
 .nav li a:hover {
-    color: #000
+  color: #000
 }
 
 .nav li a.selected {
-    font-weight: 700;
-    cursor: default;
-    color: #222
+  font-weight: 700;
+  cursor: default;
+  color: #222
 }
 
 .masonry-brick {
-    margin: 1em;
-    display: none;
+  margin: 1em;
+  display: none;
 }
 
 .masonry-brick.loaded {
-    display: block;
+  display: block;
 }
 
 .saveOverlay {
-    position: absolute;
-    top: 5px;
-    bottom: 25px;
-    left: 5px;
-    right: 5px;
-    padding: 20px;
-    display: none;
-    opacity: 0;
-    color: #888;
-    pointer-events: none;
-    font-size: 13px;
-    line-height: 2;
-    text-decoration: none;
-    background: #fff;
-    background: rgba(255, 255, 255, 0.96);
-    overflow: hidden;
-    cursor: pointer;
+  position: absolute;
+  top: 5px;
+  bottom: 25px;
+  left: 5px;
+  right: 5px;
+  padding: 20px;
+  display: none;
+  opacity: 0;
+  color: #888;
+  pointer-events: none;
+  font-size: 13px;
+  line-height: 2;
+  text-decoration: none;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.96);
+  overflow: hidden;
+  cursor: pointer;
 }
 
 .aHover a.saveOverlay {
-    opacity: 0.9;
-    display: block;
+  opacity: 0.9;
+  display: block;
 }
 
 div.bookInfoFooter {
-    height: 5px;
+  height: 5px;
 }
 
 ul.bookInfoFooter {
-    margin-top: 10px;
+  margin-top: 10px;
 }
 
 li.like span {
-    float: right;
-    padding-left: 15px;
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    background-image: url(../images/like.png);
+  float: right;
+  padding-left: 15px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-image: url(../images/like.png);
 }
 
 li.comment span {
-    margin-left: 10px;
-    float: right;
-    padding-left: 15px;
-    background-repeat: no-repeat;
-    background-position: 0 0;
-    background-image: url(../images/comment.png);
+  margin-left: 10px;
+  float: right;
+  padding-left: 15px;
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-image: url(../images/comment.png);
 }
 
 
 /*Detail page*/
 
 #content {
-    position: relative;
-    max-width: 1070px;
-    margin: 0 auto;
-    padding: 0;
-    font-size: 1.2em
+  position: relative;
+  max-width: 1070px;
+  margin: 0 auto;
+  padding: 0;
+  font-size: 1.2em
 }
 
 #content h1 {
-    font-size: 22px;
-    line-height: 1.5
+  font-size: 22px;
+  line-height: 1.5
 }
 
 div.main-shot {
-    position: relative;
-    float: left;
-    width: 84.226804123711%
+  position: relative;
+  float: left;
+  width: 84.226804123711%
 }
 
 div.the-shot {
-    float: left;
-    margin: 5px 0 10px 0;
-    width: 540px
+  float: left;
+  margin: 5px 0 10px 0;
+  width: 540px
 }
 
 div.the-shot div.book-pic {
-    float: left;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    margin-left: 5px;
-    height: 300px;
+  float: left;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  height: 300px;
 }
 
 div.the-shot div.book-info {
-    float: left;
-    margin-left: 50px;
-    width: auto;
-    height: 300px;
+  float: left;
+  margin-left: 50px;
+  width: auto;
+  height: 300px;
 }
 
 div.the-shot div.book-info div.meta-act {
-    padding: 15px;
-    font-size: 18px;
+  padding: 15px;
+  font-size: 18px;
 }
 
 div.screenshot-meta {
-    float: right;
-    width: 250px;
-    margin-top: -10px
+  float: right;
+  width: 250px;
+  margin-top: -10px
 }
 
 div.meta-act {
-    position: relative;
-    border-bottom: 1px solid #e0e0e0
+  position: relative;
+  border-bottom: 1px solid #e0e0e0
 }
 
 div.meta-act span.meta-like,
 div.meta-act .meta-act-link {
-    display: block;
-    padding: 12px 12px 12px 35px;
-    font-size: 13px;
-    font-weight: normal;
-    line-height: 1;
-    color: #999999;
-    background-repeat: no-repeat;
-    background-position: 12px 50%;
-    z-index: 555
+  display: block;
+  padding: 12px 12px 12px 35px;
+  font-size: 13px;
+  font-weight: normal;
+  line-height: 1;
+  color: #999999;
+  background-repeat: no-repeat;
+  background-position: 12px 50%;
+  z-index: 555
 }
 
 div.meta-act .meta-act-link em {
-    font-style: normal;
-    font-weight: normal
+  font-style: normal;
+  font-weight: normal
 }
 
 div.meta-act a.meta-act-link:hover {
-    color: #444444
+  color: #444444
 }
 
 div.meta-act a.meta-like,
 div.meta-act span.meta-like {
-    background-position: 12px 10px;
-    background-image: url(../images/like_new.png)
+  background-position: 12px 10px;
+  background-image: url(../images/like_new.png)
 }
 
 div.meta-act a.meta-like:hover {
-    background-position: 12px -40px
+  background-position: 12px -40px
 }
 
 div.meta-act div.evaluate {
-    padding-left: 12px;
-    padding-top: 5px;
+  padding-left: 12px;
+  padding-top: 5px;
 }
 
 div.meta-act a.meta-evaluate {
-    display: inline;
-    float: left;
-    font-size: 13px;
-    padding: 12px 12px 5px 12px;
-    margin: 12px 0px 12px 0px;
-    font-weight: normal;
-    line-height: 1;
-    color: #999999;
-    background-repeat: no-repeat;
-    background-position: 0px -50px;
-    background-image: url(../images/like_new.png);
-    z-index: 555
+  display: inline;
+  float: left;
+  font-size: 13px;
+  padding: 12px 12px 5px 12px;
+  margin: 12px 0px 12px 0px;
+  font-weight: normal;
+  line-height: 1;
+  color: #999999;
+  background-repeat: no-repeat;
+  background-position: 0px -50px;
+  background-image: url(../images/like_new.png);
+  z-index: 555
 }
 
 div.meta-act a.meta-evaluate:hover {
-    background-position: 0px 0px
+  background-position: 0px 0px
 }
 
 div.meta-act a.meta-share {
-    background-position: 12px 8px;
-    background-image: url(../images/borrow.png)
+  background-position: 12px 8px;
+  background-image: url(../images/borrow.png)
 }
 
 h3.meta-head {
-    padding: 20px 12px 10px 12px;
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 1;
-    color: #777777;
+  padding: 20px 12px 10px 12px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1;
+  color: #777777;
 }
 
 h3.meta-head a {
-    color: #444444
+  color: #444444
 }
 
 h3.meta-head a:hover {
-    color: #777777
+  color: #777777
 }
 
 ol.more-thumbs {
-    margin: 5px 12px;
-    overflow: hidden;
-    border-bottom: 1px solid #dddddd
+  margin: 5px 12px;
+  overflow: hidden;
+  border-bottom: 1px solid #dddddd
 }
 
 ol.more-thumbs li {
-    float: left;
-    width: 46%;
-    margin: 0 0 15px 0
+  float: left;
+  width: 46%;
+  margin: 0 0 15px 0
 }
 
 ol.more-thumbs li:nth-child(2n) {
-    float: right
+  float: right
 }
 
 ol.more-thumbs li a {
-    display: inline-block
+  display: inline-block
 }
 
 ol.more-thumbs li a img {
-    width: 100%;
-    -webkit-border-radius: 2px;
-    -moz-border-radius: 2px;
-    border-radius: 2px;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.07);
-    -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.07);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.07)
+  width: 100%;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.07);
+  -moz-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.07)
 }
 
 ol.more-thumbs li a:hover img {
-    opacity: .8
+  opacity: .8
 }
 
-
 div.shot-desc {
-    clear: left;
-    float: left;
-    width: 540px;
-    margin: 15px 0 0 0;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #555;
-    overflow: hidden
+  clear: left;
+  float: left;
+  width: 540px;
+  margin: 15px 0 0 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #555;
+  overflow: hidden
 }
 
 div.shot-desc p {
-    margin: 0 0 14px 0
+  margin: 0 0 14px 0
 }
 
 div.shot-desc p code {
-    font-family: Monaco, monospace;
-    font-size: 1.1em;
-    color: #666
+  font-family: Monaco, monospace;
+  font-size: 1.1em;
+  color: #666
 }
 
 div.shot-desc a {
-    font-weight: 500
+  font-weight: 500
 }
 
 h2.section {
-    margin: 0 0 15px 0;
-    padding: 0 0 10px 0;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 1;
-    color: #444444;
-    border-bottom: 1px solid #dddddd;
-    overflow: hidden
+  margin: 0 0 15px 0;
+  padding: 0 0 10px 0;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1;
+  color: #444444;
+  border-bottom: 1px solid #dddddd;
+  overflow: hidden
 }
 
 #comments-section {
-    position: relative;
-    clear: left;
-    float: left;
-    width: 540px;
-    margin: 25px 0
+  position: relative;
+  clear: left;
+  float: left;
+  width: 540px;
+  margin: 25px 0
 }
 
 #comments-section .comments-sort {
-    position: absolute;
-    top: 1px;
-    right: 0;
-    font-size: 13px
+  position: absolute;
+  top: 1px;
+  right: 0;
+  font-size: 13px
 }
 
 #comments-section .comments-sort a {
-    margin: 0 0 0 8px;
-    color: #bbbbbb
+  margin: 0 0 0 8px;
+  color: #bbbbbb
 }
 
 #comments-section .comments-sort a:hover {
-    color: #777777
+  color: #777777
 }
 
 #comments-section .comments-sort a.selected {
-    font-weight: 500;
-    color: #777777
+  font-weight: 500;
+  color: #777777
 }
 
 ol.comments li {
-    position: relative
+  position: relative
 }
 
 ol.comments li div.user_pic {
-    float: left;
-    margin-top: 5px;
-    margin-right: 10px;
+  float: left;
+  margin-top: 5px;
+  margin-right: 10px;
 }
 
 ol.comments li div.user_pic img {
-    width: 40px;
-    height: 40px
+  width: 40px;
+  height: 40px
 }
 
 ol.comments li.response {
-    float: none;
-    width: auto;
-    margin: 0 0 15px 0;
-    padding: 0;
-    font-size: 15px;
-    line-height: 1.4em;
-    color: #555;
-    border-bottom: 1px solid #dddddd
+  float: none;
+  width: auto;
+  margin: 0 0 15px 0;
+  padding: 0;
+  font-size: 15px;
+  line-height: 1.4em;
+  color: #555;
+  border-bottom: 1px solid #dddddd
 }
 
 ol.comments li:last-child {
-    border-bottom: none
+  border-bottom: none
 }
 
 ol.comments li div.user_pic {
-    float: left;
-    margin-top: 5px;
-    margin-right: 10px;
+  float: left;
+  margin-top: 5px;
+  margin-right: 10px;
 }
 
 ol.comments li h2 {
-    margin: 0 0 2px 0;
-    font-size: 16px;
-    font-weight: 500
+  margin: 0 0 2px 0;
+  font-size: 16px;
+  font-weight: 500
 }
 
 ol.comments li h2 a {
-    color: #444444
+  color: #444444
 }
 
 ol.comments li h2 a:hover {
-    color: #3a8bbb
+  color: #3a8bbb
 }
 
 ol.comments li h2 img {
-    float: left;
-    width: 32px;
-    margin: 3px 10px 0 0;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%
+  float: left;
+  width: 32px;
+  margin: 3px 10px 0 0;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%
 }
 
 ol.comments li h2 span.badge,
 ol.comments li h2 span.badge-sale {
-    position: absolute;
-    top: 36px;
-    left: 0;
-    width: 26px;
-    height: 10px;
-    margin: 2px 0 0 0;
-    padding: 2px 3px;
-    text-align: center;
-    line-height: 1;
-    opacity: 0;
-    -webkit-transition: opacity 0.2s ease;
-    -moz-transition: opacity 0.2s ease;
-    -o-transition: opacity 0.2s ease;
-    transition: opacity 0.2s ease
+  position: absolute;
+  top: 36px;
+  left: 0;
+  width: 26px;
+  height: 10px;
+  margin: 2px 0 0 0;
+  padding: 2px 3px;
+  text-align: center;
+  line-height: 1;
+  opacity: 0;
+  -webkit-transition: opacity 0.2s ease;
+  -moz-transition: opacity 0.2s ease;
+  -o-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease
 }
 
 ol.comments li:hover h2 span.badge,
 ol.comments li:hover h2 span.badge-sale {
-    opacity: 1
+  opacity: 1
 }
 
 ol.comments li h2 a:hover img {
-    opacity: .8
+  opacity: .8
 }
 
 ol.comments li div.comment-body {
-    width: 480px;
-    margin: 0 0 0 42px;
-    overflow: hidden
+  width: 480px;
+  margin: 0 0 0 42px;
+  overflow: hidden
 }
 
 ol.comments li div.comment-body a {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 ol.comments li div.comment-body p {
-    margin: 0 0 10px 0;
-    padding: 0
+  margin: 0 0 10px 0;
+  padding: 0
 }
 
 ol.comments li div.comment-body p code {
-    font-family: Monaco, monospace;
-    font-size: 15px;
-    color: #666
+  font-family: Monaco, monospace;
+  font-size: 15px;
+  color: #666
 }
 
 ol.comments li a.posted:hover {
-    text-decoration: none;
-    color: #777777
+  text-decoration: none;
+  color: #777777
 }
 
 ol.comments li p.comment-meta,
 ol.activity li p.comment-meta {
-    margin: 0 0 15px 42px;
-    font-size: 13px;
-    line-height: 1;
-    color: #ccc
+  margin: 0 0 15px 42px;
+  font-size: 13px;
+  line-height: 1;
+  color: #ccc
 }
 
 ol.comments li p.comment-meta a {
-    margin-left: 10px;
-    color: #999999
+  margin-left: 10px;
+  color: #999999
 }
 
 ol.comments li p.comment-meta a:hover {
-    color: #666
+  color: #666
 }
 
 ol.comments li p.comment-meta span.sep {
-    margin: 0 3px
+  margin: 0 3px
 }
 
 span.comment-meta-likes {
-    float: right;
-    white-space: nowrap;
-    font-size: .78em;
-    line-height: 1
+  float: right;
+  white-space: nowrap;
+  font-size: .78em;
+  line-height: 1
 }
-/*! add by Bella */
-.styled-form
-{
-	margin:0 220px auto;
-	background-color: #fff;
-	box-sizing:border-box;
-	height: auto;
-	width:30%;
-    max-width:400px;
-	min-width:320px;
-	/*background-image: -moz-linear-gradient(center top , #fff, #eee);*/
-	vertical-align:central;
-	text-align:center;
 
+
+/*! add by Bella */
+
+.styled-form {
+  margin: 0 220px auto;
+  background-color: #fff;
+  box-sizing: border-box;
+  height: auto;
+  width: 30%;
+  max-width: 400px;
+  min-width: 320px;
+  /*background-image: -moz-linear-gradient(center top , #fff, #eee);*/
+  vertical-align: central;
+  text-align: center;
 }
-.inputs input
-{
-    background: #f1f1f1 url(../images/login-sprite.png) no-repeat;
-	border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff;
-    margin: 0 0 10px;
-    padding: 15px 15px 15px 30px;
-    width: 75%;
+
+.inputs input {
+  background: #f1f1f1 url(../images/login-sprite.png) no-repeat;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 1px 1px #ccc inset, 0 1px 0 #fff;
+  margin: 0 0 10px;
+  padding: 15px 15px 15px 30px;
+  width: 75%;
 }
+
 .username {
-    background-position: 5px -2px !important;
+  background-position: 5px -2px !important;
 }
-.password
-{
-    background-position: 5px -52px !important;
+
+.password {
+  background-position: 5px -52px !important;
 }
-.intranetid
-{
-    background-position: 5px -100px !important;
+
+.intranetid {
+  background-position: 5px -100px !important;
 }
-.phonenumber
-{
-    background-position: 5px -152px !important;
+
+.phonenumber {
+  background-position: 5px -152px !important;
 }
+
 #submit {
-    background-color: #ffb94b;
-	 border-style: solid;
-	  border-color: #d69e31 #e3a037 #d5982d;
-    border-radius: 3px;
-	height: 35px;
-	color: #8f5a0a;
-	width: 100px;
+  background-color: #ffb94b;
+  border-style: solid;
+  border-color: #d69e31 #e3a037 #d5982d;
+  border-radius: 3px;
+  height: 35px;
+  color: #8f5a0a;
+  width: 100px;
 }
+
 #actions a {
-    color: #3151a2;
-    float: right;
-    line-height: 35px;
-    margin-left: 10px;
+  color: #3151a2;
+  float: right;
+  line-height: 35px;
+  margin-left: 10px;
 }
-#err
-{
-	color:red
+
+#err {
+  color: red
 }
+
+
 /*! add by bella */
+
+#LoginPage #Header {
+  height: 119px;
+  position: relative
+}
+
+
+/*#LoginPage #Header #logo {
+  margin: 0 auto;
+  display: block;
+  background-image: url(../images/logo.png);
+  background-repeat: no-repeat;
+  height: 41px;
+  width: 205px;
+  left: -20px;
+  color: transparent;
+  text-indent: -9999px;
+}*/
+
+.pageTitle {
+  color: #444;
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 44px;
+  margin: 0 auto;
+  text-align: center;
+  letter-spacing: -.0104em
+}
+
+#Login {
+  height: 50px;
+  width: 545px;
+  margin: 0 auto
+}
+
+#LoginForm {
+  margin-top: 33px;
+  height: 50px
+}
+
+#LoginForm .fieldContainer {
+  width: 217px;
+  margin: 0 0 10px
+}
+
+#LoginForm ul {
+  width: 436px;
+  height: 50px;
+  float: left;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  box-shadow: inset 0 0 5px #d2d2d2;
+  -moz-box-shadow: inset 0 0 5px #d2d2d2;
+  -webkit-box-shadow: inset 0 0 5px #d2d2d2;
+  background-color: #fafafa
+}
+
+#LoginForm .fieldContainer {
+  height: 48px;
+  box-shadow: none;
+  background-color: transparent;
+  position: relative;
+  float: left;
+  border: 1px solid #d8d8d8;
+  border-radius: 3px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px
+}
+
+#LoginForm .field {
+  padding: 15px
+}
+
+#LoginForm label {
+  top: 15px
+}
+
+#LoginForm .userField .field {
+  width: 210px
+}
+
+#LoginForm .userField {
+  width: 240px;
+  border-right: none
+}
+
+#LoginForm .passField .field {
+  width: 164px
+}
+
+#LoginForm .passField {
+  width: 194px;
+  border-left: none;
+  border-radius: 0 3px 3px 0;
+  -moz-border-radius: 0 3px 3px 0;
+  -webkit-border-radius: 0 3px 3px 0
+}
+
+#LoginForm input,
+#LoginForm label {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility
+}
+
+#LoginForm .field {
+  width: 288px;
+  position: relative;
+  z-index: 3;
+  font-weight: 400;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  color: #666
+}
+
+#LoginForm label {
+  position: absolute;
+  left: 16px;
+  z-index: 2;
+  opacity: .3
+}
+
+#Login .loginTrigger {
+  margin-left: 7px;
+  width: 58px;
+  height: 48px;
+  display: block;
+  float: left;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 46px;
+  font-weight: 700;
+  padding: 0 21px;
+}
+
+#LoginBelow {
+  color: #999;
+  font-size: 15px;
+  clear: both;
+  padding-top: 35px;
+  margin-top: 21px;
+  border-top: 1px solid #e4e4e4;
+  line-height: 15px
+}
+
+#LoginBelow a {
+  color: #999;
+  font-weight: 400;
+  font-size: 15px;
+  width: auto
+}
+
+#LoginBelow .signupText a {
+  color: #666;
+  font-weight: 700
+}
+
+#LoginBelow .signupText {
+  float: right
+}
+
+#LoginError {
+  color: #ee4141;
+  display: block;
+  margin: 18px 0;
+  font-size: 16px;
+  text-align: center
+}
+
+.pageTitle.medium {
+  font-size: 24px;
+  line-height: 24px;
+  margin-bottom: 37px
+}
+
+.setWidth {
+  width: 654px
+}
+
+#SignupContainer {
+  margin: 0 auto;
+  padding-bottom: 70px;
+  position: relative;
+  width: 743px
+}
+
+#SignupForm {
+  width: 318px;
+  margin: 0 auto
+}
+
+#SignupForm .fieldContainer {
+  position: relative;
+  width: 316px;
+  height: 40px;
+  float: left;
+  border: 1px solid #d8d8d8;
+  margin: 0 0 10px;
+  border-radius: 3px;
+  box-shadow: inset 0 0 5px #ececec;
+  background-color: #fafafa
+}
+
+#SignupForm .split {
+  width: 152px
+}
+
+#SignupForm .split input {
+  width: 122px
+}
+
+#SignupForm .marginRight {
+  margin-right: 10px
+}
+
+#SignupForm .break {
+  margin-bottom: 53px!important
+}
+
+#SignupForm .line {
+  width: 100%;
+  height: 1px;
+  display: block;
+  position: absolute;
+  top: 66px;
+  left: 0;
+  background-color: #eee
+}
+
+#SignupForm input,
+#SignupForm label {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  text-rendering: optimizeLegibility
+}
+
+#SignupForm .field {
+  width: 288px;
+  position: relative;
+  z-index: 3;
+  font-weight: 400;
+  padding: 11px 15px;
+  margin: 0;
+  border: none;
+  background-color: transparent;
+  color: #666
+}
+
+#SignupForm label {
+  position: absolute;
+  top: 11px;
+  left: 16px;
+  z-index: 2;
+  opacity: .3
+}
+
+.subPageText {
+  clear: both;
+  line-height: 16px;
+  padding-top: 15px;
+  text-align: center;
+  font-size: 13px;
+  color: #777
+}
+
+.subPageText.sub-bump {
+  margin-bottom: 23px
+}
+
+.invalid a,
+.subPageText a {
+  color: #068ce1
+}
+
+.subPageText a:hover {
+  text-decoration: underline
+}
+
+.subPageText.base {
+  margin-bottom: 25px
+}
+
+.registerBtn
+{
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  text-shadow: 0 -1px #1188d4;
+  display: block;
+  font-weight: 700;
+  padding: 0 21px;
+  height: 39px;
+  line-height: 37px;
+  float: none;
+  font-size: 15px;
+  width: 140px;
+  margin: 0 auto;
+}
