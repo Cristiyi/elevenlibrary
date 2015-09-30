@@ -2,7 +2,6 @@ var mainApp = angular.module('mainApp', [
     'ui.router',
     'bookListApp',
     'bookDetailApp',
-    'bookManageApp',
     'userApp'
 ]);
 
@@ -48,20 +47,5 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
             url:'/:bookId',
             templateUrl: 'views/detail.html',
             controller: 'BookDetailCtrl'
-        })
-        .state('manage-books', {
-            url:'/manage-books',
-            templateUrl: 'views/admin/admin-main.html',
-            controller: 'ManageBooksCtrl'
-        })
-        .state('manage-book', {
-            url:'/manage-book/:bookId',
-            templateUrl: 'views/admin/admin-item.html',
-            controller: 'ManageBookCtrl'
-        })
-        .state('new-book', {
-            url:'/new-book',
-            templateUrl: 'views/admin/admin-new.html',
-            controller: 'NewBookCtrl'
         });
 });
