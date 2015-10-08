@@ -25,6 +25,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'app')));
 
+require('./routes/book')(app);
 require('./routes/user')(app);
 
 // catch 404 and forward to error handler

@@ -5,19 +5,17 @@
       <button type="submit" class="btn btn-danger" ng-click="deleteAllBooks()">Delete All</button>
       <table class="table table-striped table-hover" style="font-size: 16px">
         <thead>
-          <th>ID</th>
           <th>Name</th>
           <th>Like</th>
           <th>Comment</th>
           <th>Free</th>
         </thead>
         <tr ng-repeat="book in books">
-          <th>{{book.id}}</th>
           <th>{{book.name}}</th>
           <th>{{book.likeNum}}</th>
           <th>{{book.commentNum}}</th>
           <th>{{book.isFree}}</th>
-          <th><a href="#/manage/book/{{bookId}}">Detail</a></th>
+          <th><a href="#/manage/{{book._id}}">Detail</a></th>
         </tr>
       </table>
     </div>

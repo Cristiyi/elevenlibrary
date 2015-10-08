@@ -97,8 +97,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
 
 mainApp.run(function($rootScope) {
   $rootScope.logInUser = {
-    'name': 'admin',
-    'intrID': 'admin@cn.ibm.com',
+    'name': '',
+    'intrID': '',
     'likedBooks': [78, 79, 80, 81, 82, 83, 84, 85, 86, 67, 68, 69, 71, 72]
   };
   $rootScope.logOut = function logOut() {

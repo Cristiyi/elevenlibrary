@@ -19,16 +19,29 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $http) {
   $scope.getAllBooks();
 });
 
-bookManageApp.controller('ManageBookCtrl', function($scope) {
-  $scope.book = [];
+bookManageApp.controller('ManageBookCtrl', function($scope, $) {
+  $scope.getBook = function() {
+    $scope.book = {};
+    $http.get('/manage/')
+      .success(function(data) {
+        $scope.book = data;
+        console.log(data);
+      })
+      .error(function(data) {
+        console.log('Error: ' + data);
+      });
+  };
 });
 
 bookManageApp.controller('NewBookCtrl', function($scope, $http) {
-  var book = {
-    name: $scope.name
-  }
+  $scope.book = {};
   $scope.addBook = function() {
-    console.log("NewBooks info >>" + book.name);
+    var book = {
+      'name': $scope.book.name,
+      'likeNum': $scope.book.likeNum,
+      'commentNum': $scope.book.commentNum,
+      'isFree': $scope.book.isFree
+    };
     $http.post('/manage-books', book)
       .success(function(data) {
         $scope.book = data;
