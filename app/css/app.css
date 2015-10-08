@@ -153,21 +153,21 @@ input.ng-valid {
   background-color: #ececec
 }
 
-.nav {
+.menu {
   font-size: 12px;
   line-height: 17px;
   margin: 0 0 14px;
 }
 
-.nav li a {
+.menu li a {
   color: #555;
 }
 
-.nav li a:hover {
+.menu li a:hover {
   color: #000
 }
 
-.nav li a.selected {
+.menu li a.selected {
   font-weight: 700;
   cursor: default;
   color: #222

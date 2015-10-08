@@ -4,6 +4,7 @@ var mainApp = angular.module('mainApp', [
   'wu.masonry',
   'bookListApp',
   'bookDetailApp',
+  'bookManageApp',
   'userApp'
 ]);
 
@@ -54,6 +55,33 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
       url: '/setting',
       templateUrl: 'views/setting.html',
       controller: 'ShowMyBooks'
+    })
+    .state('manage', {
+      url:'',
+      templateUrl: 'views/admin/admin-main.html'
+    })
+    .state('manage.users', {
+      url: '/manage/users',
+      templateUrl: 'views/admin/admin-users.html'
+    })
+    .state('manage.logs', {
+      url: '/manage/logs',
+      templateUrl: 'views/admin/admin-logs.html'
+    })
+    .state('manage.books', {
+      url: '/manage/books',
+      templateUrl: 'views/admin/admin-books.html',
+      controller: 'ManageBooksCtrl'
+    })
+    .state('manage.newBook', {
+      url: '/manage/newBook',
+      templateUrl: 'views/admin/admin-new.html',
+      controller: 'NewBookCtrl'
+    })
+    .state('manage.detail', {
+      url: '/manage/:bookId',
+      templateUrl: 'views/admin/admin-item.html',
+      controller: 'ManageBookCtrl'
     })
     .state('login', {
       url: '/login',

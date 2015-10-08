@@ -12,7 +12,7 @@
       <div id="ColumnContainer">
         <div id="SideColumn">
           <h3>Discover</h3>
-          <ul class="nav">
+          <ul class="nav menu">
             <li><a ui-sref="main.popular">Popular</a></li>
             <li><a ui-sref="main.allbooks">All Books</a></li>
             <li><a ui-sref="main.free">Free</a></li>
@@ -22,15 +22,15 @@
           <span class="line"></span>
           <h3 ng-if="!logInUser.name">User</h3>
           <h3 ng-if="logInUser.name">{{logInUser.name}}</h3>
-          <ul class="nav" ng-if="!logInUser.name">
+          <ul class="nav menu" ng-if="!logInUser.name">
             <li><a ui-sref="register">Sign up</a></li>
             <li><a ui-sref="login">Log in</a></li>
           </ul>
-          <ul class="nav" ng-if="logInUser.name">
+          <ul class="nav menu" ng-if="logInUser.name">
             <li><a ui-sref="main.home">Home</a></li>
             <li><a ui-sref="main.setting">Setting</a></li>
             <li><a ui-sref="main.popular" ng-click="logOut()">Log out</a></li>
-            <li><a href="" ng-if="logInUser.name === 'admin'" ui-sref="manage-books">Manage</a></li>
+            <li><a href="" ng-if="logInUser.name === 'admin'" ui-sref="manage.books">Manage</a></li>
           </ul>
         </div>
         <div ui-view></div>

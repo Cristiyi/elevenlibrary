@@ -1,0 +1,28 @@
+<div ng-controller="ManageBookCtrl">
+  <div class="row">
+    <div class="col-md-6 pull-left">
+      <form>
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" ng-model="name">
+        </div>
+        <div class="form-group">
+          <label>LikeNum</label>
+          <input type="number" class="form-control" ng-model="likeNum">
+        </div>
+        <div class="form-group">
+          <label>commentNum</label>
+          <input type="number" class="form-control" ng-model="commentNum">
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="isFree"> Free
+          </label>
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a ui-sref="manageMain" type="button" class="btn btn-default">Cancel</a>
+      </form>
+    </div>
+  </div>
+</div>
