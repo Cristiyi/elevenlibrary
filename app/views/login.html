@@ -6,27 +6,41 @@
     <h1 class="pageTitle">Log in to your account</h1>
     <div id="Login">
       <div id="LoginForm">
-        <form name="login_form" novalidateng-submit="login()">
+        <form name="loginForm" novalidate ng-submit="login()">
           <ul>
             <li>
               <!-- Username -->
               <div class="fieldContainer userField">
-                <input type="text" class="field" ng-model="user.intrID" placeholder="Email" required>
+                <input type="text"
+                        class="field"
+                        name="email"
+                        minlength = "5"
+                        ng-model="user.intrID"
+                        placeholder="Email"
+                        required />
               </div>
             </li>
             <li>
               <!-- Password -->
               <div class="fieldContainer passField">
-                <input type="password" class="field" ng-model="user.pwd" placeholder="Password" required>
+                <input type="password"
+                       class="field"
+                       name="password"
+                       ng-model="user.pwd"
+                       ng-minlength="6"
+                       ng-maxlength="20"
+                       placeholder="Password"
+                       required />
               </div>
             </li>
           </ul>
-          <button type="submit" class="loginTrigger btn btn-info" ng-click="login()">Log in</button>
+          <button type="submit" class="loginTrigger btn btn-info">Log in</button>
         </form>
       </div>
-      <div ng-show="login_form.email.$dirty && login_form.email.$invalid">
-      <span id="LoginError" ng-show="login_form.email.$error.required">Your email is required</span>
-      </div>
+      <div ng-messages="loginForm.email.$error">
+        <span class="LoginError" ng-message="required">Your email is required.</span>
+<!--         <span class="LoginError" ng-message="email">Your email is invalid.</span>
+ -->      </div>
       <div id="LoginBelow">
         <p>
           <a href="#/login" class="forgotPassLink">Forgot your password?</a>

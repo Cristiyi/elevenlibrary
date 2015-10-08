@@ -1,4 +1,4 @@
-<div ng-app="bookListApp" ng-controller="ShowFreeBooks" class="Grid" style="margin-left:220px;" infinite-scroll="showMoreBooks()">
+<div ng-app="bookListApp" ng-controller="ShowFreeBooks" class="Grid" infinite-scroll="showMoreBooks()">
     <div masonry>
         <div class="masonry-brick" ng-repeat="book in books">
             <div class="gridItem" style="border-radius: 8px; box-shadow: 0 0 11px #ddd;background-color: #fff; " ng-class="{aHover: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">

@@ -1,33 +1,40 @@
 <div id="App">
-        <!-- Header -->
-        <div id="Header">
-            <a href="/;" id="logo" title="ElevenLibrary">ElevenLibrary</a>
-            <div id="pageControl">
-                <a href="#" class="searchTrigger">Search<em></em></a>
-            </div>
-        </div>
-        <!-- Page -->
-        <div id="Page">
-            <div id="wrapper">
-                <div id="ColumnContainer">
-                    <div id="SideColumn" style="margin-top: 10px;">
-                        <h3>Discover</h3>
-                        <ul class="nav">
-                            <li><a href="#/popular" ui-sref="books.popular">Popular</a></li>
-                            <li><a href="#/allbooks" ui-sref="books.allbooks">All Books</a></li>
-                            <li><a href="#/free" ui-sref="books.free">Be Free</a></li>
-                            <li><a href="#/mybooks" ui-sref="books.mybooks">I borrowed</a></li>
-                        </ul>
-                        <span class="line"></span>
-                        <h3>User</h3>
-                        <ul class="nav">
-                            <li><a href="#/register" ui-sref="register">Sign up</a></li>
-                            <li><a href="#/login" ui-sref="login">Log in</a></li>
-                            <li><a href="#/manage-books" ui-sref="manage-books">Manage</a></li>
-                        </ul>
-                    </div>
-                    <div ui-view></div>
-                </div>
-            </div>
-        </div>
+  <!-- Header -->
+  <div id="Header">
+    <a href="#/" id="logo" title="ElevenLibrary">ElevenLibrary</a>
+    <div id="pageControl">
+      <a href="#" class="searchTrigger">Search<em></em></a>
     </div>
+  </div>
+  <!-- Page -->
+  <div id="Page">
+    <div id="wrapper">
+      <div id="ColumnContainer">
+        <div id="SideColumn">
+          <h3>Discover</h3>
+          <ul class="nav">
+            <li><a ui-sref="main.popular">Popular</a></li>
+            <li><a ui-sref="main.allbooks">All Books</a></li>
+            <li><a ui-sref="main.free">Free</a></li>
+            <li><a ui-sref="main.liked">Liked</a></li>
+            <li><a ui-sref="main.mybooks">Borrowed</a></li>
+          </ul>
+          <span class="line"></span>
+          <h3 ng-if="!logInUser.name">User</h3>
+          <h3 ng-if="logInUser.name">{{logInUser.name}}</h3>
+          <ul class="nav" ng-if="!logInUser.name">
+            <li><a ui-sref="register">Sign up</a></li>
+            <li><a ui-sref="login">Log in</a></li>
+          </ul>
+          <ul class="nav" ng-if="logInUser.name">
+            <li><a ui-sref="main.home">Home</a></li>
+            <li><a ui-sref="main.setting">Setting</a></li>
+            <li><a ui-sref="main.popular" ng-click="logOut()">Log out</a></li>
+            <li><a href="" ng-if="logInUser.name === 'admin'" ui-sref="manage-books">Manage</a></li>
+          </ul>
+        </div>
+        <div ui-view></div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<div id="Profile">
+  <div id="userProfile">
+    <h3>Profile</h3>
+    <a href="../images/pic/5.jpg" id="userProfileImage" target="_blank">
+      <img src="../images/pic/5.jpg">
+    </a>
+    <div class="userInfo">
+      <h2 id="userName">{{logInUser.name}}</h2>
+      <h2 id="userEmail">{{logInUser.name}}@cn.ibm.com</h2>
+      <ul class="profileLinks">
+        <li>
+          <a href="">
+            <span>2</span> Borrows
+          </a>
+        </li>
+        <li>
+          <a href="">
+            <span>14</span> Likes
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div id="borrowedDiv">
+    <h3>Books Borrowed</h3>
+    <ol>
+      <li>
+        <a href="#/books/28">
+          <img ng-src="images/img (28).jpg">
+        </a>
+      </li>
+      <li>
+        <a href="#/books/29">
+          <img ng-src="images/img (29).jpg">
+        </a>
+      </li>
+    </ol>
+  </div>
+  <div id="likedDiv">
+    <h3>Books Liked</h3>
+    <div masonry>
+      <div class="masonry-brick" ng-repeat="likedBookId in logInUser.likedBooks">
+        <a href="#/books/{{likedBookId}}">
+          <img ng-src="images/img ({{likedBookId}}).jpg" />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
