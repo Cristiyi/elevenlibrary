@@ -5,9 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/elevenlibrary');
+var db = require('./models/db')
+// var mongoose = require('mongoose');
+// mongoose.connect('mongodb://localhost/elevenlibrary');
 
 var app = express();
 
