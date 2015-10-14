@@ -35,37 +35,17 @@ module.exports = function(app) {
       }else{
         console.log('[Login]No User found');
         res.json({
-<<<<<<< HEAD
-          'isSucc': true,
-          'name': user.name
-=======
           'errType': 1
->>>>>>> de8bd18bcfc215690bcc38a429d4ba9f65c2b211
         });
       }
     });
   });
 
   app.post('/register', function(req, res) {
-<<<<<<< HEAD
-    // var intrID = req.body.intrID;
-    // var pwd = req.body.pwd;
-    // var name = req.body.name;
-    // // var phonen = req.body.phonenumber.replace(/(^\s+)|(\s+$)/g,'');
-
-    // var validateEmail = /^\w+(@cn.ibm.com)$/;
-    // var validatePwd = /^[A-Za-z0-9]{6,}$/;
-    // var validatePhone = /^[0-9]{11}$/;
-
-    // var errorMessage = '';
-
-
-=======
     var intrID = req.body.intrID;
     if(intrID){
       intrID = intrID.replace(/(^\s+)|(\s+$)/g,'');
     }
->>>>>>> de8bd18bcfc215690bcc38a429d4ba9f65c2b211
     var newUser = {
       'intrID': intrID,
       'name': req.body.name,
@@ -95,9 +75,6 @@ module.exports = function(app) {
       }else{
         validateFail += "p";
       }
-<<<<<<< HEAD
-    })
-=======
     }
 
     if(validateFail==''){
@@ -145,6 +122,5 @@ module.exports = function(app) {
         'errType': 2
       });
     }
->>>>>>> de8bd18bcfc215690bcc38a429d4ba9f65c2b211
   });
 };

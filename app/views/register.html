@@ -47,6 +47,15 @@
       <div class="formError" ng-show="signupForm.confirm_password.$dirty && user.pwd !== user.rpwd">
         <span> Two passwords should be the same.</span>
       </div>
+      <div class="formError" ng-show="emailError">
+        <span class="errorMessage" >The email has existed.</span>
+      </div>
+      <div class="formError" ng-show="formatError">
+        <span class="errorMessage" >The format is wrong.</span>
+      </div>
+      <div class="formError" ng-show="serverError">
+        <span class="errorMessage" >Server goes wrong. Please try again.</span>
+      </div>
       <p class="subPageText base">I accept ElevenLibrary’s <a href="#/about" target="_blank">Content Rules</a>.</p>
       <button type="submit" class="registerBtn btn btn-info">Create and Log in</button>
     </form>

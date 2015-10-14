@@ -16,8 +16,6 @@
             <li><a ui-sref="main.popular">Popular</a></li>
             <li><a ui-sref="main.allbooks">All Books</a></li>
             <li><a ui-sref="main.free">Free</a></li>
-            <li><a ui-sref="main.liked">Liked</a></li>
-            <li><a ui-sref="main.mybooks">Borrowed</a></li>
           </ul>
           <span class="line"></span>
           <h3 ng-if="!logInUser.name">User</h3>
@@ -29,8 +27,9 @@
           <ul class="nav menu" ng-if="logInUser.name">
             <li><a ui-sref="main.home">Home</a></li>
             <li><a ui-sref="main.setting">Setting</a></li>
+            <li><a ui-sref="main.liked">I Liked</a></li>
+            <li><a ui-sref="main.mybooks">I Borrowed</a></li>
             <li><a ui-sref="main.popular" ng-click="logOut()">Log out</a></li>
-            <li><a href="" ng-if="logInUser.intrID === 'admin@cn.ibm.com'" ui-sref="manage.books">Manage</a></li>
           </ul>
         </div>
         <div ui-view></div>
