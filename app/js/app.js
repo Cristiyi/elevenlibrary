@@ -47,5 +47,10 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
             url:'/:bookId',
             templateUrl: 'views/detail.html',
             controller: 'BookDetailCtrl'
+        })
+		.state('adminlogin', {
+            url: '/adminlogin',
+            templateUrl: 'views/adminlogin.html',
+            controller: 'AdminLoginCtrl'
         });
 });
