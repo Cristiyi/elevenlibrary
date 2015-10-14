@@ -30,7 +30,7 @@
             <li><a ui-sref="main.home">Home</a></li>
             <li><a ui-sref="main.setting">Setting</a></li>
             <li><a ui-sref="main.popular" ng-click="logOut()">Log out</a></li>
-            <li><a href="" ng-if="logInUser.name === 'admin'" ui-sref="manage.books">Manage</a></li>
+            <li><a href="" ng-if="logInUser.intrID === 'admin@cn.ibm.com'" ui-sref="manage.books">Manage</a></li>
           </ul>
         </div>
         <div ui-view></div>

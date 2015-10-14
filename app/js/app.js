@@ -1,4 +1,5 @@
 var mainApp = angular.module('mainApp', [
+  'ngAnimate',
   'ui.router',
   'ngMessages',
   'wu.masonry',
@@ -103,5 +104,6 @@ mainApp.run(function($rootScope) {
   };
   $rootScope.logOut = function logOut() {
     $rootScope.logInUser.name = '';
+    $rootScope.logInUser.intrID = '';
   };
 });

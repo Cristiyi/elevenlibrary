@@ -1,4 +1,4 @@
-var userApp = angular.module('userApp', ['ngMessages']);
+var userApp = angular.module('userApp', ['ngMessages', 'directApp']);
 userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location) {
   $scope.user = {};
   $scope.login = function() {
@@ -10,9 +10,10 @@ userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location) {
       $http.post('/login', user)
         .success(function(res) {
           console.log(res);
-          if (res.isSucc) {
-            $location.path('/');
-            $rootScope.logInUser.name = $scope.user.intrID;
+          if (res.errType == 0) {
+            $location.path('#/books/popular');
+            $rootScope.logInUser.name = res.name;
+            $rootScope.logInUser.intrID = $scope.user.intrID;
           }
         })
         .error(function(res) {
@@ -21,28 +22,35 @@ userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location) {
     } else {
       console.log('Error: loginForm.$valid = ' + $scope.loginForm.$valid);
     };
-
   };
 });
 
 
-userApp.controller('RegCtrl', function($scope, $http, $location) {
+userApp.controller('RegCtrl', function($scope, $rootScope, $http, $location) {
+  $scope.submitted = false;
   $scope.user = {};
   $scope.register = function() {
-    var user = {
-      'intrID': $scope.user.intrID,
-      'pwd': $scope.user.pwd,
-      'name': $scope.user.name
-    };
-    console.log(user);
-    $http.post('/register', user)
-      .success(function(res) {
-        if (res.isSucc) {
-          $location.path('/');
-        }
-      })
-      .error(function(res) {
-        console.log('Error: ' + res.isSucc);
-      });
+    console.log('>>>click');
+    if ($scope.signupForm.$valid) {
+      var user = {
+        'intrID': $scope.user.intrID,
+        'pwd': $scope.user.pwd,
+        'name': $scope.user.name
+      };
+      console.log(user);
+      $http.post('/register', user)
+        .success(function(res) {
+          if (res.errType == 0) {
+            $location.path('#/books/popular');
+            $rootScope.logInUser.name = $scope.user.name;
+            $rootScope.logInUser.intrID = $scope.user.intrID;
+          }
+        })
+        .error(function(res) {
+          console.log('Error: ' + res.isSucc);
+        });
+    } else {
+      $scope.signupForm.submitted = true
+    }
   };
 });

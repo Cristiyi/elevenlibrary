@@ -26,13 +26,26 @@ module.exports = function(app) {
       } else {
         console.log('[Login]Successfully');
         res.json({
-          'isSucc': true
+          'isSucc': true,
+          'name': user.name
         });
       }
     });
   });
 
   app.post('/register', function(req, res) {
+    // var intrID = req.body.intrID;
+    // var pwd = req.body.pwd;
+    // var name = req.body.name;
+    // // var phonen = req.body.phonenumber.replace(/(^\s+)|(\s+$)/g,'');
+
+    // var validateEmail = /^\w+(@cn.ibm.com)$/;
+    // var validatePwd = /^[A-Za-z0-9]{6,}$/;
+    // var validatePhone = /^[0-9]{11}$/;
+
+    // var errorMessage = '';
+
+
     var newUser = {
       'intrID': req.body.intrID,
       'name': req.body.name,
@@ -64,6 +77,5 @@ module.exports = function(app) {
         });
       }
     })
-
   });
 };

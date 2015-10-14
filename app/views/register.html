@@ -4,38 +4,51 @@
 <div id="Content" class="allCol" ng-controller="RegCtrl">
   <h1 class="pageTitle medium setWidth">Enter your profile details to get started.</h1>
   <div id="SignupContainer">
-    <form id="SignupForm" name="reg_form" novalidateng-submit="register()">
+    <form id="signupForm" name="signupForm" novalidate ng-submit="register()">
       <ul>
         <li>
-          <!-- Email -->
           <div class="fieldContainer">
-            <input type="text" class="field" name="email" tabindex="1" ng-model="user.intrID" placeholder="Email">
+            <input type="email" class="field" name="email" tabindex="1" ng-model="user.intrID" placeholder="Email*" required />
           </div>
         </li>
         <li>
-          <!-- Username -->
           <div class="fieldContainer">
-            <input type="text" class="field" name="username" tabindex="2" ng-model="user.name" placeholder="Username">
+            <input type="text" class="field" name="username" tabindex="2" ng-model="user.name" placeholder="Username*" required />
           </div>
         </li>
         <li>
-          <!-- Password -->
           <div class="fieldContainer">
-            <input type="password" class="field" name="password" tabindex="3" ng-model="user.pwd" placeholder="Password">
+            <input type="password" class="field" name="password" tabindex="3" ng-model="user.pwd" placeholder="Password*"required />
           </div>
         </li>
         <li>
-          <!-- Re-enter Password -->
           <div class="fieldContainer">
-            <input type="password" class="field" name="confirm_password" tabindex="4" ng-model="user.rpwd" placeholder="Re-enter Password">
+            <input type="password" class="field" name="confirm_password" tabindex="4" ng-model="user.rpwd" placeholder="Re-enter Password*" required/>
           </div>
         </li>
         <li>
-          <div id="MainErrorTray" class="errorTray round-3"></div>
+          <div class="fieldContainer">
+            <input type="number" class="field" name="phoneNum" tabindex="5" ng-model="user.phoneNum" placeholder="PhoneNumber">
+          </div>
         </li>
       </ul>
+      <div class="formError" ng-show="signupForm.email.$dirty && signupForm.email.$invalid" ng-messages="signupForm.email.$error">
+        <span ng-message="email">Your email is invalid.</span>
+      </div>
+      <div class="formError" ng-show="signupForm.submitted" ng-messages="signupForm.email.$error">
+        <span ng-message="required">Your email is required.</span>
+      </div>
+      <div class="formError" ng-show="signupForm.submitted" ng-messages="signupForm.username.$error">
+        <span ng-message="required">Your Username is required.</span>
+      </div>
+      <div class="formError" ng-show="signupForm.submitted" ng-messages="signupForm.password.$error">
+        <span ng-message="required">Your Password is required.</span>
+      </div>
+      <div class="formError" ng-show="signupForm.confirm_password.$dirty && user.pwd !== user.rpwd">
+        <span> Two passwords should be the same.</span>
+      </div>
       <p class="subPageText base">I accept ElevenLibrary’s <a href="#/about" target="_blank">Content Rules</a>.</p>
-      <button type="submit" class="registerBtn btn btn-info" ng-click="register()">Create and Log in</button>
+      <button type="submit" class="registerBtn btn btn-info">Create and Log in</button>
     </form>
   </div>
 </div>
