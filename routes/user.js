@@ -12,28 +12,42 @@ module.exports = function(app) {
     User.findOne({
       'intrID': req.body.intrID
     }, function(err, user) {
-      if (err || !user) {
+      if(err) {
+        console.log('[Login]DB err : '+ err);
+        res.json({
+          'errType': 3
+        });
+      }
+      if(user){
+        if(user.pwd == req.body.pwd){
+          console.log('[Login]Successfully'+ user);
+          res.json({
+            'errType': 0,
+            'loginUser':user
+          });
+        }else{
+          console.log('[Login]Wrong Password');
+          console.log("db_pwd =" + user.pwd + "   pwd =" + req.body.pwd);
+          res.json({
+            'errType': 2
+          });
+        }
+      }else{
         console.log('[Login]No User found');
         res.json({
-          'isSucc': false
-        });
-      } else if (user.pwd !== req.body.pwd) {
-        console.log('[Login]Wrong Password');
-        console.log("pwd1 =" + user.pwd + "   pwd2 =" + req.body.pwd);
-        res.json({
-          'isSucc': false
-        });
-      } else {
-        console.log('[Login]Successfully');
-        res.json({
+<<<<<<< HEAD
           'isSucc': true,
           'name': user.name
+=======
+          'errType': 1
+>>>>>>> de8bd18bcfc215690bcc38a429d4ba9f65c2b211
         });
       }
     });
   });
 
   app.post('/register', function(req, res) {
+<<<<<<< HEAD
     // var intrID = req.body.intrID;
     // var pwd = req.body.pwd;
     // var name = req.body.name;
@@ -46,36 +60,91 @@ module.exports = function(app) {
     // var errorMessage = '';
 
 
+=======
+    var intrID = req.body.intrID;
+    if(intrID){
+      intrID = intrID.replace(/(^\s+)|(\s+$)/g,'');
+    }
+>>>>>>> de8bd18bcfc215690bcc38a429d4ba9f65c2b211
     var newUser = {
-      'intrID': req.body.intrID,
+      'intrID': intrID,
       'name': req.body.name,
-      'pwd': req.body.pwd
+      'pwd': req.body.pwd,
+      'phoneNum': req.body.phoneNum
     };
-    User.findOne({
-      'intrID': req.body.intrID
-    }, function(err, user) {
-      if (err || !user) {
-        User.create(newUser, function(err, user) {
-          if (err || !user) {
-            console.log('[Register]Failed');
-            res.json({
-              'isSucc': false
-            });
-          } else {
-            console.log('[Register]Successful');
-            console.log(user);
-            res.json({
-              'isSucc': true
-            });
-          };
-        });
-      } else {
-        console.log('[Register]User Existed');
-        console.log(user);
-        res.json({
-          'isSucc': false
-        });
+
+    var validateEmail = /^\w+(@cn.ibm.com)$/;
+    var validatePwd = /^[A-Za-z0-9]{6,}$/;
+    var validatePhone = /^[0-9]{11}$/;
+
+    var validateFail = '';
+
+    if(validateEmail.test(newUser.intrID)){
+      // console.log('email pass');
+    }else{
+      validateFail += "e";
+    }
+    if(validatePwd.test(newUser.pwd)){
+      // console.log('password pass');
+    }else{
+      validateFail += "w";
+    }
+    if(newUser.phoneNum){
+      if(validatePhone.test(newUser.phoneNum)){
+        // console.log('phonenumber pass');
+      }else{
+        validateFail += "p";
       }
+<<<<<<< HEAD
     })
+=======
+    }
+
+    if(validateFail==''){
+      User.findOne({
+        'intrID': req.body.intrID
+      }, function(err, user) {
+        if(err) {
+          console.log('[Register]DB find uer err : '+ err);
+          res.json({
+            'errType': 3
+          });
+        }
+        if(!user){
+          User.create(newUser, function(err, newuser) {
+            if(err) {
+              console.log('[Register]DB insert uer err : '+ err);
+              res.json({
+                'errType': 3
+              });
+            }
+             console.log('[Register]DB insert newuser' + newuser);
+             if(newuser){
+              console.log('[Register]Successful');
+              res.json({
+                'errType': 0,
+                'RegUser': newuser
+              }); 
+             }else{
+              console.log('[Register]Failed');
+              res.json({
+                'errType': 3
+              });
+             }
+          });
+        }else{
+          console.log('[Register]User existed');
+          res.json({
+            'errType': 1
+          });
+        }
+      })
+    }else{
+      console.log('[Register]validateFail');
+      res.json({
+        'errType': 2
+      });
+    }
+>>>>>>> de8bd18bcfc215690bcc38a429d4ba9f65c2b211
   });
 };
