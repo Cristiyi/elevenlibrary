@@ -95,3 +95,23 @@ userApp.controller('RegCtrl', function($scope, $rootScope, $http, $location, $ti
     }
   };
 });
+
+userApp.controller('AdminLoginCtrl', function($scope, $http, $location) {
+  $scope.user = {};
+  $scope.login = function() {
+    var user = {
+      'intrID': 'libadmin@cn.ibm.com',
+      'pwd': 'libadmin'
+    };
+    $http.post('/adminLogin', user)
+      .success(function(res) {
+        console.log(res);
+        if (res.isSucc) {
+          $location.path('/');
+        }
+      })
+      .error(function(res) {
+        console.log('Error: ' + res);
+      });
+  };
+});

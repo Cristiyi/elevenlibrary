@@ -12,6 +12,7 @@ var mainApp = angular.module('mainApp', [
 mainApp.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/books/popular');
 
+  << << << < HEAD
   $stateProvider
     .state('main', {
       url: '',
@@ -58,7 +59,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
       controller: 'ShowMyBooks'
     })
     .state('manage', {
-      url:'',
+      url: '',
       templateUrl: 'views/admin/admin-main.html'
     })
     .state('manage.users', {
@@ -93,7 +94,12 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
       url: '/register',
       templateUrl: 'views/register.html',
       controller: 'RegCtrl'
-    });
+    })
+    .state('adminlogin', {
+      url: '/adminlogin',
+      templateUrl: 'views/adminlogin.html',
+      controller: 'AdminLoginCtrl'
+    });;
 });
 
 mainApp.run(function($rootScope) {
