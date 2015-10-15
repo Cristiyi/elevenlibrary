@@ -11,6 +11,7 @@ var mainApp = angular.module('mainApp', [
 
 mainApp.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/books/popular');
+
   $stateProvider
     .state('main', {
       url: '',
@@ -89,9 +90,9 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: 'views/register.html',
       controller: 'RegCtrl'
     })
-    .state('adminlogin', {
-      url: '/adminlogin',
-      templateUrl: 'views/adminlogin.html',
+    .state('adminLogin', {
+      url: '/adminLogin',
+      templateUrl: 'views/admin/adminlogin.html',
       controller: 'AdminLoginCtrl'
     });;
 });

@@ -8,6 +8,35 @@ var User = require('../models/User.js');
 // };
 
 module.exports = function(app) {
+
+app.post('/adminLogin', function(req, res){
+    var intrID = req.body.intrID;
+    var pwd = req.body.pwd;
+    if(intrID && pwd){
+      if('libadmin@cn.ibm.com' == intrID){
+        if('libadmin' == pwd){
+          console.log('[AdminLogin]Login Successfully');
+          res.json({
+            'errType': 0
+          });
+        }else{
+          console.log('[AdminLogin]Wrong Password');
+          res.json({
+            'errType': 2
+          });
+        }
+      }else{
+        console.log('[AdminLogin]intrID incorrect');
+        res.json({
+          'errType': 1
+        });
+      }
+    }else{
+      console.log('[AdminLogin]intrID or pwd is null');
+    }
+  });
+  
+  
   app.post('/login', function(req, res) {
     User.findOne({
       'intrID': req.body.intrID
