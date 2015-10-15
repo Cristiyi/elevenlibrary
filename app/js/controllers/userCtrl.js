@@ -106,8 +106,8 @@ userApp.controller('AdminLoginCtrl', function($scope, $http, $location) {
     $http.post('/adminLogin', user)
       .success(function(res) {
         console.log(res);
-        if (res.isSucc) {
-          $location.path('/');
+        if (res.errType === 0) {
+          $location.path('#/manage/books');
         }
       })
       .error(function(res) {
