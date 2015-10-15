@@ -8,7 +8,7 @@
       <ul>
         <li>
           <div class="fieldContainer">
-            <input type="email" class="field" name="email" tabindex="1" ng-model="user.intrID" placeholder="Email*" required />
+            <input type="email" class="field" name="email" tabindex="1" ng-model="user.intrID" placeholder="Email*" custom-email-format required />
           </div>
         </li>
         <li>
@@ -18,7 +18,7 @@
         </li>
         <li>
           <div class="fieldContainer">
-            <input type="password" class="field" name="password" tabindex="3" ng-model="user.pwd" placeholder="Password*"required />
+            <input type="password" class="field" name="password" tabindex="3" ng-model="user.pwd" placeholder="Password*" custom-pwd-format required />
           </div>
         </li>
         <li>
@@ -28,12 +28,19 @@
         </li>
         <li>
           <div class="fieldContainer">
-            <input type="number" class="field" name="phoneNum" tabindex="5" ng-model="user.phoneNum" placeholder="PhoneNumber">
+            <input type="number" class="field" name="phoneNum" tabindex="5" ng-model="user.phoneNum" placeholder="PhoneNumber" custom-phone-num-format>
           </div>
         </li>
       </ul>
       <div class="formError" ng-show="signupForm.email.$dirty && signupForm.email.$invalid" ng-messages="signupForm.email.$error">
         <span ng-message="email">Your email is invalid.</span>
+        <span ng-message="format">Your email is not IBM's.</span>
+      </div>
+      <div class="formError" ng-show="signupForm.password.$dirty && signupForm.password.$invalid" ng-messages="signupForm.password.$error">
+        <span ng-message="format">Your password is too short.</span>
+      </div>
+      <div class="formError" ng-show="signupForm.phoneNum.$dirty && signupForm.phoneNum.$invalid" ng-messages="signupForm.phoneNum.$error">
+        <span ng-message="format">Please input 11 numbers.</span>
       </div>
       <div class="formError" ng-show="signupForm.submitted" ng-messages="signupForm.email.$error">
         <span ng-message="required">Your email is required.</span>
@@ -48,15 +55,18 @@
         <span> Two passwords should be the same.</span>
       </div>
       <div class="formError" ng-show="emailError">
-        <span class="errorMessage" >The email has existed.</span>
+        <span class="errorMessage">The email has existed.</span>
       </div>
       <div class="formError" ng-show="formatError">
-        <span class="errorMessage" >The format is wrong.</span>
+        <span class="errorMessage">The format is wrong.</span>
       </div>
       <div class="formError" ng-show="serverError">
-        <span class="errorMessage" >Server goes wrong. Please try again.</span>
+        <span class="errorMessage">Server goes wrong. Please try again.</span>
       </div>
-      <p class="subPageText base">I accept ElevenLibrary’s <a href="#/about" target="_blank">Content Rules</a>.</p>
+      <div id="LoginBelow">
+        <p class="subPageText">I accept ElevenLibrary’s <a href="#/about" target="_blank">Content Rules</a>.</p>
+        <p class="subPageText">Have an account? <a href="#/login">Log in now</a></p>
+      </div>
       <button type="submit" class="registerBtn btn btn-info">Create and Log in</button>
     </form>
   </div>

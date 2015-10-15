@@ -3,6 +3,7 @@ var mainApp = angular.module('mainApp', [
   'ui.router',
   'ngMessages',
   'wu.masonry',
+  'directApp',
   'bookListApp',
   'bookDetailApp',
   'bookManageApp',
@@ -11,7 +12,6 @@ var mainApp = angular.module('mainApp', [
 
 mainApp.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/books/popular');
-
 
   $stateProvider
     .state('main', {
@@ -95,9 +95,9 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: 'views/register.html',
       controller: 'RegCtrl'
     })
-    .state('adminlogin', {
-      url: '/adminlogin',
-      templateUrl: 'views/adminlogin.html',
+    .state('adminLogin', {
+      url: '/adminLogin',
+      templateUrl: 'views/admin/adminlogin.html',
       controller: 'AdminLoginCtrl'
     });;
 });

@@ -6,8 +6,10 @@ var User = require('../models/User.js');
 // exports.list = function(req, res){
 //   res.send("respond with a resource");
 // };
+
 module.exports = function(app) {
-	app.post('/adminLogin', function(req, res){
+
+app.post('/adminLogin', function(req, res){
     var intrID = req.body.intrID;
     var pwd = req.body.pwd;
     if(intrID && pwd){
@@ -33,9 +35,8 @@ module.exports = function(app) {
       console.log('[AdminLogin]intrID or pwd is null');
     }
   });
-}
-
-module.exports = function(app) {
+  
+  
   app.post('/login', function(req, res) {
     User.findOne({
       'intrID': req.body.intrID

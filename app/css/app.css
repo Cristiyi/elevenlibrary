@@ -814,15 +814,15 @@ span.comment-meta-likes {
   color: #999;
   font-size: 15px;
   clear: both;
-  padding-top: 35px;
-  margin-top: 21px;
+  padding-top: 10px;
+  margin-top: 20px;
   border-top: 1px solid #e4e4e4;
   line-height: 15px
 }
 
 #LoginBelow a {
-  color: #999;
-  font-weight: 400;
+  color: #666;
+  font-weight: 700;
   font-size: 15px;
   width: auto
 }
@@ -842,27 +842,6 @@ span.comment-meta-likes {
   margin: 18px 0;
   font-size: 16px;
   text-align: center;
-}
-
-.errorMessage {
-  opacity: 1;
-  transition: 0.3s linear all;
-}
-
-.errorMessage.ng-enter.ng-enter-active {
-  opacity: 1;
-}
-
-.errorMessage.ng-enter {
-  opacity: 0;
-}
-
-.errorMessage.ng-leave {
-  opacity: 1;
-}
-
-.errorMessage.ng-leave-active {
-  opacity: 0;
 }
 
 .pageTitle.medium {
@@ -955,7 +934,6 @@ span.comment-meta-likes {
 .subPageText {
   clear: both;
   line-height: 16px;
-  padding-top: 15px;
   text-align: center;
   font-size: 13px;
   color: #777
@@ -968,14 +946,6 @@ span.comment-meta-likes {
 .invalid a,
 .subPageText a {
   color: #068ce1
-}
-
-.subPageText a:hover {
-  text-decoration: underline
-}
-
-.subPageText.base {
-  margin-bottom: 25px
 }
 
 .registerBtn {
