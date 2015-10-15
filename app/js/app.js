@@ -3,7 +3,6 @@ var mainApp = angular.module('mainApp', [
   'ui.router',
   'ngMessages',
   'wu.masonry',
-  'directApp',
   'bookListApp',
   'bookDetailApp',
   'bookManageApp',
@@ -61,10 +60,6 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
       url: '',
       templateUrl: 'views/admin/admin-main.html'
     })
-    .state('manage.users', {
-      url: '/manage/users',
-      templateUrl: 'views/admin/admin-users.html'
-    })
     .state('manage.logs', {
       url: '/manage/logs',
       templateUrl: 'views/admin/admin-logs.html'
@@ -105,10 +100,10 @@ mainApp.run(function($rootScope) {
   $rootScope.logInUser = {
     'name': '',
     'intrID': '',
+    'phoneNum': '',
     'likedBooks': [78, 79, 80, 81, 82, 83, 84, 85, 86, 67, 68, 69, 71, 72]
   };
   $rootScope.logOut = function logOut() {
-    $rootScope.logInUser.name = '';
-    $rootScope.logInUser.intrID = '';
+    $rootScope.logInUser = {};
   };
 });

@@ -33,9 +33,9 @@ bookManageApp.controller('ManageBookCtrl', function($scope, $) {
   };
 });
 
-bookManageApp.controller('NewBookCtrl', function($scope, $http) {
+bookManageApp.controller('NewBookCtrl', function($scope, $http, $location) {
   $scope.book = {};
-  $scope.addBook = function() {
+  $scope.addBook = function addBook() {
     var book = {
       'name': $scope.book.name,
       'likeNum': $scope.book.likeNum,
@@ -45,6 +45,7 @@ bookManageApp.controller('NewBookCtrl', function($scope, $http) {
     $http.post('/manage-books', book)
       .success(function(data) {
         $scope.book = data;
+        $location.path('#/manage/books');
         console.log(data);
       })
       .error(function(data) {

@@ -104,8 +104,8 @@ userApp.controller('AdminLoginCtrl', function($scope, $http, $location) {
   $scope.user = {};
   $scope.login = function() {
     var user = {
-      'intrID': 'libadmin@cn.ibm.com',
-      'pwd': 'libadmin'
+      'intrID': $scope.user.intrID,
+      'pwd': $scope.user.pwd
     };
     $http.post('/adminLogin', user)
       .success(function(res) {
