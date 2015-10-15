@@ -6,6 +6,7 @@ userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $
     $scope.pwdError = false;
     $scope.userError = false;
     $scope.serverError = false;
+    $scope.loginForm.submitted = false;
   }
   $scope.login = function() {
     $scope.initState();
@@ -37,7 +38,8 @@ userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $
           $timeout($scope.initState, 3000);
         });
     } else {
-      $scope.loginForm.submitted = true
+      $scope.loginForm.submitted = true;
+      $timeout($scope.initState, 3000);
     };
   };
 });
@@ -50,6 +52,7 @@ userApp.controller('RegCtrl', function($scope, $rootScope, $http, $location, $ti
     $scope.emailError = false;
     $scope.formatError = false;
     $scope.serverError = false;
+    $scope.signupForm.submitted = false;
   }
   $scope.register = function() {
     if ($scope.signupForm.$valid) {
@@ -72,7 +75,7 @@ userApp.controller('RegCtrl', function($scope, $rootScope, $http, $location, $ti
       $http.post('/register', user)
         .success(function(res) {
           if (res.errType === 0) {
-            $location.path('#/books/home');
+            $location.path('#/home');
             $rootScope.logInUser.name = $scope.user.name;
             $rootScope.logInUser.intrID = $scope.user.intrID;
           } else if (res.errType === 1) {
@@ -91,7 +94,8 @@ userApp.controller('RegCtrl', function($scope, $rootScope, $http, $location, $ti
           $timeout($scope.initState, 3000);
         });
     } else {
-      $scope.signupForm.submitted = true
+      $scope.signupForm.submitted = true;
+      $timeout($scope.initState, 3000);
     }
   };
 });

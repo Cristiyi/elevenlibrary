@@ -11,7 +11,7 @@
             <li>
               <!-- Username -->
               <div class="fieldContainer userField">
-                <input type="email" class="field" name="email" tabindex="1" ng-model="user.intrID" placeholder="Email" required />
+                <input type="text" class="field" name="email" tabindex="1" ng-model="user.intrID" placeholder="Email" required />
               </div>
             </li>
             <li>
@@ -21,26 +21,23 @@
               </div>
             </li>
           </ul>
-          <button type="submit" class="loginTrigger btn btn-info" ng-click="login()">Log in</button>
+          <button type="submit" class="loginTrigger btn btn-info" ng-click="login()" >Log in</button>
         </form>
       </div>
-      <div class="formError" ng-show="loginForm.email.$dirty && loginForm.email.$invalid" ng-messages="loginForm.email.$error">
-        <span class="errorMessage" ng-message="email">Your email is invalid.</span>
-      </div>
       <div class="formError" ng-show="loginForm.submitted" ng-messages="loginForm.email.$error">
-        <span class="errorMessage" ng-message="required">Your email is required.</span>
+        <span ng-message="required">Your email is required.</span>
       </div>
       <div class="formError" ng-show="loginForm.submitted" ng-messages="loginForm.password.$error">
-        <span class="errorMessage" ng-message="required">Your password is required.</span>
+        <span ng-message="required">Your password is required.</span>
       </div>
       <div class="formError" ng-show="pwdError">
-        <span class="errorMessage" >Your password is wrong.</span>
+        <span >Your password is wrong.</span>
       </div>
       <div class="formError" ng-show="userError">
-        <span class="errorMessage" >Your email doesn't exist.</span>
+        <span >This account doesn't exist.</span>
       </div>
       <div class="formError" ng-show="serverError">
-        <span class="errorMessage" >Server goes wrong. Please try again.</span>
+        <span >Server goes wrong. Please try again.</span>
       </div>
       <div id="LoginBelow">
         <p>

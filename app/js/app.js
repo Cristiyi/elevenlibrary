@@ -3,6 +3,7 @@ var mainApp = angular.module('mainApp', [
   'ui.router',
   'ngMessages',
   'wu.masonry',
+  'directApp',
   'bookListApp',
   'bookDetailApp',
   'bookManageApp',
@@ -11,8 +12,6 @@ var mainApp = angular.module('mainApp', [
 
 mainApp.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/books/popular');
-
-  << << << < HEAD
   $stateProvider
     .state('main', {
       url: '',

@@ -1,22 +1,60 @@
 var directApp = angular.module('directApp', []);
-directApp.directive('ngFocus', [function() {
-  var FOCUS_CLASS = "ng-focused";
+var validateEmail = /^\w+(@cn.ibm.com)$/;
+var validatePwd = /^[A-Za-z0-9]{6,}$/;
+var validatePhone = /^[0-9]{11}$/;
+
+directApp.directive('customEmailFormat', function() {
   return {
-    restrict: 'A',
     require: 'ngModel',
     link: function(scope, element, attrs, ctrl) {
-      ctrl.$focused = false;
-      element.bind('focus', function(evt) {
-        element.addClass(FOCUS_CLASS);
-        scope.$apply(function() {
-          ctrl.$focused = true;
-        });
-      }).bind('blur', function(evt) {
-        element.removeClass(FOCUS_CLASS);
-        scope.$apply(function() {
-          ctrl.$focused = false;
-        });
+      scope.$watch(attrs.ngModel, function() {
+        var viewValue = scope.user.intrID;
+        if (viewValue != undefined) {
+          if (validateEmail.test(viewValue)) {
+            ctrl.$setValidity('format', true);
+          } else {
+            ctrl.$setValidity('format', false);
+          };
+        } else {
+          ctrl.$setValidity('format', true);
+        };
       });
     }
   }
-}]);
+});
+
+directApp.directive('customPwdFormat', function() {
+  return {
+    require: 'ngModel',
+    link: function(scope, element, attrs, ctrl) {
+      scope.$watch(attrs.ngModel, function() {
+        var viewValue = scope.user.pwd;
+        if (validatePwd.test(viewValue)) {
+          ctrl.$setValidity('format', true);
+        } else {
+          ctrl.$setValidity('format', false);
+        };
+      });
+    }
+  }
+});
+
+directApp.directive('customPhoneNumFormat', function() {
+  return {
+    require: 'ngModel',
+    link: function(scope, element, attrs, ctrl) {
+      scope.$watch(attrs.ngModel, function() {
+        var viewValue = scope.user.phoneNum;
+        if (viewValue != undefined) {
+          if (validatePhone.test(viewValue)) {
+            ctrl.$setValidity('format', true);
+          } else {
+            ctrl.$setValidity('format', false);
+          };
+        } else {
+          ctrl.$setValidity('format', true);
+        };
+      });
+    }
+  }
+});
