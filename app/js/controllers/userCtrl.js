@@ -19,7 +19,7 @@ userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $
         .success(function(res) {
           console.log(res);
           if (res.errType === 0) {
-            $location.path('#/home');
+            $location.path('/books/popular');
             $rootScope.logInUser.name = res.loginUser.name;
             $rootScope.logInUser.intrID = res.loginUser.intrID;
           } else if (res.errType === 1) {
@@ -75,7 +75,7 @@ userApp.controller('RegCtrl', function($scope, $rootScope, $http, $location, $ti
       $http.post('/register', user)
         .success(function(res) {
           if (res.errType === 0) {
-            $location.path('#/home');
+            $location.path('/books/popular');
             $rootScope.logInUser.name = $scope.user.name;
             $rootScope.logInUser.intrID = $scope.user.intrID;
           } else if (res.errType === 1) {
@@ -114,7 +114,8 @@ userApp.controller('AdminLoginCtrl', function($scope, $http, $location) {
         console.log(res);
 		
         if (res.errType === 0) {
-          $location.url('../manage/books');
+          $location.path('/manage/books');
+		  
 		 
         }
 		else{
