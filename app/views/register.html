@@ -34,10 +34,10 @@
       </ul>
       <div class="formError" ng-show="signupForm.email.$dirty && signupForm.email.$invalid" ng-messages="signupForm.email.$error">
         <span ng-message="email">Your email is invalid.</span>
-        <span ng-message="format">Your email is not IBM's.</span>
+        <span ng-message="format">Your email is not owned by IBM.</span>
       </div>
       <div class="formError" ng-show="signupForm.password.$dirty && signupForm.password.$invalid" ng-messages="signupForm.password.$error">
-        <span ng-message="format">Your password is too short.</span>
+        <span ng-message="format">Passwords to be more than six characters in length with annul password format</span>
       </div>
       <div class="formError" ng-show="signupForm.phoneNum.$dirty && signupForm.phoneNum.$invalid" ng-messages="signupForm.phoneNum.$error">
         <span ng-message="format">Please input 11 numbers.</span>

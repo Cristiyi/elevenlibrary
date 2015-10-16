@@ -100,6 +100,7 @@ userApp.controller('RegCtrl', function($scope, $rootScope, $http, $location, $ti
   };
 });
 
+/* Admin log in*/
 userApp.controller('AdminLoginCtrl', function($scope, $http, $location) {
   $scope.user = {};
   $scope.login = function() {
@@ -113,11 +114,19 @@ userApp.controller('AdminLoginCtrl', function($scope, $http, $location) {
         console.log(res);
 		
         if (res.errType === 0) {
-          $location.path('#/manage/books');
+          $location.url('../manage/books');
+		 
         }
+		else{
+		 $scope.adminloginError = true;
+            $timeout($scope.adminloginError, 3000);
+		
+		}
       })
       .error(function(res) {
-        console.log('Error: ' + res);
+	        $scope.serverError = true;
+            $timeout($scope.initState, 3000);
+            console.log('Error: ' + res);
       });
   };
 });
