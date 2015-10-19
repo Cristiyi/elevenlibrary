@@ -24,8 +24,13 @@
           <button type="submit" class="loginTrigger btn btn-info" ng-click="login()">Log in</button>
         </form>
       </div>
-      <div ng-show="login_form.email.$dirty && login_form.email.$invalid">
-      <span id="LoginError" ng-show="login_form.email.$error.required">Your email is required</span>
+	   <div class="formError" ng-show="adminloginError">
+        <span >User name or passowrd goes wrong. Please try again.</span>
+      </div>
+	   <div class="formError" ng-show="serverError">
+        <span >Server goes wrong. Please try again.</span>
+      </div>
+
       </div>
     
     </div>

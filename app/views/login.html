@@ -30,8 +30,8 @@
       <div class="formError" ng-show="loginForm.submitted" ng-messages="loginForm.password.$error">
         <span ng-message="required">Your password is required.</span>
       </div>
-      <div class="formError" ng-show="pwdError">
-        <span >Your password is wrong.</span>
+      <div class="formError" ng-show="pwdError"> <!-- Password wrong actually -->
+        <span >User name or password is wrong.</span>
       </div>
       <div class="formError" ng-show="userError">
         <span >This account doesn't exist.</span>
