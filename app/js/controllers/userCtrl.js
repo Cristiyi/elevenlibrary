@@ -115,19 +115,15 @@ userApp.controller('AdminLoginCtrl', function($scope, $http, $location) {
 
         if (res.errType === 0) {
           $location.path('/manage/books');
-		  
-		 
+        } else {
+          $scope.adminloginError = true;
+          $timeout($scope.adminloginError, 3000);
         }
-		else{
-		 $scope.adminloginError = true;
-            $timeout($scope.adminloginError, 3000);
-		
-		}
       })
       .error(function(res) {
-	        $scope.serverError = true;
-            $timeout($scope.initState, 3000);
-            console.log('Error: ' + res);
+        $scope.serverError = true;
+        $timeout($scope.initState, 3000);
+        console.log('Error: ' + res);
       });
   };
 });
