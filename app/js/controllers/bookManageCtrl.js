@@ -1,25 +1,19 @@
-var bookManageApp = angular.module('bookManageApp', []);
+var bookManageApp = angular.module('bookManageApp', ['ngTable']);
 
-bookManageApp.controller('ManageBooksCtrl', function($scope, $http) {
-  $scope.getAllBooks = function() {
-    $scope.books = {};
-    $http.get('/manage-books')
-      .success(function(data) {
-        $scope.books = data;
-        console.log(data);
-      })
-      .error(function(data) {
-        console.log('Error: ' + data);
-      });
-  };
-  $scope.deleteAllBooks = function() {
-    $http.delete('/manage-books').success();
-    $scope.getAllBooks();
-  };
-  $scope.getAllBooks();
+bookManageApp.controller('ManageBooksCtrl', function($scope, NgTableParams) {
+  var self = $scope;
+  var data = [{name: "Moroni", age: 50},
+      {name: "Simon", age: 43},
+      {name: "Jacob", age: 27},
+      {name: "Nephi", age: 29},
+      {name: "Christian", age: 34},
+      {name: "Tiancum", age: 43},
+      {name: "Jacob", age: 27}
+  ];
+  self.tableParams = new NgTableParams({ count: 5}, { counts: [5, 10, 25], dataset: data});
 });
 
-bookManageApp.controller('ManageBookCtrl', function($scope, $) {
+bookManageApp.controller('ManageBookCtrl', function($scope, $http) {
   $scope.getBook = function() {
     $scope.book = {};
     $http.get('/manage/')

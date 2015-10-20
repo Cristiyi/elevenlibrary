@@ -1,24 +1,17 @@
-<div ng-controller="ManageBooksCtrl">
+<div>
   <div class="row">
-    <div class="col-md-10 pull-left">
+    <div>
       <a ui-sref="manage.newBook" type="submit" class="btn btn-success">New</a>
       <button type="submit" class="btn btn-danger" ng-click="deleteAllBooks()">Delete</button>
-      <table class="table table-striped table-hover" style="font-size: 16px">
-        <thead>
-          <th><input type="checkbox" /></th>
-          <th>Name</th>
-          <th>Like</th>
-          <th>Comment</th>
-          <th>Free</th>
-        </thead>
-        <tr ng-repeat="book in books">
-          <th><input type="checkbox" /><th>
-          <th>{{book.name}}</th>
-          <th>{{book.likeNum}}</th>
-          <th>{{book.commentNum}}</th>
-          <th>{{book.isFree}}</th>
-          <th><a href="#/manage/{{book._id}}">Detail</a></th>
-        </tr>
+      <table ng-table="tableParams" class="table table-striped table-hover" show-filter="true">
+          <tr ng-repeat="user in $data">
+              <td class="text-center" title="'Name'" filter="{ name: 'text'}" sortable="'name'">
+                  {{user.name}}
+              </td>
+              <td class="text-center" title="'Age'" filter="{ age: 'number'}" sortable="'age'">
+                  {{user.age}}
+              </td>
+          </tr>
       </table>
     </div>
   </div>
