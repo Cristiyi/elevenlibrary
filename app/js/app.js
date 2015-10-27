@@ -2,7 +2,9 @@ var mainApp = angular.module('mainApp', [
   'ngAnimate',
   'ui.router',
   'ngMessages',
+  'serviceApp',
   'wu.masonry',
+  'ngTable',
   'bookListApp',
   'bookDetailApp',
   'bookManageApp',
@@ -59,7 +61,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
     })
     .state('manage', {
       url: '',
-      templateUrl: 'views/admin/admin-main.html'
+      templateUrl: 'views/admin/admin-main.html',
+      controller: 'ManageCtrl'
     })
     .state('manage.logs', {
       url: '/manage/logs',

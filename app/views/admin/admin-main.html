@@ -3,12 +3,21 @@
 </div>
 <div id="wrapper">
   <div id="ColumnContainer">
-    <div id="SideColumn">
-      <ul class="nav menu" style="font-size:20px">
-        <li><a ui-sref="manage.books">Books</a></li>
-        <li><a ui-sref="manage.logs">Logs</a></li>
-      </ul>
-    </div>
-    <div ui-view class="col-md-6"></div>
+    <nav class="navbar navbar-default col-md-11">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#/manage/books">Manage <span class="label label-info badge" style="background-color: #5bc0de">13</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li class="active"><a ui-sref="manage.books">Books</a></li>
+            <li><a ui-sref="manage.logs">Events</a></li>
+            <li><a ui-sref="manage.logs">Logs</a></li>
+          </ul>
+          <p class="navbar-text">Total Books:<span>{{books.length}}</span></p>
+        </div>
+      </div>
+    </nav>
+    <div ui-view class="col-md-11"></div>
   </div>
 </div>
