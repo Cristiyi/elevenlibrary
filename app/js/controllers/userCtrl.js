@@ -1,5 +1,5 @@
 var userApp = angular.module('userApp', ['ngMessages', 'directApp']);
-userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $timeout) {
+userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $timeout, $window) {
   $scope.user = {};
   $scope.submitted = false;
   $scope.initState = function initState() {
@@ -7,7 +7,9 @@ userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $
     $scope.userError = false;
     $scope.serverError = false;
     $scope.loginForm.submitted = false;
+
   }
+
   $scope.login = function() {
     $scope.initState();
     if ($scope.loginForm.$valid) {
@@ -16,32 +18,36 @@ userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $
         'pwd': $scope.user.pwd
       };
       $http.post('/login', user)
-        .success(function(res) {
-          console.log(res);
-          if (res.errType === 0) {
-            $location.path('/books/popular');
-            $rootScope.logInUser.name = res.loginUser.name;
-            $rootScope.logInUser.intrID = res.loginUser.intrID;
-          } else if (res.errType === 1) {
-            $scope.userError = true;
-            $timeout($scope.initState, 3000);
-          } else if (res.errType === 2) {
-            $scope.pwdError = true;
-            $timeout($scope.initState, 3000);
-          } else {
-            $scope.serverError = true;
-            $timeout($scope.initState, 3000);
-          };
-        })
-        .error(function(res) {
+      .success(function(res) {
+        console.log(res);
+        if (res.errType === 0) {
+          $location.path('/books/popular');
+          $rootScope.logInUser.name = res.loginUser.name;
+          $rootScope.logInUser.intrID = res.loginUser.intrID;
+
+          $window.localStorage.setItem('intrID', $scope.user.intrID);
+          $window.localStorage.setItem('pwd', $scope.user.pwd);
+        } else if (res.errType === 1) {
+          $scope.userError = true;
+          $timeout($scope.initState, 3000);
+        } else if (res.errType === 2) {
+          $scope.pwdError = true;
+          $timeout($scope.initState, 3000);
+        } else {
           $scope.serverError = true;
           $timeout($scope.initState, 3000);
-        });
+        };
+      })
+      .error(function(res) {
+        $scope.serverError = true;
+        $timeout($scope.initState, 3000);
+      });
     } else {
       $scope.loginForm.submitted = true;
       $timeout($scope.initState, 3000);
     };
   };
+
 });
 
 
@@ -71,28 +77,30 @@ userApp.controller('RegCtrl', function($scope, $rootScope, $http, $location, $ti
           'phoneNum': $scope.user.phoneNum
         };
       };
-      console.log(user);
       $http.post('/register', user)
-        .success(function(res) {
-          if (res.errType === 0) {
-            $location.path('/books/popular');
-            $rootScope.logInUser.name = $scope.user.name;
-            $rootScope.logInUser.intrID = $scope.user.intrID;
-          } else if (res.errType === 1) {
-            $scope.emailError = true;
-            $timeout($scope.initState, 3000);
-          } else if (res.errType === 2) {
-            $scope.formatError = true;
-            $timeout($scope.initState, 3000);
-          } else {
-            $scope.serverError = true;
-            $timeout($scope.initState, 3000);
-          };
-        })
-        .error(function(res) {
+      .success(function(res) {
+        if (res.errType === 0) {
+          $location.path('/books/popular');
+          $rootScope.logInUser.name = $scope.user.name;
+          $rootScope.logInUser.intrID = $scope.user.intrID;
+
+          $window.localStorage.setItem('intrID', $scope.user.intrID);
+          $window.localStorage.setItem('pwd', $scope.user.pwd);
+        } else if (res.errType === 1) {
+          $scope.emailError = true;
+          $timeout($scope.initState, 3000);
+        } else if (res.errType === 2) {
+          $scope.formatError = true;
+          $timeout($scope.initState, 3000);
+        } else {
           $scope.serverError = true;
           $timeout($scope.initState, 3000);
-        });
+        };
+      })
+      .error(function(res) {
+        $scope.serverError = true;
+        $timeout($scope.initState, 3000);
+      });
     } else {
       $scope.signupForm.submitted = true;
       $timeout($scope.initState, 3000);
@@ -101,29 +109,40 @@ userApp.controller('RegCtrl', function($scope, $rootScope, $http, $location, $ti
 });
 
 /* Admin log in*/
-userApp.controller('AdminLoginCtrl', function($scope, $http, $location) {
+userApp.controller('AdminLoginCtrl', function($scope, $http, $location, $timeout) {
   $scope.user = {};
+  $scope.submitted = false;
+  $scope.initState = function initState() {
+    $scope.adminemailError = false;
+    $scope.adminloginError = false;
+    $scope.serverError = false;
+  }
+
   $scope.login = function() {
+    $scope.initState();
     var user = {
       'intrID': $scope.user.intrID,
       'pwd': $scope.user.pwd
     };
 
     $http.post('/adminLogin', user)
-      .success(function(res) {
-        console.log(res);
-
-        if (res.errType === 0) {
-          $location.path('/manage/books');
-        } else {
-          $scope.adminloginError = true;
-          $timeout($scope.adminloginError, 3000);
-        }
-      })
-      .error(function(res) {
-        $scope.serverError = true;
-        $timeout($scope.initState, 3000);
-        console.log('Error: ' + res);
-      });
+    .success(function(res) {
+     if (res.errType === 0) {
+      $location.path('/manage/books');
+    }
+    else if (res.errType === 1) {
+      $scope.adminemailError = true;
+      $timeout($scope.initState, 3000);
+    }
+    else {
+      $scope.adminloginError = true;
+      $timeout($scope.adminloginError, 3000);
+    }
+  })
+    .error(function(res) {
+      $scope.serverError = true;
+      $timeout($scope.initState, 3000);
+      console.log('Error: ' + res);
+    });
   };
 });
