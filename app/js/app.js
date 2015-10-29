@@ -97,17 +97,43 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
       url: '/adminLogin',
       templateUrl: 'views/admin/adminlogin.html',
       controller: 'AdminLoginCtrl'
-    });;
+    });
 });
 
-mainApp.run(function($rootScope) {
+mainApp.run(function($rootScope, $window) {
   $rootScope.logInUser = {
     'name': '',
-    'intrID': '',
+    'intrID': $window.localStorage.intrID ? $window.localStorage.intrID : '',
     'phoneNum': '',
     'likedBooks': [78, 79, 80, 81, 82, 83, 84, 85, 86, 67, 68, 69, 71, 72]
   };
   $rootScope.logOut = function logOut() {
     $rootScope.logInUser = {};
+    $window.localStorage.clear();
+
   };
+});
+
+mainApp.factory('authInterceptor', function($rootScope, $q, $window) {
+  return {
+    request: function(config) {
+      config.headers = config.headers || {};
+      if ($rootScope.logInUser.intrID) {
+        config.headers.intrID = $rootScope.logInUser.intrID;
+      }
+      return config;
+    },
+    responseError: function(rejection) {
+
+      if (rejection.status === 401) {
+        // handle the case where the user is not authenticated
+        $location.path('/login');
+      }
+      //return $q.reject(rejection);
+    }
+  };
+});
+
+mainApp.config(function($httpProvider) {
+  $httpProvider.interceptors.push('authInterceptor');
 });

@@ -18,13 +18,13 @@
             <li><a ui-sref="main.free">Free</a></li>
           </ul>
           <span class="line"></span>
-          <h3 ng-if="!logInUser.name">User</h3>
-          <h3 ng-if="logInUser.name">{{logInUser.name}}</h3>
-          <ul class="nav menu" ng-if="!logInUser.name">
+          <h3 ng-if="!logInUser.intrID">User</h3>
+          <h3 ng-if="logInUser.intrID">{{logInUser.intrID}}</h3>
+          <ul class="nav menu" ng-if="!logInUser.intrID">
             <li><a ui-sref="register">Sign up</a></li>
             <li><a ui-sref="login">Log in</a></li>
           </ul>
-          <ul class="nav menu" ng-if="logInUser.name">
+          <ul class="nav menu" ng-if="logInUser.intrID">
             <li><a ui-sref="main.home">Home</a></li>
             <li><a ui-sref="main.setting">Setting</a></li>
             <li><a ui-sref="main.liked">I Liked</a></li>
