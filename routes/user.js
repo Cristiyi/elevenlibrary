@@ -1,4 +1,5 @@
 var User = require('../models/User.js');
+var jwt = require('jsonwebtoken');
 /*
  * GET users listing.
  */
@@ -36,7 +37,7 @@ app.post('/adminLogin', function(req, res){
     }
   });
   
-  
+
   app.post('/login', function(req, res) {
     User.findOne({
       'intrID': req.body.intrID
@@ -50,9 +51,14 @@ app.post('/adminLogin', function(req, res){
       if(user){
         if(user.pwd == req.body.pwd){
           console.log('[Login]Successfully'+ user);
+          var profile = {
+            intrID : user.intrID,
+            pwd: user.pwd
+          };
+          var token = jwt.sign(profile, 'elevenlibrary', { expiresInMinutes: 1 });
           res.json({
             'errType': 0,
-            'loginUser':user
+            'token': token
           });
         }else{
           console.log('[Login]Wrong Password');
@@ -152,4 +158,13 @@ app.post('/adminLogin', function(req, res){
       });
     }
   });
+/*************************************************** test */
+  app.get('/elib/restricted', function (req, res) {
+    console.log('user ' + req.intrID + ' is calling /restricted');
+    res.json({
+      name: req.intrID
+    });
+  });
+
+
 };

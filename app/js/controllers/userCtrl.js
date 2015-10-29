@@ -18,15 +18,17 @@ userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $
         'pwd': $scope.user.pwd
       };
       $http.post('/login', user)
-      .success(function(res) {
-        console.log(res);
+      .success(function(res, status, headers, config) {
+       console.log("before check res" + res);
         if (res.errType === 0) {
+          console.log("check res" + res);
+          $window.sessionStorage.token = res.token;
           $location.path('/books/popular');
-          $rootScope.logInUser.name = res.loginUser.name;
-          $rootScope.logInUser.intrID = res.loginUser.intrID;
+          //$rootScope.logInUser.name = res.loginUser.name;
+          $rootScope.logInUser.intrID = user.intrID;
 
           $window.localStorage.setItem('intrID', $scope.user.intrID);
-          $window.localStorage.setItem('pwd', $scope.user.pwd);
+          //$window.localStorage.setItem('pwd', $scope.user.pwd);
         } else if (res.errType === 1) {
           $scope.userError = true;
           $timeout($scope.initState, 3000);
@@ -39,6 +41,7 @@ userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $
         };
       })
       .error(function(res) {
+        delete $window.sessionStorage.token;
         $scope.serverError = true;
         $timeout($scope.initState, 3000);
       });
@@ -80,6 +83,7 @@ userApp.controller('RegCtrl', function($scope, $rootScope, $http, $location, $ti
       $http.post('/register', user)
       .success(function(res) {
         if (res.errType === 0) {
+          $window.sessionStorage.token = res.token;
           $location.path('/books/popular');
           $rootScope.logInUser.name = $scope.user.name;
           $rootScope.logInUser.intrID = $scope.user.intrID;
