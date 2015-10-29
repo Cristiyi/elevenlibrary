@@ -10,11 +10,14 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li class="active"><a ui-sref="manage.books">Books</a></li>
-            <li><a ui-sref="manage.logs">Events</a></li>
-            <li><a ui-sref="manage.logs">Logs</a></li>
+            <li ng-class="{active: currentState.route==0}"><a ui-sref="manage.books" ng-click="currentState.route=0">Books</a></li>
+            <li ng-class="{active: currentState.route==1}"><a ui-sref="manage.logs" ng-click="currentState.route=1">Events</a></li>
+            <li ng-class="{active: currentState.route==2}"><a ui-sref="manage.logs" ng-click="currentState.route=2">Logs</a></li>
           </ul>
-          <p class="navbar-text">Total Books:<span>{{books.length}}</span></p>
+          <p ng-if="currentState.route==0" class="navbar-text"><strong>{{currentState.book.totalNum}}</strong>&nbsp; books:&nbsp;&nbsp;<strong>{{currentState.book.freeNum}}</strong>&nbsp;free&nbsp;&nbsp;&nbsp;<strong>{{currentState.book.resNum}}</strong>&nbsp;reserved&nbsp;&nbsp;&nbsp;<strong>{{currentState.book.borNum}}</strong>&nbsp;borrowed&nbsp;&nbsp;&nbsp;</p>
+          <p ng-if="currentState.route==0" class="navbar-text"></p>
+          <p ng-if="currentState.route==0" class="navbar-text"></p>
+          <p ng-if="currentState.route==0" class="navbar-text"></p>
         </div>
       </div>
     </nav>

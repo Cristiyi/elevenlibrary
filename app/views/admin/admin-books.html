@@ -13,8 +13,10 @@
       <td class="text-center" header="'headerCheckbox.html'">
         <input type="checkbox" ng-model="checkboxes.items[book.unqId]" />
       </td>
-      <td class="text-center" title="'ID'" filter="{ unqId: 'text'}" sortable="'unqId'">
-        <a ng-href="#/">{{book.unqId}}</a>
+      <td class="text-center" title="'#'">
+        <a ng-href="#/manage/book/{{book.unqId}}"><span class="glyphicon glyphicon-pencil"></span></a>
+      </td>
+      <td class="text-center" title="'ID'" filter="{ unqId: 'text'}" sortable="'unqId'">{{book.unqId}}
       </td>
       <td class="text-center" title="'Name'" filter="{ name: 'text'}" sortable="'name'">
         {{book.name}}
@@ -136,3 +138,49 @@
       </div>
     </div>
   </div>
+</div>
+<div class="modal fade" id="deleteBooksModal" tabindex="-1" role="dialog" aria-labelledby="deleteBooksModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="gridSystemModalLabel">Delete Books</h4>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+          <h4>Are you sure to <strong>delete</strong> these books below?</h4>
+          <table class="table table-striped">
+            <colgroup span="1" width="5%" />
+            <colgroup span="1" width="10%" />
+            <colgroup span="1" width="550px" />
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>ID</th>
+                <th>Name</th>
+                <th>ISBN</th>
+                <th ng-show="deleteBookList.isDeleting">Result</th>
+              </tr>
+            </thead>
+            <tr ng-repeat="book in deleteBookList.list">
+              <th>{{$index + 1}}</th>
+              <th>{{book.unqId}}</th>
+              <th>{{book.name}}</th>
+              <th>{{book.isbn}}</th>
+              <th ng-show="deleteBookList.isDeleting"><span ng-show="book.delSuc == 1" class="glyphicon glyphicon-ok"></span><span ng-show="book.delSuc ==2" class="glyphicon glyphicon-remove"></span></th>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div class="progress" ng-if="deleteBookList.isDeleting" style="height:5px; margin-bottom: 0; border-radius: 0">
+        <div class="progress-bar" role="progressbar" aria-valuenow="test" aria-valuemin="0" aria-valuemax="100" style="width: {{test}}%">
+          <span class="sr-only"></span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="startDelete()" id="deleteButton" data-loading-text="Deleting..." autocomplete="off">Delete</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

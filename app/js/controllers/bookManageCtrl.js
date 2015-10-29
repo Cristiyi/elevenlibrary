@@ -2,10 +2,45 @@ var bookManageApp = angular.module('bookManageApp', []);
 
 bookManageApp.controller('ManageCtrl', function($scope, adminBooksService) {
   $scope.books = adminBooksService.adminBooks;
+  $scope.currentState = {
+    route: 0,
+    book: {
+      totalNum: 0,
+      freeNum: 0,
+      resNum: 0,
+      borNum: 0
+    }
+  };
+  $scope.findBook = function findBook(bookId) {
+    for (var index = 0; index < $scope.books.length; index++) {
+      if ($scope.books[index].unqId == bookId) {
+        return index;
+      }
+    }
+  };
+  $scope.$watch(function() {
+    return $scope.books.length;
+  }, function() {
+    console.log('>>>Books Have Changed');
+    $scope.currentState.book.totalNum = $scope.books.length;
+    $scope.currentState.book.freeNum = 0;
+    $scope.currentState.book.resNum = 0;
+    $scope.currentState.book.borNum = 0;
+    angular.forEach($scope.books, function(book) {
+      if (book.status == 0) {
+        $scope.currentState.book.freeNum++;
+      } else if (book.status == 1) {
+        $scope.currentState.book.resNum++;
+      } else if (book.status == 2) {
+        $scope.currentState.book.borNum++;
+      };
+    })
+  });
 });
 
-bookManageApp.controller('ManageBooksCtrl', function($scope, $element, NgTableParams, adminBooksService) {
+bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $location, $timeout, NgTableParams, adminBooksService) {
 
+  $scope.bookRoute = true;
 
   $scope.setting = {
     'search': {
@@ -58,7 +93,6 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, NgTablePa
       $scope.checkboxes.items[item.unqId] = value;
     });
   });
-
 
   function settingSearch() {
     if ($scope.setting.search.type == '0') {
@@ -186,19 +220,105 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, NgTablePa
     $scope.tableParams.settings().filterOptions.filterComparator = currentSetting.showStrict;
   };
 
-  $scope.deleteBooks = function deleteBooks(){
+  $scope.deleteBooks = function deleteBooks() {
+    $scope.deleteBookList = {
+      isDeleting: false,
+      deletedNum: 0,
+      list: []
+    };
+    angular.forEach($scope.books, function(book) {
+      if ($scope.checkboxes.items[book.unqId]) {
+        var newbook = {
+          unqId: book.unqId,
+          name: book.name,
+          isbn: book.isbn,
+          delType: 0
+        };
+        $scope.deleteBookList.list.push(book);
+      }
+    });
+    if ($scope.deleteBookList.list.length !== 0) {
+      $('#deleteBooksModal').modal('toggle');
+    };
   };
+
+  $scope.startDelete = function startDelete() {
+    angular.forEach($scope.deleteBookList.list, function(book) {
+      $scope.books.splice($scope.findBook(book.unqId), 1);
+    });
+    $('#deleteBooksModal').modal('hide');
+    $scope.tableParams.reload();
+
+    // $http.delete('/admin/book/' + book.unqId)
+    //   .success(function(data, status, headers, config) {
+    //     $scope.deleteBookList.isDeleting = true;
+    //     $scope.deleteBookList.deletedNum++;
+    //     if ($scope.deleteBookList.deletedNum == $scope.deleteBookList.list.length) {
+    //       $('#deleteBooksModal').modal('hide');
+    //     }
+    //   })
+    //   .error(function(data, status, headers, config) {
+    //     console.log(data);
+    //     $scope.deleteBookList.isDeleting = true;
+    //     $scope.deleteBookList.deletedNum++;
+    //     book.delType = 1;
+    //     if ($scope.deleteBookList.deletedNum == $scope.deleteBookList.list.length) {
+    //       $('#deleteBooksModal').modal('hide');
+    //     }
+    //   });
+  };
+
+  $scope.modifyBook = function modifyBook() {
+    var modifyBookList = [];
+    angular.forEach($scope.books, function(book) {
+      if ($scope.checkboxes.items[book.unqId]) {
+        modifyBookList.push(book.unqId);
+      }
+    });
+    if (modifyBookList.length == 1) {
+      $location.path('/manage/book/' + modifyBookList[0]);
+    };
+  }
 });
 
-bookManageApp.controller('ManageBookCtrl', function($scope, $http) {});
+bookManageApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $location, $stateParams) {
+  $scope.book = {};
+  $scope.initBook = function initBook() {
+    for (var index = 0; index < $scope.books.length; index++) {
+      if ($scope.books[index].unqId == $stateParams.bookId) {
+        $scope.book = $scope.books[index];
+        break;
+      }
+    };
+
+    if (!$scope.book.unqId) {
+      $location.path('/manage/books');
+    };
+  };
+  $scope.initBook();
+  $scope.saveBook = function saveBook() {
+    $scope.books.splice($scope.findBook($scope.book.unqId), 1, $scope.book);
+    $location.path('/manage/books');
+  };
+  $scope.deleteBook = function deleteBook() {
+    $('#deleteBookModal').modal('hide');
+    $scope.books.splice($scope.findBook($scope.book.unqId), 1);
+    $timeout(function() {
+      $location.path('/manage/books');
+    }, 500);
+  };
+});
 
 bookManageApp.controller('NewBookCtrl', function($scope, $http, $timeout, $location) {
   $scope.book = {};
   $scope.book.image = "http://www.w3cfuns.com/data/attachment/forum/201402/21/110314oj7snopjo7qq3u7u.jpg";
+  $scope.book.status = 0;
   $scope.addBook = function addBook() {
     $('#addButton').button('loading');
     $timeout(function() {
+      $scope.books.push($scope.book);
       $('#addButton').button('reset');
-    }, 3000);
+      $location.path('/manage/books');
+    }, 2000);
   };
 });

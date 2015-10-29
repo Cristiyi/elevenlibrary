@@ -79,7 +79,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
       controller: 'NewBookCtrl'
     })
     .state('manage.detail', {
-      url: '/manage/:bookId',
+      url: '/manage/book/:bookId',
       templateUrl: 'views/admin/admin-item.html',
       controller: 'ManageBookCtrl'
     })
