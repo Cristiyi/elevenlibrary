@@ -1,19 +1,7 @@
 var bookManageApp = angular.module('bookManageApp', []);
 
 bookManageApp.controller('ManageCtrl', function($scope, adminBooksService) {
-  $scope.books = [];
-  $scope.getAllBooks = function(){
-    adminBooksService.getAllBooks(function(res){
-      if (res.errType == 0){
-        $scope.books = res.data;
-      }else{
-        console.log('[ManageCtrl]errTypeError' + res);
-      };
-    }, function(res){
-      console.log('[ManageCtrl]Error' + res);
-    });
-  };
-  $scope.getAllBooks();
+  $scope.books = adminBooksService.getAllBooks;
 
   $scope.currentState = {
     route: 0,
@@ -255,29 +243,24 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $l
   };
 
   $scope.startDelete = function startDelete() {
+    var count = 0;
     angular.forEach($scope.deleteBookList.list, function(book) {
-      $scope.books.splice($scope.findBook(book.unqId), 1);
+      adminBooksService.deleteOneBook(book.unqId, function(res) {
+        if (res.errType == 0) {
+          $scope.books.splice($scope.findBook(book.unqId), 1);
+        } else {
+          alert('Delete Book(ID: ' + book.unqId + ' ) failed. errType =' + res.errType);
+        };
+      }, function(res) {
+        alert('Delete Book(ID: ' + book.unqId + ' ) failed. Res Error!');
+      });
+      count++;
+      if (count == $scope.deleteBookList.list.length) {
+        $('#deleteBooksModal').modal('hide');
+        $scope.tableParams.reload();
+      }
     });
-    $('#deleteBooksModal').modal('hide');
-    $scope.tableParams.reload();
 
-    // $http.delete('/admin/book/' + book.unqId)
-    //   .success(function(data, status, headers, config) {
-    //     $scope.deleteBookList.isDeleting = true;
-    //     $scope.deleteBookList.deletedNum++;
-    //     if ($scope.deleteBookList.deletedNum == $scope.deleteBookList.list.length) {
-    //       $('#deleteBooksModal').modal('hide');
-    //     }
-    //   })
-    //   .error(function(data, status, headers, config) {
-    //     console.log(data);
-    //     $scope.deleteBookList.isDeleting = true;
-    //     $scope.deleteBookList.deletedNum++;
-    //     book.delType = 1;
-    //     if ($scope.deleteBookList.deletedNum == $scope.deleteBookList.list.length) {
-    //       $('#deleteBooksModal').modal('hide');
-    //     }
-    //   });
   };
 
   $scope.modifyBook = function modifyBook() {
@@ -293,7 +276,7 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $l
   }
 });
 
-bookManageApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $location, $stateParams) {
+bookManageApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $location, $stateParams, adminBooksService) {
   $scope.book = {};
   $scope.initBook = function initBook() {
     for (var index = 0; index < $scope.books.length; index++) {
@@ -309,27 +292,51 @@ bookManageApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $lo
   };
   $scope.initBook();
   $scope.saveBook = function saveBook() {
-    $scope.books.splice($scope.findBook($scope.book.unqId), 1, $scope.book);
-    $location.path('/manage/books');
+    adminBooksService.setBook($scope.book, function(res) {
+      if (res.errType == 0) {
+        $scope.books.splice($scope.findBook($scope.book.unqId), 1, $scope.book);
+        $location.path('/manage/books');
+      } else {
+        alert('Set Book(ID: ' + $scope.book.unqId + ' ) failed. errType =' + res.errType);
+      }
+    }, function(res) {
+      alert('Set Book(ID: ' + $scope.book.unqId + ' ) failed. Res Error!');
+    })
   };
   $scope.deleteBook = function deleteBook() {
-    $('#deleteBookModal').modal('hide');
-    $scope.books.splice($scope.findBook($scope.book.unqId), 1);
-    $timeout(function() {
-      $location.path('/manage/books');
-    }, 500);
+    adminBooksService.deleteOneBook($scope.book.unqId, function(res) {
+      if (res.errType == 0) {
+        $('#deleteBookModal').modal('hide');
+        $scope.books.splice($scope.findBook($scope.book.unqId), 1);
+        $timeout(function() {
+          $location.path('/manage/books');
+        }, 500);
+      } else {
+        alert('Delete Book(ID: ' + $scope.book.unqId + ' ) failed. errType =' + res.errType);
+      };
+    }, function(res) {
+      alert('Delete Book(ID: ' + $scope.book.unqId + ' ) failed. Res Error!');
+    });
   };
 });
 
-bookManageApp.controller('NewBookCtrl', function($scope, $http, $timeout, $location) {
+bookManageApp.controller('NewBookCtrl', function($scope, $http, $timeout, $location, adminBooksService) {
   $scope.book = {};
   $scope.book.status = 0;
   $scope.addBook = function addBook() {
     $('#addButton').button('loading');
-    $timeout(function() {
-      $scope.books.push($scope.book);
+    adminBooksService.addBook($scope.book, function(res) {
+      if (res.errType == 0) {
+        $scope.books.push($scope.book);
+        $('#addButton').button('reset');
+        $location.path('/manage/books');
+      } else {
+        alert('Add Book(ID: ' + $scope.book.unqId + ' ) failed. errType =' + res.errType);
+        $('#addButton').button('reset');
+      };
+    }, function(res) {
+      alert('Add Book(ID: ' + $scope.book.unqId + ' ) failed. Res Error!');
       $('#addButton').button('reset');
-      $location.path('/manage/books');
-    }, 2000);
+    });
   };
 });
