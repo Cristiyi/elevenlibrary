@@ -1,6 +1,6 @@
-<div class="col-xs-6 col-md-3">
+<div class="col-xs-6 col-md-3" style="width:200px; margin-right: 100px; margin-left: 50px">
   <label>Image</label>
-  <a ng-href="{{book.image}}" target="_blank">
+  <a ng-href="{{book.image}}" target="_blank" style="width: 200px; height: 280px;">
     <img class="" style="width: 200px; height: 280px; background-image: url({{book.image}}); background-size: 200px 280px; background-repeat:no-repeat; display: block; overflow:hidden">
   </a>
 </div>
@@ -78,6 +78,8 @@
         <div class="container-fluid">
           <h4>Are you sure to <strong>delete</strong> this book?</h4>
           <table class="table table-striped">
+            <colgroup span="1" width="5%" />
+            <colgroup span="1" width="10%" />
             <thead>
               <tr>
                 <th>#</th>

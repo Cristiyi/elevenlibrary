@@ -100,7 +100,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
     });
 });
 
-mainApp.run(function($rootScope, $window) {
+mainApp.run(function($rootScope, $window, $http, $location) {
   $rootScope.logInUser = {
     'name': '',
     'intrID': $window.localStorage.intrID ? $window.localStorage.intrID : '',
@@ -110,26 +110,37 @@ mainApp.run(function($rootScope, $window) {
   $rootScope.logOut = function logOut() {
     $rootScope.logInUser = {};
     $window.localStorage.clear();
-
+    delete $window.sessionStorage.token;
   };
+  //test token
+  $rootScope.callRestricted = function callRestricted() {
+    $http({
+        url: '/elib/restricted',
+        method: 'GET'
+      })
+      .success(function(data, status, headers, config) {
+        console.log(data);
+      })
+  }; //test token
+
 });
 
-mainApp.factory('authInterceptor', function($rootScope, $q, $window) {
+mainApp.factory('authInterceptor', function($rootScope, $q, $window, $location) {
   return {
     request: function(config) {
       config.headers = config.headers || {};
       if ($rootScope.logInUser.intrID) {
-        config.headers.intrID = $rootScope.logInUser.intrID;
+        //config.headers.intrID = $rootScope.logInUser.intrID;
+        config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
       }
       return config;
     },
     responseError: function(rejection) {
-
       if (rejection.status === 401) {
         // handle the case where the user is not authenticated
         $location.path('/login');
       }
-      //return $q.reject(rejection);
+      return $q.reject(rejection);
     }
   };
 });

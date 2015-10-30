@@ -4,8 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var jwt = require('jsonwebtoken');
+var expressJwt = require('express-jwt');
 
-var db = require('./models/db')
+var db = require('./models/db');
 // var mongoose = require('mongoose');
 // mongoose.connect('mongodb://localhost/elevenlibrary');
 
@@ -24,6 +26,13 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'app')));
+
+app.use('/elib', expressJwt({secret: 'elevenlibrary'}));
+app.use(function(err, req, res, next){
+  if (err.constructor.name === 'UnauthorizedError') {
+    res.status(401).send('Unauthorized');
+  }
+});
 
 require('./routes/user')(app);
 

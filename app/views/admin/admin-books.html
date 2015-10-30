@@ -152,7 +152,6 @@
           <table class="table table-striped">
             <colgroup span="1" width="5%" />
             <colgroup span="1" width="10%" />
-            <colgroup span="1" width="550px" />
             <thead>
               <tr>
                 <th>#</th>
@@ -170,11 +169,6 @@
               <th ng-show="deleteBookList.isDeleting"><span ng-show="book.delSuc == 1" class="glyphicon glyphicon-ok"></span><span ng-show="book.delSuc ==2" class="glyphicon glyphicon-remove"></span></th>
             </tr>
           </table>
-        </div>
-      </div>
-      <div class="progress" ng-if="deleteBookList.isDeleting" style="height:5px; margin-bottom: 0; border-radius: 0">
-        <div class="progress-bar" role="progressbar" aria-valuenow="test" aria-valuemin="0" aria-valuemax="100" style="width: {{test}}%">
-          <span class="sr-only"></span>
         </div>
       </div>
       <div class="modal-footer">

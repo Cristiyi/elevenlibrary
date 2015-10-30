@@ -21,7 +21,6 @@ bookManageApp.controller('ManageCtrl', function($scope, adminBooksService) {
   $scope.$watch(function() {
     return $scope.books.length;
   }, function() {
-    console.log('>>>Books Have Changed');
     $scope.currentState.book.totalNum = $scope.books.length;
     $scope.currentState.book.freeNum = 0;
     $scope.currentState.book.resNum = 0;
@@ -311,7 +310,6 @@ bookManageApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $lo
 
 bookManageApp.controller('NewBookCtrl', function($scope, $http, $timeout, $location) {
   $scope.book = {};
-  $scope.book.image = "http://www.w3cfuns.com/data/attachment/forum/201402/21/110314oj7snopjo7qq3u7u.jpg";
   $scope.book.status = 0;
   $scope.addBook = function addBook() {
     $('#addButton').button('loading');
