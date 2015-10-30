@@ -1,7 +1,20 @@
 var bookManageApp = angular.module('bookManageApp', []);
 
 bookManageApp.controller('ManageCtrl', function($scope, adminBooksService) {
-  $scope.books = adminBooksService.adminBooks;
+  $scope.books = [];
+  $scope.getAllBooks = function(){
+    adminBooksService.getAllBooks(function(res){
+      if (res.errType == 0){
+        $scope.books = res.data;
+      }else{
+        console.log('[ManageCtrl]errTypeError' + res);
+      };
+    }, function(res){
+      console.log('[ManageCtrl]Error' + res);
+    });
+  };
+  $scope.getAllBooks();
+
   $scope.currentState = {
     route: 0,
     book: {
