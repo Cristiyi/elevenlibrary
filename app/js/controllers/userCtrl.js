@@ -19,9 +19,9 @@ userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $
       };
       $http.post('/login', user)
       .success(function(res, status, headers, config) {
-       console.log("before check res" + res);
+
         if (res.errType === 0) {
-          console.log("check res" + res);
+
           $window.sessionStorage.token = res.token;
           $location.path('/books/popular');
           //$rootScope.logInUser.name = res.loginUser.name;

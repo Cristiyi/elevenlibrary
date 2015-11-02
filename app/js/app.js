@@ -110,18 +110,16 @@ mainApp.run(function($rootScope,$window,$http) {
     delete $window.sessionStorage.token;
   };
 //test token
- $rootScope.callRestricted = function callRestricted () {
-    $http({url: '/elib/restricted', method: 'GET'})
-    .success(function (data, status, headers, config) {
-      console.log("[callRestricted]still in seesion");
-      console.log("[callRestricted]check seeion");
-      console.log(data);
-    })
-    .error(function (data, status, headers, config) {
-      console.log("[callRestricted]outageseeion");
-      console.log(data);
+$rootScope.callRestricted = function callRestricted () {
+  $http({url: '/elib/restricted', method: 'GET'})
+  .success(function (data, status, headers, config) {
+    console.log("[callRestricted]still in seesion");
 
-    });
+  });
+    // .error(function (data, status, headers, config) {
+    //   console.log(data);
+
+    // });
   };//test token
 
 });
@@ -131,19 +129,18 @@ mainApp.factory('authInterceptor', function ($rootScope, $q, $window, $location)
     request: function (config) {
       config.headers = config.headers || {};
       if ($rootScope.logInUser.intrID) {
-        //config.headers.intrID = $rootScope.logInUser.intrID;
-        config.headers.token = '11Lib ' + $window.sessionStorage.token;
-        console.log("windows token"+$window.sessionStorage.token);
-      }
-      return config;
-    },
-    responseError: function (rejection) {
-console.log("[responseError]error session");
-      if (rejection.status === 401) {
+       config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
+     }
+     return config;
+   },
+   responseError: function (rejection) {
+
+    if (rejection.status === 401) {
         // handle the case where the user is not authenticated
+        console.log("[responseError]session timeout");
         $location.path('/login');
       }
-      //return $q.reject(rejection);
+      return $q.reject(rejection);
     }
   };
 });
