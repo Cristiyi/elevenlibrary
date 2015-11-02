@@ -1,4 +1,4 @@
-var User = require('../models/User.js');
+var User = require('../models/User.js');//User mocule
 var jwt = require('jsonwebtoken');
 /*
  * GET users listing.
@@ -48,7 +48,7 @@ app.post('/adminLogin', function(req, res){
           'errType': 3
         });
       }
-      if(user){
+      else if(user){
         if(user.pwd == req.body.pwd){
           console.log('[Login]Successfully'+ user);
           var profile = {
@@ -122,7 +122,7 @@ app.post('/adminLogin', function(req, res){
             'errType': 3
           });
         }
-        if(!user){
+        else if(!user){
           User.create(newUser, function(err, newuser) {
             if(err) {
               console.log('[Register]DB insert uer err : '+ err);
@@ -130,9 +130,8 @@ app.post('/adminLogin', function(req, res){
                 'errType': 3
               });
             }
-             console.log('[Register]DB insert newuser' + newuser);
-             if(newuser){
-              console.log('[Register]Successful');
+             else if(newuser){
+              console.log('[Register]DB insert newuser Successful' + newuser);
               res.json({
                 'errType': 0,
                 'RegUser': newuser
