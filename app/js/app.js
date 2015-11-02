@@ -2,7 +2,9 @@ var mainApp = angular.module('mainApp', [
   'ngAnimate',
   'ui.router',
   'ngMessages',
+  'serviceApp',
   'wu.masonry',
+  'ngTable',
   'bookListApp',
   'bookDetailApp',
   'bookManageApp',
@@ -59,7 +61,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
   })
   .state('manage', {
     url: '',
-    templateUrl: 'views/admin/admin-main.html'
+    templateUrl: 'views/admin/admin-main.html',
+    controller: 'ManageCtrl'
   })
   .state('manage.logs', {
     url: '/manage/logs',
@@ -76,7 +79,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
     controller: 'NewBookCtrl'
   })
   .state('manage.detail', {
-    url: '/manage/:bookId',
+    url: '/manage/book/:bookId',
     templateUrl: 'views/admin/admin-item.html',
     controller: 'ManageBookCtrl'
   })
@@ -94,13 +97,13 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
     url: '/adminLogin',
     templateUrl: 'views/admin/adminlogin.html',
     controller: 'AdminLoginCtrl'
-  });;
+  });
 });
 
-mainApp.run(function($rootScope,$window,$http) {
+mainApp.run(function($rootScope, $window, $http, $location) {
   $rootScope.logInUser = {
     'name': '',
-    'intrID': $window.localStorage.intrID? $window.localStorage.intrID:'',
+    'intrID': $window.localStorage.intrID ? $window.localStorage.intrID : '',
     'phoneNum': '',
     'likedBooks': [78, 79, 80, 81, 82, 83, 84, 85, 86, 67, 68, 69, 71, 72]
   };
@@ -109,6 +112,7 @@ mainApp.run(function($rootScope,$window,$http) {
     $window.localStorage.clear();
     delete $window.sessionStorage.token;
   };
+
 //test token
 $rootScope.callRestricted = function callRestricted () {
   $http({url: '/elib/restricted', method: 'GET'})
@@ -124,11 +128,12 @@ $rootScope.callRestricted = function callRestricted () {
 
 });
 
-mainApp.factory('authInterceptor', function ($rootScope, $q, $window, $location) {
+mainApp.factory('authInterceptor', function($rootScope, $q, $window, $location) {
   return {
-    request: function (config) {
+    request: function(config) {
       config.headers = config.headers || {};
       if ($rootScope.logInUser.intrID) {
+
        config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
      }
      return config;
@@ -145,7 +150,6 @@ mainApp.factory('authInterceptor', function ($rootScope, $q, $window, $location)
   };
 });
 
-mainApp.config(function ($httpProvider) {
+mainApp.config(function($httpProvider) {
   $httpProvider.interceptors.push('authInterceptor');
 });
-

@@ -9,11 +9,11 @@ body {
   border: 0;
   outline: 0;
   background: transparent;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 62.5%;
   text-rendering: optimizeLegibility;
   background: #fff;
-  font-size: 100%;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.42857143;
 }
 
 a,
@@ -25,12 +25,6 @@ a:hover {
   color: #222;
   text-decoration: none;
   outline: 0;
-}
-
-*,
-:after,
-:before {
-  box-sizing: content-box
 }
 
 li,
@@ -50,6 +44,26 @@ input.ng-invalid {
 
 input.ng-valid {
   border: 1px solid green;
+}
+#selectdiv{
+  padding: 0 15px;
+}
+#selectspan{
+  width: 100px;
+}
+
+#selectselect{
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+#selectinput{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.form-control-feedback{
+  right: 15px;
 }
 
 
@@ -736,7 +750,6 @@ span.comment-meta-likes {
   background-color: transparent;
   position: relative;
   float: left;
-  border: 1px solid #d8d8d8;
   border-radius: 3px;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px
@@ -787,7 +800,8 @@ span.comment-meta-likes {
   margin: 0;
   border: none;
   background-color: transparent;
-  color: #666
+  color: #666;
+  box-sizing: content-box;
 }
 
 #LoginForm label {
@@ -808,6 +822,7 @@ span.comment-meta-likes {
   line-height: 46px;
   font-weight: 700;
   padding: 0 21px;
+  box-sizing: content-box;
 }
 
 #LoginBelow {
@@ -912,7 +927,7 @@ span.comment-meta-likes {
 }
 
 #signupForm .field {
-  width: 288px;
+  width: 286px;
   position: relative;
   z-index: 3;
   font-weight: 400;
@@ -920,7 +935,8 @@ span.comment-meta-likes {
   margin: 0;
   border: none;
   background-color: transparent;
-  color: #666
+  color: #666;
+  box-sizing: content-box;
 }
 
 #signupForm label {
@@ -962,6 +978,7 @@ span.comment-meta-likes {
   font-size: 15px;
   width: 140px;
   margin: 0 auto;
+  box-sizing: content-box;
 }
 
 #Profile {
