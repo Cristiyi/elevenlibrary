@@ -120,7 +120,7 @@ module.exports = function(app) {
 	});// add one book
 
 	app.delete('/admin/book/:unqId', function(req, res){
-		// console.log(req.params);
+		console.log(req.params);
 		var delunqID = req.params.unqId;
 		Book.findOne({
 			unqId : delunqID
@@ -180,5 +180,42 @@ module.exports = function(app) {
 	        }
 	    });
 	});// delete one book
+
+	app.put('/admin/book/unqId', function(req, res){
+		// console.log(req.params.unqId);
+		var param = req.body;
+		var mdfBook = {
+			name: param.name,
+			image: param.image,
+			author: param.author,
+			publisher: param.publisher,
+			pageCount: param.pageCount,
+			price: param.price,
+			desc: param.desc
+		}
+
+		BookProp.update({isbn: param.isbn},mdfBook, function(err, bookprop4){
+			if(err) {
+	          console.log('[update book info]update book info err : '+ err);
+	          res.json({
+	            'errType': 3
+	          });
+	        }
+	        else if(bookprop4.nModified){
+				console.log(bookprop4.nModified);
+				console.log('[update book info]update book Successfull');
+				res.json({
+				'errType': 0
+				});
+	        }else{
+	        	console.log('[update book info]update book Fail');
+				res.json({
+				'errType': 3
+				});
+	        }
+		});
+
+
+	});
 
 };
