@@ -117,6 +117,68 @@ module.exports = function(app) {
 		});
 
 
-	});// add a book
+	});// add one book
+
+	app.delete('/admin/book/:unqId', function(req, res){
+		// console.log(req.params);
+		var delunqID = req.params.unqId;
+		Book.findOne({
+			unqId : delunqID
+		}, function(err, book){
+			if(err) {
+	          console.log('[Delete a book]DB find a book err : '+ err);
+	          res.json({
+	            'errType': 3
+	          });
+	        }
+	        else if(!book){
+				console.log('[Delete a book]No this book');
+				res.json({
+				'errType': 1
+				});
+	        }else{
+	        	Book.update({unqId: delunqID},{isDeleted: 1}, function(err, delbook){
+	        		if(err) {
+			          console.log('[Delete a book]delete a book error : '+ err);
+			          res.json({
+			            'errType': 3
+			          });
+			        }
+            		else if(delbook.nModified){
+	        			BookProp.findOne({isbn: book.isbn}, function(err, bookprop2){
+	        				if(err) {
+					          console.log('[Delete a book]search bookprop2 error : '+ err);
+					        }else{
+					        	BookProp.update({isbn: bookprop2.isbn},{count: bookprop2.count-1}, function(err, bookprop3){
+			        				if(err) {
+							          console.log('[Delete a book]update book count error : '+ err);
+							          res.json({
+							            'errType': 3
+							          });
+							        }
+							        else if(bookprop3.nModified){
+							        	console.log('[Delete a book]delete a book Successfull');
+										res.json({
+											'errType': 0
+										});
+							        }else{
+							        	console.log('[Delete a book]update book count Fail');
+										res.json({
+											'errType': 3
+										});
+							        }
+		        				});
+					        }
+	        			});
+            		}else{
+            			console.log('[Delete a book] delete book Fail');
+						res.json({
+							'errType': 3
+						});
+            		}
+	        	});
+	        }
+	    });
+	});// delete one book
 
 };

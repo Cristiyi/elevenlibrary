@@ -55,7 +55,8 @@ app.post('/adminLogin', function(req, res){
             intrID : user.intrID,
             pwd: user.pwd
           };
-          var token = jwt.sign(profile, 'elevenlibrary', { expiresInMinutes: 1 });
+          // var token = jwt.sign(profile, 'elevenlibrary', { expiresInMinutes: 1 });
+          var token = jwt.sign(profile, 'elevenlibrary', { expiresIn: '1m' });
           res.json({
             'errType': 0,
             'token': token
