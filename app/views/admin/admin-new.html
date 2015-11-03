@@ -63,6 +63,8 @@
     <div class="col-sm-offset-2 col-sm-10">
       <button type="submit" class="btn btn-success" id="addButton" data-loading-text="Adding..." autocomplete="off">Add</button>
       <a ng-href="#/manage/books" class="btn btn-default">Cancel</a>
+      <div class="alert alert-danger bookAlert" role="alert" ng-show="currentState.book.message.type==5"><strong>Failed to add!</strong>This book has existed.</div>
+      <div class="alert alert-danger bookAlert" role="alert" ng-show="currentState.book.message.type==6"><strong>Failed to add!</strong>Server Error, please try again.</div>
     </div>
   </div>
 </form>
