@@ -46,6 +46,10 @@ input.ng-valid {
   border: 1px solid green;
 }
 
+textarea.form-control {
+  border: 1px solid green;
+}
+
 #selectdiv {
   padding: 0 15px;
 }
