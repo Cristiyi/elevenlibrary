@@ -86,7 +86,7 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $l
   };
 
   $scope.tableParams = new NgTableParams({
-    count: 5
+    count: 10
   }, {
     filterOptions: {
       filterComparator: false
@@ -272,32 +272,42 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $l
 
   $scope.startDelete = function startDelete() {
     var count = 0;
-    var isSuc = true;
+    var succCount = 0;
+    var failCount = 0;
+
+    function result(count) {
+      if (count == $scope.deleteBookList.list.length) {
+        $('#deleteBooksModal').modal('hide');
+        if (failCount == 0) {
+          $scope.alertMessage(3, {
+            'count': count
+          });
+        } else {
+          $scope.alertMessage(9, {
+            'succCount': succCount,
+            'failCount': failCount
+          });
+        };
+      };
+    }
+
     angular.forEach($scope.deleteBookList.list, function(book) {
       adminBooksService.deleteOneBook(book.unqId, function(res) {
         if (res.errType == 0) {
           $scope.books.splice($scope.findBook(book.unqId), 1);
           $scope.tableParams.reload();
+          succCount++;
+          result(++count);
         } else {
-          isSuc = false;
+          failCount++;
+          result(++count);
         };
+
       }, function(res) {
-        isSuc = false;
+        failCount++;
+        result(++count);
       });
-      count++;
     });
-    if (count == $scope.deleteBookList.list.length) {
-      $('#deleteBooksModal').modal('hide');
-      if (isSuc) {
-        $scope.alertMessage(3, {
-          'count': count
-        });
-      } else {
-        $scope.alertMessage(9, {
-          'count': count
-        });
-      };
-    };
   };
 
   $scope.modifyBook = function modifyBook() {
@@ -334,7 +344,7 @@ bookManageApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $lo
         $scope.books.splice($scope.findBook($scope.book.unqId), 1, $scope.book);
         $scope.alertMessage(4, $scope.book);
         $location.path('/manage/books');
-      } else if (errType == 1) {
+      } else if (res.errType == 1) {
         $scope.alertMessage(11, $scope.book);
       } else {
         $scope.alertMessage(12, $scope.book);

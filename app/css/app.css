@@ -1121,9 +1121,8 @@ span.comment-meta-likes {
 
 .bookAlert {
   display: inline-block;
-  padding-top: 6px;
+  padding-top: 5px;
   padding-bottom: 6px;
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 7px;
   margin-left: 5%;
 }

@@ -11,7 +11,7 @@
     <div class="alert alert-success bookAlert" role="alert" ng-show="currentState.book.message.type==2">Book&nbsp;(<strong>"{{currentState.book.message.book.unqId}}",&nbsp;"{{currentState.book.message.book.name}}"</strong>)&nbsp;has been deleted.</div>
     <div class="alert alert-success bookAlert" role="alert" ng-show="currentState.book.message.type==3"><strong>{{currentState.book.message.book.count}}</strong>&nbsp;Book have been deleted.</div>
     <div class="alert alert-success bookAlert" role="alert" ng-show="currentState.book.message.type==4">Book&nbsp;(<strong>"{{currentState.book.message.book.unqId}}",&nbsp;"{{currentState.book.message.book.name}}"</strong>)&nbsp;has been saved.</div>
-    <div class="alert alert-danger bookAlert" role="alert" ng-show="currentState.book.message.type==9"><strong>{{currentState.book.message.book.count}}</strong>&nbsp;Book have Not been deleted.</div>
+    <div class="alert alert-danger bookAlert" role="alert" ng-show="currentState.book.message.type==9">Book Delete:<strong>{{currentState.book.message.book.succCount}}</strong> Success, <strong>{{currentState.book.message.book.failCount}}</strong> Failed.</div>
   </div>
   <table ng-table="tableParams" class="table table-condensed table-hover" show-filter="setting.showAllFilters">
     <tr ng-repeat="book in $data" ng-class="{success: book.status==2, danger: book.status== 1}">
@@ -50,7 +50,7 @@
       <td class="text-center" title="'Evaluation'" ng-if="setting.showEvaluations" filter="{ 'evaluation.number': 'number'}" sortable="'evaluation.number'">
         {{book.evaluation.value}}({{book.evaluation.number}})
       </td>
-      <td class="text-center" title="'Status'" filter="{ status: 'select'}" sortable="'status'">
+      <td class="text-center" title="'Status'" filter="{ status: 'select'}" filter-data="[{ id: '', title: ''},{ id: '0', title: 'free'},{ id: '1', title: 'reserved'},{ id: '2', title: 'borrowed'}]" sortable="'status'">
         {{book.status==0? 'free':(book.status==1?'reserved':'borrowed')}}
       </td>
     </tr>

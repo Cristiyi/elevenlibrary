@@ -85,7 +85,7 @@ module.exports = function(app) {
 									pageCount: param.pageCount,
 									price: param.price,
 									count: 1,
-									// image: 
+									// image:
 				            	};
 				            	BookProp.create(newBookProp, function(err, newBookProp){
 				            		if(err){
@@ -182,7 +182,7 @@ module.exports = function(app) {
 	});// delete one book
 
 	app.put('/admin/book/unqId', function(req, res){
-		// console.log(req.params.unqId);
+		console.log(req.body);
 		var param = req.body;
 		var mdfBook = {
 			name: param.name,
