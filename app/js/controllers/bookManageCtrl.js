@@ -19,7 +19,6 @@ bookManageApp.controller('ManageCtrl', function($scope, $state, $timeout, adminB
   };
 
   $scope.alertMessage = function alertMessage(type, book) {
-    console.log('[alertMessage]type = ' + type + 'book = ' + book);
     $scope.currentState.book.message.type = type;
     $scope.currentState.book.message.book = book;
     $timeout(function() {

@@ -82,6 +82,7 @@ userApp.controller('RegCtrl', function($scope, $rootScope, $http, $location, $ti
       };
       $http.post('/register', user)
       .success(function(res) {
+        console.log(res);
         if (res.errType === 0) {
           $window.sessionStorage.token = res.token;
           $location.path('/books/popular');
