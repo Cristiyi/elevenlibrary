@@ -54,7 +54,7 @@ userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $
 });
 
 
-userApp.controller('RegCtrl', function($scope, $rootScope, $http, $location, $timeout) {
+userApp.controller('RegCtrl', function($scope, $rootScope, $http, $location, $timeout, $window) {
   $scope.submitted = false;
   $scope.user = {};
   $scope.initState = function initState() {
@@ -85,11 +85,9 @@ userApp.controller('RegCtrl', function($scope, $rootScope, $http, $location, $ti
         if (res.errType === 0) {
           $window.sessionStorage.token = res.token;
           $location.path('/books/popular');
-          $rootScope.logInUser.name = $scope.user.name;
-          $rootScope.logInUser.intrID = $scope.user.intrID;
-
+          $rootScope.logInUser.intrID = user.intrID;
           $window.localStorage.setItem('intrID', $scope.user.intrID);
-          $window.localStorage.setItem('pwd', $scope.user.pwd);
+
         } else if (res.errType === 1) {
           $scope.emailError = true;
           $timeout($scope.initState, 3000);

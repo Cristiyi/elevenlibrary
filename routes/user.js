@@ -90,7 +90,7 @@ app.post('/adminLogin', function(req, res){
     };
 
     var validateEmail = /^\w+(@cn.ibm.com)$/;
-    var validatePwd = /^[A-Za-z0-9]{6,}$/;
+    var validatePwd = /^(?!^\d+$)(?!^[a-zA-Z]+$)(?!^[~!@#$%^?&*.]+$).{6,22}$/;
     var validatePhone = /^[0-9]{11}$/;
 
     var validateFail = '';
