@@ -45,24 +45,30 @@ input.ng-invalid {
 input.ng-valid {
   border: 1px solid green;
 }
-#selectdiv{
+
+textarea.form-control {
+  border: 1px solid green;
+}
+
+#selectdiv {
   padding: 0 15px;
 }
-#selectspan{
+
+#selectspan {
   width: 100px;
 }
 
-#selectselect{
+#selectselect {
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
 }
 
-#selectinput{
+#selectinput {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
 }
 
-.form-control-feedback{
+.form-control-feedback {
   right: 15px;
 }
 
@@ -1112,4 +1118,15 @@ span.comment-meta-likes {
 
 #likedDiv a:hover img {
   opacity: .8
+}
+
+
+/*Admin Book */
+
+.bookAlert {
+  display: inline-block;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  margin-bottom: 7px;
+  margin-left: 5%;
 }

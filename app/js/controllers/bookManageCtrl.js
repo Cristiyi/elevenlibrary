@@ -1,17 +1,44 @@
 var bookManageApp = angular.module('bookManageApp', []);
 
-bookManageApp.controller('ManageCtrl', function($scope, adminBooksService) {
+bookManageApp.controller('ManageCtrl', function($scope, $state, $timeout, adminBooksService) {
   $scope.books = adminBooksService.getAllBooks;
-
   $scope.currentState = {
     route: 0,
     book: {
-      totalNum: 0,
-      freeNum: 0,
-      resNum: 0,
-      borNum: 0
+      count: {
+        totalNum: 0,
+        freeNum: 0,
+        resNum: 0,
+        borNum: 0
+      },
+      message: {
+        type: 0,
+        book: {}
+      }
     }
   };
+
+  $scope.alertMessage = function alertMessage(type, book) {
+    $scope.currentState.book.message.type = type;
+    $scope.currentState.book.message.book = book;
+    $timeout(function() {
+      $scope.currentState.book.message.type = 0;
+      $scope.currentState.book.message.book = {};
+    }, 3000);
+  };
+
+  function initData() {
+    if ($state.current.name == 'manage.books') {
+      $scope.currentState.route = 0;
+    } else if ($state.current.name == 'manage.events') {
+      $scope.currentState.route = 1;
+    } else if ($state.current.name == 'manage.logs') {
+      $scope.currentState.route = 2;
+    }
+  };
+
+  initData();
+
   $scope.findBook = function findBook(bookId) {
     for (var index = 0; index < $scope.books.length; index++) {
       if ($scope.books[index].unqId == bookId) {
@@ -22,17 +49,17 @@ bookManageApp.controller('ManageCtrl', function($scope, adminBooksService) {
   $scope.$watch(function() {
     return $scope.books.length;
   }, function() {
-    $scope.currentState.book.totalNum = $scope.books.length;
-    $scope.currentState.book.freeNum = 0;
-    $scope.currentState.book.resNum = 0;
-    $scope.currentState.book.borNum = 0;
+    $scope.currentState.book.count.totalNum = $scope.books.length;
+    $scope.currentState.book.count.freeNum = 0;
+    $scope.currentState.book.count.resNum = 0;
+    $scope.currentState.book.count.borNum = 0;
     angular.forEach($scope.books, function(book) {
       if (book.status == 0) {
-        $scope.currentState.book.freeNum++;
+        $scope.currentState.book.count.freeNum++;
       } else if (book.status == 1) {
-        $scope.currentState.book.resNum++;
+        $scope.currentState.book.count.resNum++;
       } else if (book.status == 2) {
-        $scope.currentState.book.borNum++;
+        $scope.currentState.book.count.borNum++;
       };
     })
   });
@@ -58,7 +85,7 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $l
   };
 
   $scope.tableParams = new NgTableParams({
-    count: 5
+    count: 10
   }, {
     filterOptions: {
       filterComparator: false
@@ -244,23 +271,42 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $l
 
   $scope.startDelete = function startDelete() {
     var count = 0;
+    var succCount = 0;
+    var failCount = 0;
+
+    function result(count) {
+      if (count == $scope.deleteBookList.list.length) {
+        $('#deleteBooksModal').modal('hide');
+        if (failCount == 0) {
+          $scope.alertMessage(3, {
+            'count': count
+          });
+        } else {
+          $scope.alertMessage(9, {
+            'succCount': succCount,
+            'failCount': failCount
+          });
+        };
+      };
+    }
+
     angular.forEach($scope.deleteBookList.list, function(book) {
       adminBooksService.deleteOneBook(book.unqId, function(res) {
         if (res.errType == 0) {
           $scope.books.splice($scope.findBook(book.unqId), 1);
+          $scope.tableParams.reload();
+          succCount++;
+          result(++count);
         } else {
-          alert('Delete Book(ID: ' + book.unqId + ' ) failed. errType =' + res.errType);
+          failCount++;
+          result(++count);
         };
-      }, function(res) {
-        alert('Delete Book(ID: ' + book.unqId + ' ) failed. Res Error!');
-      });
-      count++;
-      if (count == $scope.deleteBookList.list.length) {
-        $('#deleteBooksModal').modal('hide');
-        $scope.tableParams.reload();
-      }
-    });
 
+      }, function(res) {
+        failCount++;
+        result(++count);
+      });
+    });
   };
 
   $scope.modifyBook = function modifyBook() {
@@ -295,28 +341,34 @@ bookManageApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $lo
     adminBooksService.setBook($scope.book, function(res) {
       if (res.errType == 0) {
         $scope.books.splice($scope.findBook($scope.book.unqId), 1, $scope.book);
+        $scope.alertMessage(4, $scope.book);
         $location.path('/manage/books');
+      } else if (res.errType == 1) {
+        $scope.alertMessage(11, $scope.book);
       } else {
-        alert('Set Book(ID: ' + $scope.book.unqId + ' ) failed. errType =' + res.errType);
+        $scope.alertMessage(12, $scope.book);
       }
     }, function(res) {
-      alert('Set Book(ID: ' + $scope.book.unqId + ' ) failed. Res Error!');
+      $scope.alertMessage(12, $scope.book);
     })
   };
   $scope.deleteBook = function deleteBook() {
     adminBooksService.deleteOneBook($scope.book.unqId, function(res) {
       if (res.errType == 0) {
-        $('#deleteBookModal').modal('hide');
         $scope.books.splice($scope.findBook($scope.book.unqId), 1);
+        $scope.alertMessage(2, $scope.book);
         $timeout(function() {
           $location.path('/manage/books');
         }, 500);
+      } else if (res.errType == 1) {
+        $scope.alertMessage(7, $scope.book);
       } else {
-        alert('Delete Book(ID: ' + $scope.book.unqId + ' ) failed. errType =' + res.errType);
-      };
+        $scope.alertMessage(8, $scope.book);
+      }
     }, function(res) {
-      alert('Delete Book(ID: ' + $scope.book.unqId + ' ) failed. Res Error!');
+      $scope.alertMessage(8, $scope.book);
     });
+    $('#deleteBookModal').modal('hide');
   };
 });
 
@@ -328,15 +380,16 @@ bookManageApp.controller('NewBookCtrl', function($scope, $http, $timeout, $locat
     adminBooksService.addBook($scope.book, function(res) {
       if (res.errType == 0) {
         $scope.books.push($scope.book);
-        $('#addButton').button('reset');
         $location.path('/manage/books');
+        $scope.alertMessage(1, $scope.book);
+      } else if (res.errType == 1) {
+        $scope.alertMessage(5, $scope.book);
       } else {
-        alert('Add Book(ID: ' + $scope.book.unqId + ' ) failed. errType =' + res.errType);
-        $('#addButton').button('reset');
-      };
+        $scope.alertMessage(6, $scope.book);
+      }
     }, function(res) {
-      alert('Add Book(ID: ' + $scope.book.unqId + ' ) failed. Res Error!');
-      $('#addButton').button('reset');
+      $scope.alertMessage(6, $scope.book);
     });
+    $('#addButton').button('reset');
   };
 });

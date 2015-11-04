@@ -20,7 +20,6 @@ bookListApp.controller('ShowPopularBooks', function($scope) {
                 books.push(book);
             }
         }
-        console.log("PopularBooks loaded. Count = " + books.length);
     };
 
     $scope.showMoreBooks = function showMoreBooks() {

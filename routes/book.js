@@ -85,7 +85,7 @@ module.exports = function(app) {
 									pageCount: param.pageCount,
 									price: param.price,
 									count: 1,
-									// image: 
+									// image:
 				            	};
 				            	BookProp.create(newBookProp, function(err, newBookProp){
 				            		if(err){
@@ -182,7 +182,7 @@ module.exports = function(app) {
 	});// delete one book
 
 	app.put('/admin/book/unqId', function(req, res){
-		// console.log(req.params.unqId);
+		console.log(req.body);
 		var param = req.body;
 		var mdfBook = {
 			name: param.name,
@@ -194,18 +194,27 @@ module.exports = function(app) {
 			desc: param.desc
 		}
 
-		BookProp.update({isbn: param.isbn},mdfBook, function(err, bookprop4){
+		BookProp.update({isbn: param.isbn}, mdfBook, function(err, bookprop4){
 			if(err) {
-	          console.log('[update book info]update book info err : '+ err);
+	          console.log('[update bookprop info]update book info err : '+ err);
 	          res.json({
 	            'errType': 3
 	          });
 	        }
 	        else if(bookprop4.nModified){
 				console.log(bookprop4.nModified);
-				console.log('[update book info]update book Successfull');
-				res.json({
-				'errType': 0
+				Book.update({unqId: param.unqId},{name: mdfBook.name}, function(err, book1){
+					if(err){
+						console.log('[update book info]update book name err : '+ err);
+					}
+					else if(book1.nModified){
+						console.log('[update book info]update book Successfull');
+						res.json({
+						'errType': 0
+						});
+					}else{
+						console.log('[update book name]update book name Fail');
+					}
 				});
 	        }else{
 	        	console.log('[update book info]update book Fail');
