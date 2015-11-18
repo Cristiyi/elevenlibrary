@@ -1,6 +1,6 @@
 var directApp = angular.module('directApp', []);
-var validateEmail = /^\w+(@cn.ibm.com)$/;
-var validatePwd = /^(?!^\d+$)(?!^[a-zA-Z]+$)(?!^[~!@#$%^?&*.]+$).{6,22}$/;
+var validateEmail = /^\w{1,22}(@cn.ibm.com)$/;
+var validatePwd = /(?=^\S{6,22}$)(?!(^[a-zA-Z\`\~\!\@\#\$\%\^\&\*\;\:\'\"\,\<\.\>\-\_\=\+\(\)\[\]\{\}\?\/\\\|]*$))(?!(^[0-9\`\~\!\@\#\$\%\^\&\*\;\:\'\"\,\<\.\>\-\_\=\+\(\)\[\]\{\}\?\/\\\|]*$))/ ;
 var validatePhone = /^[0-9]{11}$/;
 
 directApp.directive('customEmailFormat', function() {

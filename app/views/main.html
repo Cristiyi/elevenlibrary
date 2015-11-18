@@ -19,7 +19,7 @@
           </ul>
           <span class="line"></span>
           <h3 ng-if="!logInUser.intrID">User</h3>
-          <h3 ng-if="logInUser.intrID">{{logInUser.intrID}}</h3>
+          <h3 ng-if="logInUser.intrID">{{logInUser.name}}</h3>
           <ul class="nav menu" ng-if="!logInUser.intrID">
             <li><a ui-sref="register">Sign up</a></li>
             <li><a ui-sref="login">Log in</a></li>
