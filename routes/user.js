@@ -53,7 +53,8 @@ app.post('/adminLogin', function(req, res){
           console.log('[Login]Successfully'+ user);
           var profile = {
             intrID : user.intrID,
-            pwd: user.pwd
+            pwd: user.pwd,
+            name: user.name
           };
           // var token = jwt.sign(profile, 'elevenlibrary', { expiresInMinutes: 1 });
           var token = jwt.sign(profile, 'elevenlibrary', { expiresIn: '1m' });
@@ -89,8 +90,8 @@ app.post('/adminLogin', function(req, res){
       'phoneNum': req.body.phoneNum
     };
 
-    var validateEmail = /^\w+(@cn.ibm.com)$/;
-    var validatePwd = /^(?!^\d+$)(?!^[a-zA-Z]+$)(?!^[~!@#$%^?&*.]+$).{6,22}$/;
+    var validateEmail = /^\w{1,22}(@cn.ibm.com)$/;
+    var validatePwd = /(?=^\S{6,22}$)(?!(^[a-zA-Z\`\~\!\@\#\$\%\^\&\*\;\:\'\"\,\<\.\>\-\_\=\+\(\)\[\]\{\}\?\/\\\|]*$))(?!(^[0-9\`\~\!\@\#\$\%\^\&\*\;\:\'\"\,\<\.\>\-\_\=\+\(\)\[\]\{\}\?\/\\\|]*$))/;
     var validatePhone = /^[0-9]{11}$/;
 
     var validateFail = '';
