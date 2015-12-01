@@ -1130,3 +1130,7 @@ span.comment-meta-likes {
   margin-bottom: 7px;
   margin-left: 5%;
 }
+
+span.red{
+  color:red;
+}
