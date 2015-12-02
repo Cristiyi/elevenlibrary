@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var BookPropSchema = new mongoose.Schema({
 	isbn: String,
-	name: String,
+	bname: String,
 	desc: String,
 	publisher: String,
 	author: String,

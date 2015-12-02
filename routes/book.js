@@ -1,5 +1,6 @@
 var Book = require('../models/Book.js');
 var BookProp = require('../models/BookProp.js');
+var History = require('../models/History.js');
 
 module.exports = function(app) {
 	app.post('/admin/books', function(req, res){
@@ -85,7 +86,7 @@ module.exports = function(app) {
 									pageCount: param.pageCount,
 									price: param.price,
 									count: 1,
-									// image:
+									image: param.image
 				            	};
 				            	BookProp.create(newBookProp, function(err, newBookProp){
 				            		if(err){
@@ -120,7 +121,7 @@ module.exports = function(app) {
 	});// add one book
 
 	app.delete('/admin/book/:unqId', function(req, res){
-		console.log(req.params);
+		//console.log(req.params);
 		var delunqID = req.params.unqId;
 		Book.findOne({
 			unqId : delunqID
@@ -137,46 +138,71 @@ module.exports = function(app) {
 				'errType': 1
 				});
 	        }else{
-	        	Book.update({unqId: delunqID},{isDeleted: 1}, function(err, delbook){
-	        		if(err) {
-			          console.log('[Delete a book]delete a book error : '+ err);
+				var addborrower = {
+					intrID: book.intrID,
+					name: book.name
+				};
+				var hisbook = {
+					unqId: book.unqId,
+					isbn: book.isbn,
+					name: book.name,
+					delTime: new Date,
+					borrower : book.borrower
+				};
+				hisbook.borrower.push(addborrower);
+				// console.log("delete book useless attribute : ");
+				// console.log(hisbook);
+	        	
+            	Book.remove({unqId: book.unqId}, function(err, delBook){
+					if(err) {
+			          console.log('[Delete a book]DB delete a book err : '+ err);
 			          res.json({
 			            'errType': 3
 			          });
+			        }else if(delBook){
+						BookProp.findOne({
+		            		isbn: book.isbn
+		            	}, function(err, bookprop){
+		            		if(err) {
+								console.log('[Delete a book]Find isbn err : '+ err);
+				            }
+				            else if(bookprop){
+				            	BookProp.update({isbn: bookprop.isbn},{count: bookprop.count-1}, function(err, mbookprop){
+				            		if(err){
+				            			console.log('[Update bookProp count]update bookprop count err : ' + err);
+				            		}
+				            		else if(mbookprop.nModified){
+				            			console.log('[Update bookProp count]update bookprop count Successfull');
+				            			History.findOne({unqId: book.unqId}, function(err, hbook){
+							        		if(err) {
+												console.log('[Find History]DB insert book err : '+ err);
+								            }else if(!hbook){
+								            	History.create(hisbook, function(err, newhbook){
+									        		if(err) {
+														console.log('[Insert History]DB insert book err : '+ err);
+										            }
+										            else if(!newbook){
+										            	console.log('[Insert History]DB insert book Fail');
+										            }else{
+										            	console.log('[Insert History]DB insert book Successfull');
+										            }
+									        	});
+								            }else{}
+							        	});	
+				            			res.json({
+				            				errType: 0
+				            			});
+				            		}else{
+				            			console.log('[Update bookProp count] No update for bookprop');
+				            		}
+				            	});
+				            }
+				        });
+			        }else{
+			        	console.log("[Delete book Fail]");
+			        	// console.log(delBook);
 			        }
-            		else if(delbook.nModified){
-	        			BookProp.findOne({isbn: book.isbn}, function(err, bookprop2){
-	        				if(err) {
-					          console.log('[Delete a book]search bookprop2 error : '+ err);
-					        }else{
-					        	BookProp.update({isbn: bookprop2.isbn},{count: bookprop2.count-1}, function(err, bookprop3){
-			        				if(err) {
-							          console.log('[Delete a book]update book count error : '+ err);
-							          res.json({
-							            'errType': 3
-							          });
-							        }
-							        else if(bookprop3.nModified){
-							        	console.log('[Delete a book]delete a book Successfull');
-										res.json({
-											'errType': 0
-										});
-							        }else{
-							        	console.log('[Delete a book]update book count Fail');
-										res.json({
-											'errType': 3
-										});
-							        }
-		        				});
-					        }
-	        			});
-            		}else{
-            			console.log('[Delete a book] delete book Fail');
-						res.json({
-							'errType': 3
-						});
-            		}
-	        	});
+            	});	        	
 	        }
 	    });
 	});// delete one book
