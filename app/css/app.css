@@ -239,7 +239,7 @@ li.like span {
   float: right;
   padding-left: 15px;
   background-repeat: no-repeat;
-  background-position: 0 0;
+  background-position: 0 5px;
   background-image: url(../images/like.png);
 }
 
@@ -248,7 +248,7 @@ li.comment span {
   float: right;
   padding-left: 15px;
   background-repeat: no-repeat;
-  background-position: 0 0;
+  background-position: 0 5px;
   background-image: url(../images/comment.png);
 }
 
@@ -1129,4 +1129,8 @@ span.comment-meta-likes {
   padding-bottom: 6px;
   margin-bottom: 7px;
   margin-left: 5%;
+}
+
+span.red{
+  color:red;
 }
