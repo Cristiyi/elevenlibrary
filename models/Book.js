@@ -6,7 +6,6 @@ var BookSchema = new mongoose.Schema({
 	status: Number,//0-free,1-reserved,2-borrowed
 	applyTime: Date,
 	lendTime: Date,
-	name: String,
 	intrID: String,
 	borrower : [{intrID: String, name: String }]
 });
