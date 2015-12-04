@@ -7,6 +7,7 @@ var BookSchema = new mongoose.Schema({
 	applyTime: Date,
 	lendTime: Date,
 	intrID: String,
+	basicInfo: [],
 	borrower : [{intrID: String, name: String }]
 });
 

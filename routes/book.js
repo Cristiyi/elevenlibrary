@@ -78,7 +78,7 @@ module.exports = function(app) {
 				            	});
 				            }else{
 				            	var newBookProp = {
-				            		isbn: param.isbn,
+									isbn: param.isbn,
 									name: param.name,
 									desc: param.desc,
 									publisher: param.publisher,
