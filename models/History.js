@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var HistorySchema = new mongoose.Schema({
 	unqId: String,
 	isbn: String,
-	bname: String,
+	name: String,
 	delTime: Date,
 	borrower : [{intrID: String, name: String }]
 });

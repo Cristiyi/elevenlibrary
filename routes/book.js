@@ -227,13 +227,13 @@ module.exports = function(app) {
 	            'errType': 3
 	          });
 	        }
-	        else if(bookprop4.nModified){
+	        else if(bookprop4.ok || bookprop4.nModified){
 				console.log(bookprop4.nModified);
-				Book.update({unqId: param.unqId},{name: mdfBook.name}, function(err, book1){
+				Book.update({isbn: param.isbn},{name: mdfBook.name}, function(err, book1){
 					if(err){
 						console.log('[update book info]update book name err : '+ err);
 					}
-					else if(book1.nModified){
+					else if(book1.ok || book1.nModified){
 						console.log('[update book info]update book Successfull');
 						res.json({
 						'errType': 0
