@@ -37,6 +37,7 @@ app.use(function(err, req, res, next){
 require('./routes/user')(app);
 require('./routes/book')(app);
 require('./routes/userBook')(app);
+require('./routes/adminBook')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
