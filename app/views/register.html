@@ -18,7 +18,7 @@
         </li>
         <li>
           <div class="fieldContainer">
-            <input type="password" class="field" name="password" tabindex="3" ng-model="user.pwd" placeholder="Password*" ng-maxlength=22 ng-minlength=6 custom-pwd-format required />
+            <input type="password" class="field" name="password" tabindex="3" ng-model="user.pwd" placeholder="Password*" ng-minlength=6 custom-pwd-format required />
           </div>
         </li>
         <li>
@@ -41,9 +41,8 @@
         <span ng-message="maxlength">Your name can't exceed 22 characters.</span>
       </div>
       <div class="formError" ng-show="signupForm.password.$dirty && signupForm.password.$invalid" ng-messages="signupForm.password.$error">
-       <span ng-message="maxlength">Password can't exceed 22 characters.</span>
         <span ng-message="minlength">Password can't less than 6 characters.</span>
-        <span ng-message="format">Password should be under 6~22 characters with annul password format</span>
+        <span ng-message="format">Wrong password format</span>
       </div>
       <div class="formError" ng-show="signupForm.phoneNum.$dirty && signupForm.phoneNum.$invalid" ng-messages="signupForm.phoneNum.$error">
         <span ng-message="format">Please input 11 numbers.</span>

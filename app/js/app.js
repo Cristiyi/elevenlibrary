@@ -17,7 +17,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('main', {
     url: '',
-    templateUrl: 'views/main.html'
+    templateUrl: 'views/main.html',
   })
   .state('main.popular', {
     url: '/books/popular',

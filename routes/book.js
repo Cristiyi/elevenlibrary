@@ -85,7 +85,7 @@ module.exports = function(app) {
 									pageCount: param.pageCount,
 									price: param.price,
 									count: 1,
-									// image:
+									image: param.image
 				            	};
 				            	BookProp.create(newBookProp, function(err, newBookProp){
 				            		if(err){

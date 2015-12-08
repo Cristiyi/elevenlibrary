@@ -1,4 +1,4 @@
-<div ng-app="bookListApp" ng-controller="ShowAllBooks" class="Grid" style="margin-left:220px;" infinite-scroll="showMoreBooks()">
+<div ng-app="bookListApp" class="Grid" style="margin-left:220px;" infinite-scroll="showMoreBooks()">
     <div masonry>
         <div class="masonry-brick" ng-repeat="book in books">
             <div class="gridItem" style="border-radius: 8px; box-shadow: 0 0 11px #ddd;background-color: #fff; " ng-class="{aHover: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
@@ -9,8 +9,8 @@
                         </a>
                         <!-- style="opacity:0.9;display:block;" -->
                         <a class="saveOverlay">
-                            <h4 style="font-size:18px; font-weight: 300;">Title: {{ book.id }}</h4>
-                            <p style="font-size:16px; font-weight: 300; margin-top: 20px;">This is description</p>
+                            <h4 style="font-size:18px; font-weight: 300;">Title: {{ book.title }}</h4>
+                            <p style="font-size:13px; font-weight: 300; margin-top: 20px;">{{book.desc}}</p>
                         </a>
                     </div>
                     <div class="bookInfoFooter">

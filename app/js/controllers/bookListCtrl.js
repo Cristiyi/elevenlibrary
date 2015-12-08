@@ -37,7 +37,7 @@ bookListApp.controller('ShowPopularBooks', function($scope) {
     $scope.showMoreBooks();
 });
 
-bookListApp.controller('ShowAllBooks', function($scope) {
+bookListApp.controller('ShowAllBooks', function($scope,$rootScope,$http) {
     var books = new Array();
     var eachPageBooksCount = 10;
     $scope.books = new Array();
@@ -45,17 +45,23 @@ bookListApp.controller('ShowAllBooks', function($scope) {
 
     function getBooks() {
         books = [];
-        $scope.books = [];
-        for (var i = 0; i < 100; i++) {
-            var book = {
-                "id": i,
-                "likeNum": ~~(Math.random() * 50),
-                "commentNum": ~~(Math.random() * 25),
-                "isFree": i % 2 == 0 ? true : false,
-                "src": "images/img (" + i + ").jpg"
-            };
-            books.push(book);
-        }
+        $http.get('/books')
+        .success(function(res){
+           // console.log(res);
+            $scope.books = [];
+            for (var i = 0; i < res.length; i++) {
+                var book = {
+                    "id": res[i].unqID,
+                    "title": res[i].name,
+                    "desc":res[i].desc,
+                    "likeNum": "0",
+                    "commentNum": "0",
+                    "src": res[i].image ? res[i].image: "images/gray.jpg"
+                };
+
+                books.push(book);
+            }
+        });
         console.log("FreeBooks loaded. Count = " + books.length);
     };
 
