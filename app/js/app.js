@@ -114,7 +114,7 @@ mainApp.config(function($httpProvider) {
 
 mainApp.run(function($rootScope, $window, $http, $location) {
   $rootScope.logInUser = {
-    'name': '',
+    'name': $window.localStorage.name ? $window.localStorage.name : '',
     'intrID': $window.localStorage.intrID ? $window.localStorage.intrID : '',
     'phoneNum': '',
     'likedBooks': [78, 79, 80, 81, 82, 83, 84, 85, 86, 67, 68, 69, 71, 72]
