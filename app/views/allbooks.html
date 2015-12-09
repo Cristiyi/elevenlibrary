@@ -4,12 +4,12 @@
             <div class="gridItem" style="border-radius: 8px; box-shadow: 0 0 11px #ddd;background-color: #fff; " ng-class="{aHover: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
                 <div class="bookShot" style="padding: 10px;">
                     <div class="saveWrapper">
-                        <a ng-href="#/books/{{ book.id }}">
-                            <img style="width:206px;" ng-src="{{ book.src }}" />
+                        <a ng-href="#/book/{{book.isbn}}">
+                            <img style="width:206px;" ng-src="{{ book.image }}" />
                         </a>
                         <!-- style="opacity:0.9;display:block;" -->
                         <a class="saveOverlay">
-                            <h4 style="font-size:18px; font-weight: 300;">Title: {{ book.title }}</h4>
+                            <h4 style="font-size:18px; font-weight: 300;">{{ book.name }}</h4>
                             <p style="font-size:13px; font-weight: 300; margin-top: 20px;">{{book.desc}}</p>
                         </a>
                     </div>

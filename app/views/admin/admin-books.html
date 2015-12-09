@@ -23,14 +23,14 @@
       </td>
       <td class="text-center" title="'ID'" filter="{ unqId: 'text'}" sortable="'unqId'">{{book.unqId}}
       </td>
+      <td class="text-center" title="'ISBN'" filter="{ isbn: 'text'}" sortable="'isbn'">
+        {{book.isbn}}
+      </td>
       <td class="text-center" title="'Name'" filter="{ name: 'text'}" sortable="'name'">
         {{book.name}}
       </td>
       <td class="text-center" title="'Author'" filter="{ author: 'text'}" sortable="'author'">
         {{book.author}}
-      </td>
-      <td class="text-center" title="'ISBN'" filter="{ isbn: 'text'}" sortable="'isbn'">
-        {{book.isbn}}
       </td>
       <td class="text-center" title="'Publisher'" ng-if="setting.showPublisher" filter="{ publisher: 'text'}" sortable="'publisher'">
         {{book.publisher}}
@@ -48,7 +48,7 @@
         {{book.commentNum}}
       </td>
       <td class="text-center" title="'Evaluation'" ng-if="setting.showEvaluations" filter="{ 'evaluation.number': 'number'}" sortable="'evaluation.number'">
-        {{book.evaluation.value}}({{book.evaluation.number}})
+        {{book.evaluation.value}}{{book.evaluation.number}}
       </td>
       <td class="text-center" title="'Status'" filter="{ status: 'select'}" filter-data="[{ id: '', title: ''},{ id: '0', title: 'free'},{ id: '1', title: 'reserved'},{ id: '2', title: 'borrowed'}]" sortable="'status'">
         {{book.status==0? 'free':(book.status==1?'reserved':'borrowed')}}

@@ -1,7 +1,6 @@
 var bookManageApp = angular.module('bookManageApp', []);
 
 bookManageApp.controller('ManageCtrl', function($scope, $state, $timeout, adminBooksService) {
-  $scope.books = adminBooksService.getAllBooks;
   $scope.currentState = {
     route: 0,
     book: {
@@ -40,20 +39,20 @@ bookManageApp.controller('ManageCtrl', function($scope, $state, $timeout, adminB
   initData();
 
   $scope.findBook = function findBook(bookId) {
-    for (var index = 0; index < $scope.books.length; index++) {
-      if ($scope.books[index].unqId == bookId) {
+    for (var index = 0; index < adminBooksService.books.length; index++) {
+      if (adminBooksService.books[index].unqId == bookId) {
         return index;
       }
     }
   };
   $scope.$watch(function() {
-    return $scope.books.length;
+    return adminBooksService.books.length;
   }, function() {
-    $scope.currentState.book.count.totalNum = $scope.books.length;
+    $scope.currentState.book.count.totalNum = adminBooksService.books.length;
     $scope.currentState.book.count.freeNum = 0;
     $scope.currentState.book.count.resNum = 0;
     $scope.currentState.book.count.borNum = 0;
-    angular.forEach($scope.books, function(book) {
+    angular.forEach(adminBooksService.books, function(book) {
       if (book.status == 0) {
         $scope.currentState.book.count.freeNum++;
       } else if (book.status == 1) {
@@ -68,7 +67,6 @@ bookManageApp.controller('ManageCtrl', function($scope, $state, $timeout, adminB
 bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $location, $timeout, NgTableParams, adminBooksService) {
 
   $scope.bookRoute = true;
-
   $scope.setting = {
     'search': {
       'type': '0',
@@ -84,21 +82,32 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $l
     'showEvaluations': true
   };
 
-  $scope.tableParams = new NgTableParams({
-    count: 10
-  }, {
-    filterOptions: {
-      filterComparator: false
-    },
-    counts: [5, 10, 25],
-    dataset: $scope.books
+  adminBooksService.getAllBooks(function(res) {
+    adminBooksService.books = [];
+    adminBooksService.books = adminBooksService.books.concat(res);
+    initTable();
+  }, function(res) {
+    initTable();
   });
+
+  $scope.tableParams = new NgTableParams;
+
+  var initTable = function() {
+    $scope.tableParams = new NgTableParams({
+      count: 10
+    }, {
+      filterOptions: {
+        filterComparator: false
+      },
+      counts: [5, 10, 25],
+      dataset: adminBooksService.books
+    });
+  }
 
   $scope.checkboxes = {
     checked: false,
     items: {}
   };
-
   $scope.statuses = [{
     id: '',
     title: ''
@@ -113,10 +122,11 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $l
     title: "borrowed"
   }];
 
+
   $scope.$watch(function() {
     return $scope.checkboxes.checked;
   }, function(value) {
-    angular.forEach($scope.books, function(item) {
+    angular.forEach(adminBooksService.books, function(item) {
       $scope.checkboxes.items[item.unqId] = value;
     });
   });
@@ -162,8 +172,8 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $l
   }, function(values) {
     var checked = 0,
       unchecked = 0,
-      total = $scope.books.length;
-    angular.forEach($scope.books, function(item) {
+      total = adminBooksService.books.length;
+    angular.forEach(adminBooksService.books, function(item) {
       checked += ($scope.checkboxes.items[item.unqId]) || 0;
       unchecked += (!$scope.checkboxes.items[item.unqId]) || 0;
     });
@@ -253,7 +263,7 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $l
       deletedNum: 0,
       list: []
     };
-    angular.forEach($scope.books, function(book) {
+    angular.forEach(adminBooksService.books, function(book) {
       if ($scope.checkboxes.items[book.unqId]) {
         var newbook = {
           unqId: book.unqId,
@@ -293,7 +303,7 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $l
     angular.forEach($scope.deleteBookList.list, function(book) {
       adminBooksService.deleteOneBook(book.unqId, function(res) {
         if (res.errType == 0) {
-          $scope.books.splice($scope.findBook(book.unqId), 1);
+          adminBooksService.books.splice($scope.findBook(book.unqId), 1);
           $scope.tableParams.reload();
           succCount++;
           result(++count);
@@ -311,7 +321,7 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $l
 
   $scope.modifyBook = function modifyBook() {
     var modifyBookList = [];
-    angular.forEach($scope.books, function(book) {
+    angular.forEach(adminBooksService.books, function(book) {
       if ($scope.checkboxes.items[book.unqId]) {
         modifyBookList.push(book.unqId);
       }
@@ -325,22 +335,35 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $l
 bookManageApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $location, $stateParams, adminBooksService) {
   $scope.book = {};
   $scope.initBook = function initBook() {
-    for (var index = 0; index < $scope.books.length; index++) {
-      if ($scope.books[index].unqId == $stateParams.bookId) {
-        $scope.book = $scope.books[index];
+    for (var index = 0; index < adminBooksService.books.length; index++) {
+      if (adminBooksService.books[index].unqId == $stateParams.bookId) {
+        $scope.book = adminBooksService.books[index];
         break;
       }
     };
-
     if (!$scope.book.unqId) {
       $location.path('/manage/books');
     };
+  };
+  $scope.getDouban = function getDouban() {
+    $http.get('http://api.douban.com/v2/book/isbn/' + $scope.book.isbn).success(function(data) {
+      console.log(data);
+      $scope.book.name = data.title;
+      $scope.book.image = data.images.large;
+      $scope.book.author = data.author[0];
+      $scope.book.publisher = data.publisher;
+      $scope.book.pageCount = data.pages;
+      $scope.book.price = data.price.replace(/[\u4e00-\u9fa5]/, '');
+      $scope.book.desc = data.summary;
+    }).error(function(data) {
+      $scope.alertMessage(15, $scope.book);
+    });
   };
   $scope.initBook();
   $scope.saveBook = function saveBook() {
     adminBooksService.setBook($scope.book, function(res) {
       if (res.errType == 0) {
-        $scope.books.splice($scope.findBook($scope.book.unqId), 1, $scope.book);
+        adminBooksService.books.splice($scope.findBook($scope.book.unqId), 1, $scope.book);
         $scope.alertMessage(4, $scope.book);
         $location.path('/manage/books');
       } else if (res.errType == 1) {
@@ -355,7 +378,7 @@ bookManageApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $lo
   $scope.deleteBook = function deleteBook() {
     adminBooksService.deleteOneBook($scope.book.unqId, function(res) {
       if (res.errType == 0) {
-        $scope.books.splice($scope.findBook($scope.book.unqId), 1);
+        adminBooksService.books.splice($scope.findBook($scope.book.unqId), 1);
         $scope.alertMessage(2, $scope.book);
         $timeout(function() {
           $location.path('/manage/books');
@@ -375,11 +398,25 @@ bookManageApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $lo
 bookManageApp.controller('NewBookCtrl', function($scope, $http, $timeout, $location, adminBooksService) {
   $scope.book = {};
   $scope.book.status = 0;
+  $scope.getDouban = function getDouban() {
+    $http.get('http://api.douban.com/v2/book/isbn/' + $scope.book.isbn).success(function(data) {
+      console.log(data);
+      $scope.book.name = data.title;
+      $scope.book.image = data.images.large;
+      $scope.book.author = data.author[0];
+      $scope.book.publisher = data.publisher;
+      $scope.book.pageCount = data.pages;
+      $scope.book.price = data.price.replace(/[\u4e00-\u9fa5]/, '');
+      $scope.book.desc = data.summary;
+    }).error(function(err) {
+      $scope.alertMessage(15, $scope.book);
+    });
+  };
   $scope.addBook = function addBook() {
     $('#addButton').button('loading');
     adminBooksService.addBook($scope.book, function(res) {
       if (res.errType == 0) {
-        $scope.books.push($scope.book);
+        adminBooksService.books.push($scope.book);
         $location.path('/manage/books');
         $scope.alertMessage(1, $scope.book);
       } else if (res.errType == 1) {

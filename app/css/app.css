@@ -27,6 +27,11 @@ a:hover {
   outline: 0;
 }
 
+a.curA{
+  text-decoration: none;
+  background-color: #eee;
+}
+
 li,
 ol,
 ul {

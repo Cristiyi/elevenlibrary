@@ -13,8 +13,13 @@
   </div>
   <div class="form-group">
     <label class="col-sm-2 control-label">ISBN<span class="red">*</span></label>
-    <div class="col-sm-5">
-      <input type="text" class="form-control" ng-model="book.isbn" placeholder="ISBN" required>
+    <div class="col-sm-6">
+      <div class="input-group">
+        <input type="text" class="form-control" ng-model="book.isbn" placeholder="ISBN" required>
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button" ng-click="getDouban()" ><span class="glyphicon glyphicon-refresh"></span></button>
+          </span>
+      </div>
     </div>
   </div>
   <div class="form-group">
@@ -44,13 +49,13 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">PageCount</label>
     <div class="col-sm-10">
-      <input type="number" class="form-control" ng-model="book.pageCount" placeholder="PageCount">
+      <input type="text" class="form-control" ng-model="book.pageCount" placeholder="PageCount">
     </div>
   </div>
   <div class="form-group">
     <label class="col-sm-2 control-label">Price</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" ng-model="book.price" placeholder="Price" onkeyup="value=value.replace(/[^\d{1,}\.\d{1,}|\d{1,}]/g,'')" />
+      <input type="text" class="form-control" ng-model="book.price" placeholder="Price"/>
     </div>
   </div>
   <div class="form-group">
@@ -65,6 +70,7 @@
       <a ng-href="#/manage/books" class="btn btn-default">Cancel</a>
       <div class="alert alert-danger bookAlert" role="alert" ng-show="currentState.book.message.type==5"><strong>Failed to add!</strong>This book has existed.</div>
       <div class="alert alert-danger bookAlert" role="alert" ng-show="currentState.book.message.type==6"><strong>Failed to add!</strong>Server Error, please try again.</div>
+      <div class="alert alert-danger bookAlert" role="alert" ng-show="currentState.book.message.type==15">This book doesn't exist in Douban.</div>
     </div>
   </div>
 </form>

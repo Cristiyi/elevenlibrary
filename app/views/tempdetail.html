@@ -1,36 +1,36 @@
-<div ng-app="bookDetailApp" ng-controller="BookDetailCtrl" style="left: 80px; position: relative">
+<div ng-app="bookDetailApp" style="left: 80px; position: relative">
   <div id="content" class="group">
-    <h1>{{ book.name }}</h1>
+    <h1>{{ book.title }}</h1>
     <div class="group">
       <div class="main-shot">
         <div class="the-shot">
           <div class="book-pic">
-            <a target="_blank" ng-href="{{book.image}}">
-              <img style="max-width: 210px; height: 290px" src="{{book.image}}" alt="" />
+            <a target="_blank" ng-href="{{book.src}}">
+              <img style="max-width: 210px; height: 290px" src="{{book.src}}" alt="" />
             </a>
           </div>
           <div class="book-info">
             <div class="meta-act">
-              <span>Author:{{book.author}}</span>
+              <span>Author: Daniel Golden</span>
             </div>
             <div class="meta-act">
-              <span>ISBN：{{book.isbn}}</span>
+              <span>ISBN：9876543210</span>
             </div>
             <div class="meta-act">
-              <span>Publisher：{{book.publisher}}</span>
+              <span>Publisher：XXXXXXX</span>
             </div>
             <div class="meta-act">
-              <span>Page Count:{{book.pageCount}}</span>
+              <span>Page Count: 304</span>
             </div>
             <div class="meta-act">
-              <span>Price:{{book.price}}</span>
+              <span>Price: 39.5</span>
             </div>
           </div>
         </div>
         <div class="screenshot-meta">
           <div class="meta-act">
             <div class="group fav">
-              <a class="meta-act-link meta-like" href="">{{book.likeNum}} likes</a>
+              <a class="meta-act-link meta-like" href="">15 likes</a>
             </div>
           </div>
           <div class="meta-act">
@@ -94,7 +94,8 @@
           </ol>
         </div>
         <div class="shot-desc">
-          <p>{{book.desc}}</p>
+          <p>No need to scour the interwebs for a suitable picture for your event anymore!! Conveniently use one of the handful of illustrated themes made for Events on Facebook.</p>
+          <p>I had quite a bit of fun making a new set of themes, coming out soon, and humbly being in the company of amazingly talented illustrators like Jez Burrows, Michael Jeter and Eight Hour Day who designed the first batch of themes already out!</p>
         </div>
         <div id="comments-section">
           <h2 class="count section ">5 Comments</h2>

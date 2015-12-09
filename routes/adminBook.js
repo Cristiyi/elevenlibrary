@@ -19,7 +19,7 @@ module.exports = function(app) {
 					for (var i = jbooks.length - 1; i >= 0; i--) {
 						for (var m = jbooksprop.length - 1; m >= 0; m--) {
 							if(jbooksprop[m].isbn == jbooks[i].isbn){
-								
+
 								jbooks[i].basicInfo.push(JSON.parse(JSON.stringify(jbooksprop[m])));
 								break;
 							}
@@ -31,7 +31,7 @@ module.exports = function(app) {
 				});//booksprop
 			}
 		});//books
-		
+
 	});// add one book
 
 };
