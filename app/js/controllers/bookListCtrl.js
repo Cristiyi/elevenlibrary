@@ -22,7 +22,6 @@ bookListApp.controller('MainBooksCtrl', function($scope, $state){
       return $state.current.name
     }, function() {
       setState();
-      console.log($scope.status, $state.current.name);
     });
 });
 bookListApp.controller('ShowPopularBooks', function($scope) {
