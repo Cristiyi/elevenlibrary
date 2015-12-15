@@ -358,18 +358,18 @@ div.meta-act a.meta-evaluate {
   float: left;
   font-size: 13px;
   padding: 12px 12px 5px 12px;
-  margin: 12px 0px 12px 0px;
+  margin: 6px 0px 12px 0px;
   font-weight: normal;
   line-height: 1;
   color: #999999;
   background-repeat: no-repeat;
-  background-position: 0px -50px;
-  background-image: url(../images/like_new.png);
+  background-image: url(../images/star1.png);
+  height: 21px;
   z-index: 555
 }
 
 div.meta-act a.meta-evaluate:hover {
-  background-position: 0px 0px
+  background-image: url(../images/star2.png);
 }
 
 div.meta-act a.meta-share {

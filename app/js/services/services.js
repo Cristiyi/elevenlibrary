@@ -22,7 +22,7 @@ serviceApp.factory('BooksService', function($http){
   var books = [];
   return{
     getAllBooks: function(){
-      return $http.get('/admin/books');
+      return $http.get('/books');
     },
     books: books
   }

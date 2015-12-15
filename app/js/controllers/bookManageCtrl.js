@@ -109,17 +109,14 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $l
     items: {}
   };
   $scope.statuses = [{
-    id: '',
-    title: ''
-  }, {
     id: 0,
-    title: "free"
+    title: "Free"
   }, {
     id: 1,
-    title: "reserved"
+    title: "Reserved"
   }, {
     id: 2,
-    title: "borrowed"
+    title: "Borrowed"
   }];
 
 
@@ -178,7 +175,9 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $l
       unchecked += (!$scope.checkboxes.items[item.unqId]) || 0;
     });
     if ((unchecked == 0) || (checked == 0)) {
-      $scope.checkboxes.checked = (checked == total);
+      if (total != 0){
+        $scope.checkboxes.checked = (checked == total);
+      }
     };
     angular.element($element[0].getElementsByClassName("select-all")).prop("indeterminate", (checked != 0 && unchecked != 0));
   }, true);
@@ -346,8 +345,19 @@ bookManageApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $lo
     };
   };
   $scope.getDouban = function getDouban() {
-    $http.get('http://api.douban.com/v2/book/isbn/' + $scope.book.isbn).success(function(data) {
-      console.log(data);
+    var iserror = true;
+    $http.jsonp('http://api.douban.com/v2/book/isbn/' + $scope.book.isbn, {
+      params: {
+        'callback': 'MyCallback'
+      }
+    }).error(function(data) {
+      if (iserror) {
+        $scope.alertMessage(15, $scope.book);
+      };
+    });
+    window.MyCallback = function(data) {
+      iserror = false;
+      console.log("Complete book info:", data);
       $scope.book.name = data.title;
       $scope.book.image = data.images.large;
       $scope.book.author = data.author[0];
@@ -355,9 +365,7 @@ bookManageApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $lo
       $scope.book.pageCount = data.pages;
       $scope.book.price = data.price.replace(/[\u4e00-\u9fa5]/, '');
       $scope.book.desc = data.summary;
-    }).error(function(data) {
-      $scope.alertMessage(15, $scope.book);
-    });
+    };
   };
   $scope.initBook();
   $scope.saveBook = function saveBook() {
@@ -398,9 +406,21 @@ bookManageApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $lo
 bookManageApp.controller('NewBookCtrl', function($scope, $http, $timeout, $location, adminBooksService) {
   $scope.book = {};
   $scope.book.status = 0;
+
   $scope.getDouban = function getDouban() {
-    $http.get('http://api.douban.com/v2/book/isbn/' + $scope.book.isbn).success(function(data) {
-      console.log(data);
+    var iserror = true;
+    $http.jsonp('http://api.douban.com/v2/book/isbn/' + $scope.book.isbn, {
+      params: {
+        'callback': 'MyCallback'
+      }
+    }).error(function(data) {
+      if (iserror) {
+        $scope.alertMessage(15, $scope.book);
+      };
+    });
+    window.MyCallback = function(data) {
+      iserror = false;
+      console.log("Complete book info:", data);
       $scope.book.name = data.title;
       $scope.book.image = data.images.large;
       $scope.book.author = data.author[0];
@@ -408,9 +428,7 @@ bookManageApp.controller('NewBookCtrl', function($scope, $http, $timeout, $locat
       $scope.book.pageCount = data.pages;
       $scope.book.price = data.price.replace(/[\u4e00-\u9fa5]/, '');
       $scope.book.desc = data.summary;
-    }).error(function(err) {
-      $scope.alertMessage(15, $scope.book);
-    });
+    };
   };
   $scope.addBook = function addBook() {
     $('#addButton').button('loading');

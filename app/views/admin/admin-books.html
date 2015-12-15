@@ -50,8 +50,8 @@
       <td class="text-center" title="'Evaluation'" ng-if="setting.showEvaluations" filter="{ 'evaluation.number': 'number'}" sortable="'evaluation.number'">
         {{book.evaluation.value}}{{book.evaluation.number}}
       </td>
-      <td class="text-center" title="'Status'" filter="{ status: 'select'}" filter-data="[{ id: '', title: ''},{ id: '0', title: 'free'},{ id: '1', title: 'reserved'},{ id: '2', title: 'borrowed'}]" sortable="'status'">
-        {{book.status==0? 'free':(book.status==1?'reserved':'borrowed')}}
+      <td class="text-center" title="'Status'" filter="{ status: 'select'}" filter-data="[{ id: '', title: 'All'},{ id: '0', title: 'Free'},{ id: '1', title: 'Reserved'},{ id: '2', title: 'Borrowed'}]" sortable="'status'">
+        {{book.status==0? 'Free':(book.status==1?'Reserved':'Borrowed')}}
       </td>
     </tr>
   </table>
@@ -84,6 +84,7 @@
             <label class="col-sm-2 control-label">Status</label>
             <div class="col-md-8">
               <select class="form-control" ng-model="tableParams.filter().status" ng-options="status.id as status.title for status in statuses">
+              <option value="">All</option>
               </select>
             </div>
           </div>
@@ -100,7 +101,7 @@
                   <input type="radio" ng-model="tableParams.settings().filterOptions.filterComparator" ng-change="tableParams.reload()" ng-value="true" /> Strict
                 </label>
                 <label class="radio-inline">
-                  <input type="radio" ng-model="tableParams.settings().filterOptions.filterComparator" ng-change="tableParams.reload()" ng-value="false" /> Non-strict
+                  <input type="radio" ng-model="tableParams.settings().filterOptions.filterComparator" ng-change="tableParams.reload()" ng-value="false" /> No strict
                 </label>
               </div>
             </div>

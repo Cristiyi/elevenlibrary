@@ -1,29 +1,29 @@
 var bookListApp = angular.module('bookListApp', ['ui.router', 'wu.masonry', 'infinite-scroll', 'serviceApp']);
-bookListApp.controller('MainBooksCtrl', function($scope, $state){
-    $scope.status = 0;
-    function setState() {
-      if ($state.current.name == "main.popular") {
-        $scope.status = 1;
-      } else if ($state.current.name == "main.allbooks") {
-        $scope.status = 2;
-      } else if ($state.current.name == "main.free") {
-        $scope.status = 3;
-      } else if ($state.current.name == "main.home") {
-        $scope.status = 4;
-      } else if ($state.current.name == "main.setting") {
-        $scope.status = 5;
-      } else if ($state.current.name == "main.liked") {
-        $scope.status = 6;
-      } else if ($state.current.name == "main.mybooks") {
-        $scope.status = 7;
-      };
+bookListApp.controller('MainBooksCtrl', function($scope, $state) {
+  $scope.status = 0;
+
+  function setState() {
+    if ($state.current.name == "main.popular") {
+      $scope.status = 1;
+    } else if ($state.current.name == "main.allbooks") {
+      $scope.status = 2;
+    } else if ($state.current.name == "main.free") {
+      $scope.status = 3;
+    } else if ($state.current.name == "main.home") {
+      $scope.status = 4;
+    } else if ($state.current.name == "main.setting") {
+      $scope.status = 5;
+    } else if ($state.current.name == "main.liked") {
+      $scope.status = 6;
+    } else if ($state.current.name == "main.mybooks") {
+      $scope.status = 7;
     };
-    $scope.$watch(function() {
-      return $state.current.name
-    }, function() {
-      setState();
-      console.log($scope.status, $state.current.name);
-    });
+  };
+  $scope.$watch(function() {
+    return $state.current.name
+  }, function() {
+    setState();
+  });
 });
 bookListApp.controller('ShowPopularBooks', function($scope) {
   var books = new Array();
@@ -73,16 +73,8 @@ bookListApp.controller('ShowAllBooks', function($scope, $rootScope, BooksService
       console.log(res);
       BooksService.books = [];
       for (var i = 0; i < res.length; i++) {
-        var book = {
-          "unqId": res[i].unqId,
-          "name": res[i].name,
-          "desc": res[i].desc,
-          "isbn": res[i].isbn,
-          "likeNum": "0",
-          "commentNum": "0",
-          "image": res[i].image ? res[i].image : "images/gray.jpg"
-        };
-        BooksService.books.push(book);
+        res[i].image = res[i].image ? res[i].image : "images/gray.jpg"
+        BooksService.books.push(res[i]);
       }
       $scope.showMoreBooks();
     });

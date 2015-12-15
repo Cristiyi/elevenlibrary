@@ -152,7 +152,7 @@ module.exports = function(app) {
 				hisbook.borrower.push(addborrower);
 				// console.log("delete book useless attribute : ");
 				// console.log(hisbook);
-	        	
+
             	Book.remove({unqId: book.unqId}, function(err, delBook){
 					if(err) {
 			          console.log('[Delete a book]DB delete a book err : '+ err);
@@ -188,7 +188,7 @@ module.exports = function(app) {
 										            }
 									        	});
 								            }else{}
-							        	});	
+							        	});
 				            			res.json({
 				            				errType: 0
 				            			});
@@ -202,7 +202,7 @@ module.exports = function(app) {
 			        	console.log("[Delete book Fail]");
 			        	// console.log(delBook);
 			        }
-            	});	        	
+            	});
 	        }
 	    });
 	});// delete one book

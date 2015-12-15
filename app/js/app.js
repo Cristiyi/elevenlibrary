@@ -106,12 +106,6 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
     });
 });
 
-mainApp.config(function($httpProvider) {
-  $httpProvider.defaults.useXDomain = true;
-  delete $httpProvider.defaults.headers
-    .common['X-Requested-With'];
-});
-
 mainApp.run(function($rootScope, $window, $http, $location) {
   $rootScope.logInUser = {
     'name': $window.localStorage.name ? $window.localStorage.name : '',
