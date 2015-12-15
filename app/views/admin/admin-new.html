@@ -17,7 +17,7 @@
       <div class="input-group">
         <input type="text" class="form-control" ng-model="book.isbn" placeholder="ISBN" required>
         <span class="input-group-btn">
-            <button class="btn btn-default" type="button" ng-click="getDouban()" ><span class="glyphicon glyphicon-refresh"></span></button>
+            <button class="btn btn-default" type="button" ng-disabled="!book.isbn" ng-click="getDouban()" ><span class="glyphicon glyphicon-refresh"></span></button>
           </span>
       </div>
     </div>
