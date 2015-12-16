@@ -26,7 +26,7 @@
           </ul>
           <ul class="nav menu" ng-show="logInUser.intrID">
             <li><a ng-class="{curA: status==4}" ng-click="status=4" ui-sref="main.home">Home</a></li>
-            <li><a ng-class="{curA: status==5}" ng-click="status=5" ui-sref="main.setting" ng-click="callRestricted()">Setting</a></li>
+            <li><a ng-class="{curA: status==5}" ng-click="status=5" ng-show="false" ui-sref="main.setting" ng-click="callRestricted()">Setting</a></li>
             <li><a ng-class="{curA: status==6}" ng-click="status=6" ui-sref="main.liked">I Liked</a></li>
             <li><a ng-class="{curA: status==7}" ng-click="status=7" ui-sref="main.mybooks">I Borrowed</a></li>
             <li><a ui-sref="main.popular" ng-click="logOut()">Log out</a></li>
