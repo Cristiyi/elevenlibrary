@@ -19,11 +19,13 @@ module.exports = function(app) {
                 if (books[i].isbn == booksprop[j].isbn) {
                   var book = {};
                   console.log(books[i]);
-                  console.log(booksprop[j]);
                   book.unqId = books[i].unqId;
                   book.isbn = books[i].isbn;
-                  book.name = books[i].name;
                   book.status = books[i].status;
+                  book.applyTime = books[i].applyTime;
+                  book.lendTime = books[i].lendTime;
+                  book.borrower = books[i].borrower;
+                  book.name = booksprop[j].name;
                   book.desc = booksprop[j].desc;
                   book.publisher = booksprop[j].publisher;
                   book.author = booksprop[j].author;
@@ -31,13 +33,14 @@ module.exports = function(app) {
                   book.price = booksprop[j].price;
                   book.count = booksprop[j].count;
                   book.image = booksprop[j].image;
+                  book.likeNum = 0;
+                  book.commentNum = 0;
                   newBooks.push(book);
                   break;
                 };
               };
             };
             res.send(newBooks);
-            console.log(newBooks);
           };
         });
       };

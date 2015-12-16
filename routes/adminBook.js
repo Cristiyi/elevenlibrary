@@ -19,15 +19,13 @@ module.exports = function(app) {
               for (var j = 0; j < booksprop.length; j++) {
                 if (books[i].isbn == booksprop[j].isbn) {
                   var book = {};
-                  console.log(books[i]);
-                  console.log(booksprop[j]);
                   book.unqId = books[i].unqId;
                   book.isbn = books[i].isbn;
-                  book.name = books[i].name;
                   book.status = books[i].status;
                   book.applyTime = books[i].applyTime;
                   book.lendTime = books[i].lendTime;
                   book.borrower = books[i].borrower;
+                  book.name = booksprop[j].name;
                   book.desc = booksprop[j].desc;
                   book.publisher = booksprop[j].publisher;
                   book.author = booksprop[j].author;
@@ -41,7 +39,6 @@ module.exports = function(app) {
               };
             };
             res.send(newBooks);
-            console.log(newBooks);
           };
         });
       }; //booksprop
