@@ -27,7 +27,7 @@ a:hover {
   outline: 0;
 }
 
-a.curA{
+a.curA {
   text-decoration: none;
   background-color: #eee;
 }
@@ -92,10 +92,9 @@ textarea.form-control {
 
 #logo {
   display: block;
-  position: relative;
-  top: 50px;
+  position: absolute;
+  top: 30px;
   left: 0;
-  text-indent: -9999px;
   background-image: url(../images/logo.png);
   background-repeat: no-repeat;
   height: 41px;
@@ -140,9 +139,8 @@ textarea.form-control {
   border: none;
 }
 
-.Grid {
-  margin-left: 220px;
-  margin-top: 20px;
+#Grid {
+  margin-left: 200px;
 }
 
 #ColumnContainer {
@@ -152,11 +150,12 @@ textarea.form-control {
 }
 
 #SideColumn {
-  width: 206px;
+  width: 150px;
   float: left;
   background: 0 0;
   z-index: 2;
-  margin-right: 26px
+  margin-right: 26px;
+  margin-top: 12px;
 }
 
 #SideColumn h3 {
@@ -176,6 +175,16 @@ textarea.form-control {
   height: 1px;
   margin: 0 0 15px;
   background-color: #ececec
+}
+
+.gridItem {
+  border-radius: 8px;
+  box-shadow: 0 0 11px #ddd;
+  background-color: #fff;
+}
+
+.bookShot{
+  padding: 10px;
 }
 
 .menu {
@@ -703,19 +712,6 @@ span.comment-meta-likes {
   position: relative
 }
 
-
-/*#LoginPage #Header #logo {
-  margin: 0 auto;
-  display: block;
-  background-image: url(../images/logo.png);
-  background-repeat: no-repeat;
-  height: 41px;
-  width: 205px;
-  left: -20px;
-  color: transparent;
-  text-indent: -9999px;
-}*/
-
 .pageTitle {
   color: #444;
   font-size: 40px;
@@ -1136,6 +1132,6 @@ span.comment-meta-likes {
   margin-left: 5%;
 }
 
-span.red{
-  color:red;
+span.red {
+  color: red;
 }

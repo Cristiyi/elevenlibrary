@@ -1,6 +1,6 @@
-var bookManageApp = angular.module('bookManageApp', []);
+var adminApp = angular.module('adminApp', ['ngMessages','ngTable']);
 
-bookManageApp.controller('ManageCtrl', function($scope, $state, $timeout, adminBooksService) {
+adminApp.controller('ManageCtrl', function($scope, $state, $timeout, adminBooksService) {
   $scope.currentState = {
     route: 0,
     book: {
@@ -64,7 +64,7 @@ bookManageApp.controller('ManageCtrl', function($scope, $state, $timeout, adminB
   });
 });
 
-bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $location, $timeout, NgTableParams, adminBooksService) {
+adminApp.controller('ManageBooksCtrl', function($scope, $element, $http, $location, $timeout, NgTableParams, adminBooksService) {
 
   $scope.bookRoute = true;
   $scope.setting = {
@@ -331,7 +331,7 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $l
   }
 });
 
-bookManageApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $location, $stateParams, adminBooksService) {
+adminApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $location, $stateParams, adminBooksService) {
   $scope.book = {};
   $scope.initBook = function initBook() {
     for (var index = 0; index < adminBooksService.books.length; index++) {
@@ -403,7 +403,7 @@ bookManageApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $lo
   };
 });
 
-bookManageApp.controller('NewBookCtrl', function($scope, $http, $timeout, $location, adminBooksService) {
+adminApp.controller('NewBookCtrl', function($scope, $http, $timeout, $location, adminBooksService) {
   $scope.book = {};
   $scope.book.status = 0;
 
