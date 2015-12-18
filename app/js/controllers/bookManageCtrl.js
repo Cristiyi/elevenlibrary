@@ -175,7 +175,7 @@ bookManageApp.controller('ManageBooksCtrl', function($scope, $element, $http, $l
       unchecked += (!$scope.checkboxes.items[item.unqId]) || 0;
     });
     if ((unchecked == 0) || (checked == 0)) {
-      if (total != 0){
+      if (total != 0) {
         $scope.checkboxes.checked = (checked == total);
       }
     };
