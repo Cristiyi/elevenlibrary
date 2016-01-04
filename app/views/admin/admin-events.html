@@ -5,7 +5,8 @@
       <div class="caption">
         <p>Borrower: </p>
         <p>{{event.intrID}}</p>
-        <p><a class="btn btn-primary btn-block" role="button" ng-click="accept(event.unqId)">Accept</a></p>
+        <p><a class="btn btn-primary btn-block" role="button" ng-click="accept(event)" ng-show="event.status==1">Accept</a></p>
+        <p><a class="btn btn-success btn-block" role="button" ng-show="event.status==2">Return</a></p>
       </div>
     </div>
   </div>

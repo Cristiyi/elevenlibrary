@@ -452,21 +452,16 @@ adminApp.controller('NewBookCtrl', function($scope, $http, $timeout, $location, 
 
 adminApp.controller('ManageEventsCtrl', function($scope, $rootScope, EventsService, adminBooksService) {
   $scope.events = [];
-  adminBooksService.getAllBooks(function(res) {
+  EventsService.getAllEvents().success(function(res){
+    console.log(res, 'getAllEvents');
     $scope.events = res;
-  }, function(res) {
-    console.log(res);
   });
-  // EventsService.getAllEvents().sueecss(function(res){
-  //   console.log(res, 'getAllEvents');
-  //   $scope.events = res;
-  // })
 
-  $scope.accept = function(unqId) {
-    EventsService.acceptEvent(unqId, $rootScope.logInUser.intrID).success(function(res) {
+  $scope.accept = function(event) {
+    EventsService.acceptEvent(event.unqId, event.intrID).success(function(res) {
       if (errType == 0) {
-
-      }
+        event.status=2;
+      };
     })
   };
 
