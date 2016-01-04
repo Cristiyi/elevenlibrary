@@ -3,8 +3,15 @@ var BookProp = require('../models/BookProp.js');
 var History = require('../models/History.js');
 
 module.exports = function(app) {
+
+	app.get('/admin/add/book/:isbn',function(req, res){
+		BookProp.findOne({isbn: req.params.isbn}, function(err, bookprop){
+			res.json(bookprop);
+		});
+	});//search the isbn info when add a book
+
 	app.post('/admin/books', function(req, res){
-		console.log(req.body);
+		// console.log(req.body);
 		var param = req.body;
 
 		// status: param.status==0?param.status:0, //0-free,1-reserved,2-borrowed
@@ -14,7 +21,6 @@ module.exports = function(app) {
 			status: 0,
 			name: param.name,
 			intrID: param.intrID,
-			isDeleted: 0, //0-exist,1-deleted
 		};
 
 
@@ -23,9 +29,6 @@ module.exports = function(app) {
 		}, function(err, book){
 			if(err) {
 	          console.log('[Add a book]DB find a book err : '+ err);
-	          res.json({
-	            'errType': 3
-	          });
 	        }
 	        else if(book){
 				console.log('[Add a book]This book exists');
@@ -51,35 +54,77 @@ module.exports = function(app) {
 		            	}, function(err, bookprop){
 		            		if(err) {
 								console.log('[Add a book]Find isbn err : '+ err);
-								res.json({
-									'errType': 3
-								});
 				            }
 				            else if(bookprop){
-				            	BookProp.update({isbn: bookprop.isbn},{count: bookprop.count+1}, function(err, bookprop1){
-				            		if(err){
-				            			console.log('[Update bookProp]update bookprop count err : ' + err);
-										res.json({
-											'errType': 3
+				      //       	BookProp.update({isbn: bookprop.isbn},{count: bookprop.count+1}, function(err, bookprop1){
+				      //       		if(err){
+				      //       			console.log('[Update bookProp]update bookprop count err : ' + err);
+										// res.json({
+										// 	'errType': 3
+										// });
+				      //       		}
+				      //       		else if(bookprop1.nModified){
+				      //       			console.log('[Update bookProp]update bookprop count Successfull');
+				      //       			// console.log(bookprop1);
+										// res.json({
+										// 	'errType': 0
+										// });
+				      //       		}else{
+				      //       			console.log('[Update bookProp] No update for bookprop');
+										// res.json({
+										// 	'errType': 3
+										// });
+				      //       		}
+				      //       	});
+								var amdfBook = {
+									name: param.name,
+									image: param.image,
+									category: param.category,
+									author: param.author,
+									publisher: param.publisher,
+									pageCount: param.pageCount,
+									price: param.price,
+									desc: param.desc,
+									count: bookprop.count+1,
+								}
+								// console.log(amdfBook);
+
+								BookProp.update({isbn: param.isbn}, amdfBook, function(err, ambookprop){
+									if(err) {
+							          console.log('[update bookprop info]update book info err : '+ err);
+							          //delete the book just added
+							          res.json({
+							            'errType': 3
+							          });
+							        }
+							        else if(ambookprop.ok || ambookprop.nModified){
+										console.log(ambookprop.nModified);
+										Book.update({isbn: param.isbn},{name: amdfBook.name}, function(err, ambook){
+											if(err){
+												console.log('[update book info]update book name err : '+ err);
+											}
+											else if(ambook.ok || ambook.nModified){
+												console.log('[update book info]update book Successfull');
+												res.json({
+												'errType': 0
+												});
+											}else{
+												console.log('[update book name]update book name Fail');
+											}
 										});
-				            		}
-				            		else if(bookprop1.nModified){
-				            			console.log('[Update bookProp]update bookprop count Successfull');
-				            			// console.log(bookprop1);
+							        }else{
+							        	console.log('[update book info]update book Fail');
 										res.json({
-											'errType': 0
+										'errType': 3
 										});
-				            		}else{
-				            			console.log('[Update bookProp] No update for bookprop');
-										res.json({
-											'errType': 3
-										});
-				            		}
-				            	});
+							        }
+								});	
+
 				            }else{
 				            	var newBookProp = {
 									isbn: param.isbn,
 									name: param.name,
+									category: param.category,
 									desc: param.desc,
 									publisher: param.publisher,
 									author: param.author,
@@ -138,21 +183,23 @@ module.exports = function(app) {
 				'errType': 1
 				});
 	        }else{
-				var addborrower = {
-					intrID: book.intrID,
-					name: book.name
-				};
 				var hisbook = {
 					unqId: book.unqId,
 					isbn: book.isbn,
 					name: book.name,
-					delTime: new Date,
+					delTime: new Date(),
 					borrower : book.borrower
 				};
-				hisbook.borrower.push(addborrower);
+				// if(book.intrID){
+				// 	var addborrower = {
+				// 		intrID: book.intrID,
+				// 		name: book.name
+				// 	};
+				// 	hisbook.borrower.push(addborrower);
+				// };
 				// console.log("delete book useless attribute : ");
 				// console.log(hisbook);
-
+	        	
             	Book.remove({unqId: book.unqId}, function(err, delBook){
 					if(err) {
 			          console.log('[Delete a book]DB delete a book err : '+ err);
@@ -188,7 +235,7 @@ module.exports = function(app) {
 										            }
 									        	});
 								            }else{}
-							        	});
+							        	});	
 				            			res.json({
 				            				errType: 0
 				            			});
@@ -202,23 +249,25 @@ module.exports = function(app) {
 			        	console.log("[Delete book Fail]");
 			        	// console.log(delBook);
 			        }
-            	});
+            	});	        	
 	        }
 	    });
 	});// delete one book
 
 	app.put('/admin/book/unqId', function(req, res){
-		console.log(req.body);
+		// console.log(req.body);
 		var param = req.body;
 		var mdfBook = {
 			name: param.name,
 			image: param.image,
+			category: param.category,
 			author: param.author,
 			publisher: param.publisher,
 			pageCount: param.pageCount,
 			price: param.price,
 			desc: param.desc
 		}
+		// console.log(mdfBook);
 
 		BookProp.update({isbn: param.isbn}, mdfBook, function(err, bookprop4){
 			if(err) {
@@ -251,6 +300,5 @@ module.exports = function(app) {
 		});
 
 
-	});
-
+	});//modify one book
 };

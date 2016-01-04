@@ -7,9 +7,9 @@ var BookPropSchema = new mongoose.Schema({
 	author: String,
 	pageCount: Number,
 	price: Number,
-	count: Number,
 	desc: String,
-	image: String
+	image: String,
+	count: Number
 });
 
 module.exports = mongoose.model('BookProp', BookPropSchema);

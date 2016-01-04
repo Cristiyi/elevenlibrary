@@ -38,6 +38,7 @@ require('./routes/user')(app);
 require('./routes/book')(app);
 require('./routes/userBook')(app);
 require('./routes/adminBook')(app);
+require('./routes/borrowBook')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
