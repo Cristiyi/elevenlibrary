@@ -7,9 +7,10 @@ var BookPropSchema = new mongoose.Schema({
 	author: String,
 	pageCount: Number,
 	price: Number,
-	count: Number,
 	desc: String,
 	image: String,
+	count: Number,
+	
 	likes: [String],    // Likes
 	rates: [{intrID: String, value: Number}],   // Rates
 	comments: [{intrID: String, content: String, time: Date}], // Comments

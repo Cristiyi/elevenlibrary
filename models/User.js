@@ -4,7 +4,7 @@ var UserSchema = new mongoose.Schema({
   intrID: String,
   pwd: String,
   phone: Number,
-  borrowedBooks: [{unqId: String, isbn: String}]
+  borrowedBooks: [{unqId: String, name: String}]
 });
 
 module.exports = mongoose.model('User', UserSchema);
