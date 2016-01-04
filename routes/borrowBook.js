@@ -105,7 +105,7 @@ module.exports = function(app) {
 	app.get('/admin/events', function(req, res){
 		var date = new Date();
 		date.setDate(date.getDate()-2);
-		Book.update({status: 1, applyTime:{$lt: date}}, {status: 0, applyTime: null}, function(err, revbooks){
+		Book.update({status: 1, applyTime:{$lt: date}}, {status: 0, applyTime: null, intrID: null}, function(err, revbooks){
 			if(err){
 				console.log('[Reverse applied books] Reverse books DB err : '+ err);
 			}
@@ -128,8 +128,7 @@ module.exports = function(app) {
 
 	app.put('/admin/events/:unqId', function(req, res){
 		var unqId = req.params.unqId;
-		var intrID = req.body.intrID;
-		console.log(unqId, intrID);
+		var intrID = req.body.intrId;
 
 		Book.findOne({unqId: unqId}, function(err, resbook){
 			if(err){
