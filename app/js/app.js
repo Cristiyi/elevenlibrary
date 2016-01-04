@@ -11,7 +11,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
     .state('main', {
       url: '',
-      templateUrl: 'views/main.html',
+      templateUrl: 'views/book/main.html',
       controller: 'MainBooksCtrl'
     })
     .state('main.list', {
@@ -27,7 +27,7 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
     .state('main.home', {
       url: '/home',
       templateUrl: 'views/user/home.html',
-      controller: 'ShowMyBooks'
+      controller: 'UserHomeCtrl'
     })
     .state('main.setting', {
       url: '/setting',
@@ -48,14 +48,19 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: 'views/admin/admin-main.html',
       controller: 'ManageCtrl'
     })
-    .state('manage.logs', {
-      url: '/manage/logs',
-      templateUrl: 'views/admin/admin-logs.html'
-    })
     .state('manage.books', {
       url: '/manage/books',
       templateUrl: 'views/admin/admin-books.html',
       controller: 'ManageBooksCtrl'
+    })
+    .state('manage.events', {
+      url: '/manage/events',
+      templateUrl: 'views/admin/admin-events.html',
+      controller: 'ManageEventsCtrl'
+    })
+    .state('manage.logs', {
+      url: '/manage/logs',
+      templateUrl: 'views/admin/admin-logs.html'
     })
     .state('manage.newBook', {
       url: '/manage/newBook',

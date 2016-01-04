@@ -1,26 +1,30 @@
 <div id="Grid" infinite-scroll="showMoreBooks()">
-    <div masonry>
-        <div class="masonry-brick" ng-repeat="book in books">
-            <div class="gridItem" ng-class="{aHover: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
-                <div class="bookShot">
-                    <div>
-                        <a ng-href="#/book/{{book.isbn}}">
-                            <img style="width:206px;" ng-src="{{ book.image }}" />
-                        </a>
-                        <!-- style="opacity:0.9;display:block;" -->
-                        <a class="saveOverlay">
-                            <h4 style="font-size:18px; font-weight: 300;">{{ book.name }}</h4>
-                            <p style="font-size:13px; font-weight: 300; margin-top: 20px;">{{book.desc}}</p>
-                        </a>
-                    </div>
-                    <div class="bookInfoFooter">
-                        <ul class="bookInfoFooter">
-                            <li class="comment"><span>{{ book.commentNum }}</span></li>
-                            <li class="like"><span>{{ book.likeNum }}</span></li>
-                        </ul>
-                    </div>
-                </div>
+  <div masonry>
+    <div class="masonry-brick" ng-repeat="book in books | filter : cate=='userLiked'? {isLiked: true} : {category: cate}">
+      <div class="gridItem" ng-class="{aHover: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+        <div class="bookShot">
+          <div>
+            <div class="hoverInfo">
+              <h4><strong>{{ book.name }}</strong></h4>
+              <h5>{{book.author}}</h5>
+              <h5>{{book.publisher}}</h5>
             </div>
+            <div class="hoverLike">
+              <span>{{book.likes.length}}</span>
+              <a class="liked" ng-class="{isLiked: book.isLiked}" ng-click="like(book)"></a>
+            </div>
+            <a class="hoverLink" ng-href="#/book/{{book.isbn}}">
+              <img style="width:206px;" ng-src="{{ book.image }}" />
+            </a>
+          </div>
+          <div class="bookInfoFooter">
+            <ul class="bookInfoFooter">
+              <li class="comment"><span>{{ book.commentNum }}</span></li>
+              <li class="like"><span>{{ book.likeNum }}</span></li>
+            </ul>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>

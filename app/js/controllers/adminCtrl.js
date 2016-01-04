@@ -1,4 +1,4 @@
-var adminApp = angular.module('adminApp', ['ngMessages','ngTable']);
+var adminApp = angular.module('adminApp', ['ngMessages', 'ngTable']);
 
 adminApp.controller('ManageCtrl', function($scope, $state, $timeout, adminBooksService) {
   $scope.currentState = {
@@ -175,7 +175,7 @@ adminApp.controller('ManageBooksCtrl', function($scope, $element, $http, $locati
       unchecked += (!$scope.checkboxes.items[item.unqId]) || 0;
     });
     if ((unchecked == 0) || (checked == 0)) {
-      if (total != 0){
+      if (total != 0) {
         $scope.checkboxes.checked = (checked == total);
       }
     };
@@ -337,6 +337,7 @@ adminApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $locatio
     for (var index = 0; index < adminBooksService.books.length; index++) {
       if (adminBooksService.books[index].unqId == $stateParams.bookId) {
         $scope.book = adminBooksService.books[index];
+        console.log($scope.book);
         break;
       }
     };
@@ -344,6 +345,7 @@ adminApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $locatio
       $location.path('/manage/books');
     };
   };
+  $scope.initBook();
   $scope.getDouban = function getDouban() {
     var iserror = true;
     $http.jsonp('http://api.douban.com/v2/book/isbn/' + $scope.book.isbn, {
@@ -367,7 +369,6 @@ adminApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $locatio
       $scope.book.desc = data.summary;
     };
   };
-  $scope.initBook();
   $scope.saveBook = function saveBook() {
     adminBooksService.setBook($scope.book, function(res) {
       if (res.errType == 0) {
@@ -447,4 +448,26 @@ adminApp.controller('NewBookCtrl', function($scope, $http, $timeout, $location, 
     });
     $('#addButton').button('reset');
   };
+});
+
+adminApp.controller('ManageEventsCtrl', function($scope, $rootScope, EventsService, adminBooksService) {
+  $scope.events = [];
+  adminBooksService.getAllBooks(function(res) {
+    $scope.events = res;
+  }, function(res) {
+    console.log(res);
+  });
+  // EventsService.getAllEvents().sueecss(function(res){
+  //   console.log(res, 'getAllEvents');
+  //   $scope.events = res;
+  // })
+
+  $scope.accept = function(unqId) {
+    EventsService.acceptEvent(unqId, $rootScope.logInUser.intrID).success(function(res) {
+      if (errType == 0) {
+
+      }
+    })
+  };
+
 });

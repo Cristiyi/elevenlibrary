@@ -1,175 +1,96 @@
-<div>
-  <div id="content" class="group">
-    <h1>{{ book.name }}</h1>
-    <div class="group">
-      <div class="main-shot">
-        <div class="the-shot">
-          <div class="book-pic">
-            <a target="_blank" ng-href="{{book.image}}">
-              <img style="max-width: 210px; height: 290px" src="{{book.image}}" alt="" />
+<div id="content" class="group">
+  <h1>{{ book.name }}</h1>
+  <div class="group">
+    <div class="main-shot">
+      <div class="the-shot">
+        <div class="book-pic">
+          <a target="_blank" ng-href="{{book.image}}">
+            <img style="max-width: 210px; height: 290px" src="{{book.image}}" alt="" />
+          </a>
+        </div>
+        <div class="book-info">
+          <div class="meta-act">
+            <span>Author:{{book.author}}</span>
+          </div>
+          <div class="meta-act">
+            <span>ISBN：{{book.isbn}}</span>
+          </div>
+          <div class="meta-act">
+            <span>Publisher：{{book.publisher}}</span>
+          </div>
+          <div class="meta-act">
+            <span>Page Count: {{book.pageCount}}</span>
+          </div>
+          <div class="meta-act">
+            <span>Category: {{book.category}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="screenshot-meta">
+        <div class="social-media meta-act meta-act-full" id="BorrowBtn">
+          <a href="" class="meta-act-link free" ng-click="borrow()" ng-show="book.status==0"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Borrow</a>
+          <a href="" class="meta-act-link reserved" ng-show="book.status==1" data-toggle="tooltip" data-placement="top" title="Please get you book in two days"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Reserved</a>
+          <a href="" class="meta-act-link borrowed" ng-show="book.status==2"><span class="glyphicon glyphicon-share" aria-hidden="true"></span> Borrowed</a>
+        </div>
+        <div class="meta-act">
+          <div class="group fav">
+            <a class="meta-act-link meta-like" href="" ng-class="{ILiked: isLiked}" ng-click="like()">{{book.likes.length}} likes</a>
+          </div>
+        </div>
+        <div class="meta-act">
+          <div class="group fav evaluate" ng-class="{noEvent: isRated}">
+            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=1 || rateValue>=1}" ng-mouseenter="tarValue = 1" ng-mouseleave="tarValue = 0" ng-click="rate(1)"><span></span></a>
+            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=2 || rateValue>=2}" ng-mouseenter="tarValue = 2" ng-mouseleave="tarValue = 0" ng-click="rate(2)"><span></span></a>
+            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=3 || rateValue>=3}" ng-mouseenter="tarValue = 3" ng-mouseleave="tarValue = 0" ng-click="rate(3)"><span></span></a>
+            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=4 || rateValue>=4}" ng-mouseenter="tarValue = 4" ng-mouseleave="tarValue = 0" ng-click="rate(4)"><span></span></a>
+            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=5 || rateValue>=5}" ng-mouseenter="tarValue = 5" ng-mouseleave="tarValue = 0" ng-click="rate(5)"><span></span></a>
+            <a class="meta-act-link" href="">({{book.rates.length}} rates)</a>
+          </div>
+        </div>
+        <h3 class="meta-head">More Similar Books</h3>
+        <ol class="more-thumbs">
+          <li class="multi-thumb" ng-repeat="book in simBooks">
+            <a href="#/book/{{book.isbn}}">
+              <img ng-src="{{book.image}}">
             </a>
-          </div>
-          <div class="book-info">
-            <div class="meta-act">
-              <span>Author:{{book.author}}</span>
+          </li>
+        </ol>
+        <h3 class="meta-head">More Popular Books</h3>
+        <ol class="more-thumbs">
+          <li class="multi-thumb" ng-repeat="book in popBooks">
+            <a href="#/book/{{book.isbn}}">
+              <img ng-src="{{book.image}}">
+            </a>
+          </li>
+        </ol>
+      </div>
+      <div class="shot-desc">
+        <p>{{book.desc}}</p>
+      </div>
+      <div id="comments-section">
+        <h2 class="count section ">{{book.comments.length}} Comments</h2>
+        <ol id="comments" class="comments">
+          <li class="response group " ng-repeat="comment in book.comments track by $index">
+            <div class="user_pic">
+              <img src="images/pic/head.jpg">
             </div>
-            <div class="meta-act">
-              <span>ISBN：{{book.isbn}}</span>
+            <div class="comments">
+            <span class="pull-right">{{$index + 1}}#</span>
+              <h2>{{comment.intrID}}</h2>
+              <div class="comment-body">
+                <p>{{comment.content}}</p>
+              </div>
+              <p class="comment-meta">
+                <a class="posted">{{comment.time | date:'yyyy-MM-dd HH:mm:ss'}}</a>
+              </p>
             </div>
-            <div class="meta-act">
-              <span>Publisher：{{book.publisher}}</span>
-            </div>
-            <div class="meta-act">
-              <span>Page Count:{{book.pageCount}}</span>
-            </div>
-            <div class="meta-act">
-              <span>Price:{{book.price}}</span>
-            </div>
-          </div>
-        </div>
-        <div class="screenshot-meta">
-          <div class="meta-act">
-            <div class="group fav">
-              <a class="meta-act-link meta-like" href="">{{book.likeNum}} likes</a>
-            </div>
-          </div>
-          <div class="meta-act">
-            <div class="group fav evaluate">
-              <a class="meta-evaluate" href=""><span></span></a>
-              <a class="meta-evaluate" href=""><span></span></a>
-              <a class="meta-evaluate" href=""><span></span></a>
-              <a class="meta-evaluate" href=""><span></span></a>
-              <a class="meta-evaluate" href=""><span></span></a>
-              <a class="meta-act-link" href="">(30 evaluation)</a>
-            </div>
-          </div>
-          <div class="social-media meta-act meta-act-full">
-            <a href="" class="meta-act-link meta-share">Borrowed (1 last)</a>
-          </div>
-          <h3 class="meta-head">More Similar Books</h3>
-          <ol class="more-thumbs">
-            <li class="multi-thumb">
-              <a href="#/books/28">
-                <img ng-src="images/img (28).jpg">
-              </a>
-            </li>
-            <li class="multi-thumb">
-              <a href="#/books/29">
-                <img ng-src="images/img (29).jpg">
-              </a>
-            </li>
-            <li class="multi-thumb">
-              <a href="#/books/30">
-                <img ng-src="images/img (30).jpg">
-              </a>
-            </li>
-            <li class="multi-thumb">
-              <a href="#/books/31">
-                <img ng-src="images/img (31).jpg">
-              </a>
-            </li>
-          </ol>
-          <h3 class="meta-head">More Popular Books</h3>
-          <ol class="more-thumbs">
-            <li class="multi-thumb">
-              <a href="#/books/97">
-                <img ng-src="images/img (97).jpg">
-              </a>
-            </li>
-            <li class="multi-thumb">
-              <a href="#/books/23">
-                <img ng-src="images/img (23).jpg">
-              </a>
-            </li>
-            <li class="multi-thumb">
-              <a href="#/books/24">
-                <img ng-src="images/img (24).jpg">
-              </a>
-            </li>
-            <li class="multi-thumb">
-              <a href="#/books/25">
-                <img ng-src="images/img (25).jpg">
-              </a>
-            </li>
-          </ol>
-        </div>
-        <div class="shot-desc">
-          <p>{{book.desc}}</p>
-        </div>
-        <div id="comments-section">
-          <h2 class="count section ">5 Comments</h2>
-          <ol id="comments" class="comments">
-            <li class="response comment group ">
-              <div class="user_pic">
-                <img src="images/pic/1.jpg">
-              </div>
-              <div class="comments">
-                <h2>Steve</h2>
-                <div class="comment-body">
-                  <p>Incredible! I can't wait to see more! Also, what kind of library card would I need to check one out?</p>
-                </div>
-                <p class="comment-meta">
-                  <a class="posted">about 3 hours ago</a>
-                </p>
-              </div>
-            </li>
-            <li class="response comment group ">
-              <div class="user_pic">
-                <img src="images/pic/2.jpg">
-              </div>
-              <div class="comments">
-                <h2>Charlene</h2>
-                <div class="comment-body">
-                  <p>Always excited about new posts from you guys. You do such great work over at Stripe.</p>
-                </div>
-                <p class="comment-meta">
-                  <a class="posted">about 2 hours ago</a>
-                </p>
-              </div>
-            </li>
-            <li class="response comment group ">
-              <div class="user_pic">
-                <img src="images/pic/3.jpg">
-              </div>
-              <div class="comments">
-                <h2>Bella</h2>
-                <div class="comment-body">
-                  <p>Awesome! :) ... looking forward to test this new integration</p>
-                </div>
-                <p class="comment-meta">
-                  <a class="posted">about 2 hours ago</a>
-                </p>
-              </div>
-            </li>
-            <li class="response comment group ">
-              <div class="user_pic">
-                <img src="images/pic/4.jpg">
-              </div>
-              <div class="comments">
-                <h2>Ally</h2>
-                <div class="comment-body">
-                  <p>Sweet!</p>
-                </div>
-                <p class="comment-meta">
-                  <a class="posted">about 1 hours ago</a>
-                </p>
-              </div>
-            </li>
-            <li class="response comment group ">
-              <div class="user_pic">
-                <img src="images/pic/5.jpg">
-              </div>
-              <div class="comments">
-                <h2>Sven</h2>
-                <div class="comment-body">
-                  <p>I really like how you keep your style, subtle gradients, nice interactions. Way to go. Plus this feature is killer to be honest :)</p>
-                </div>
-                <p class="comment-meta">
-                  <a class="posted">about 1 hours ago</a>
-                </p>
-              </div>
-            </li>
-          </ol>
+          </li>
+        </ol>
+        <div class="form-group">
+          <legend class="color2"ng-hide="book.comments.length==0"></legend>
+          <textarea type="text" class="form-control" rows="5" style="border: 1px solid #dddddd; margin-bottom:5px;" ng-init="content=''" ng-model="content"></textarea>
+          <span style="margin-top:5px;">Count: {{content.length}}</span>
+          <a class="btn btn-default pull-right" role="button" ng-click="comment()">Submit</a>
         </div>
       </div>
     </div>
