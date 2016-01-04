@@ -180,3 +180,7 @@ userApp.controller('AdminLoginCtrl', function($scope, $http, $location, $timeout
     });
   };
 });
+
+userApp.controller('UserHomeCtrl', function($scope, $rootScope, $timeout) {
+
+});

@@ -27,7 +27,7 @@ a:hover {
   outline: 0;
 }
 
-a.curA{
+a.curA {
   text-decoration: none;
   background-color: #eee;
 }
@@ -92,10 +92,9 @@ textarea.form-control {
 
 #logo {
   display: block;
-  position: relative;
-  top: 50px;
+  position: absolute;
+  top: 30px;
   left: 0;
-  text-indent: -9999px;
   background-image: url(../images/logo.png);
   background-repeat: no-repeat;
   height: 41px;
@@ -140,9 +139,8 @@ textarea.form-control {
   border: none;
 }
 
-.Grid {
-  margin-left: 220px;
-  margin-top: 20px;
+#Grid {
+  margin-left: 200px;
 }
 
 #ColumnContainer {
@@ -152,11 +150,12 @@ textarea.form-control {
 }
 
 #SideColumn {
-  width: 206px;
+  width: 150px;
   float: left;
   background: 0 0;
   z-index: 2;
-  margin-right: 26px
+  margin-right: 26px;
+  margin-top: 12px;
 }
 
 #SideColumn h3 {
@@ -178,6 +177,16 @@ textarea.form-control {
   background-color: #ececec
 }
 
+.gridItem {
+  border-radius: 8px;
+  box-shadow: 0 0 11px #ddd;
+  background-color: #fff;
+}
+
+.bookShot {
+  padding: 10px;
+}
+
 .menu {
   font-size: 12px;
   line-height: 17px;
@@ -193,9 +202,8 @@ textarea.form-control {
 }
 
 .menu li a.selected {
-  font-weight: 700;
-  cursor: default;
-  color: #222
+  text-decoration: none;
+  background-color: #eee;
 }
 
 .masonry-brick {
@@ -207,7 +215,7 @@ textarea.form-control {
   display: block;
 }
 
-.saveOverlay {
+.hoverInfo {
   position: absolute;
   top: 5px;
   bottom: 25px;
@@ -227,9 +235,73 @@ textarea.form-control {
   cursor: pointer;
 }
 
-.aHover a.saveOverlay {
+.hoverLike {
+  position: absolute;
+  bottom: 40px;
+  left: 5px;
+  right: 5px;
+  padding: 20px;
+  display: none;
+  opacity: 0.9;
+  color: #888;
+  font-size: 13px;
+  line-height: 2;
+  text-decoration: none;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.96);
+  overflow: hidden;
+  cursor: pointer;
+  z-index: 9999;
+}
+
+.aHover .hoverInfo {
   opacity: 0.9;
   display: block;
+  z-index: 2;
+}
+
+.aHover .hoverLike {
+  opacity: 1;
+  display: block;
+  z-index: 3;
+}
+
+.hoverLike span {
+  color: #333;
+  float: left;
+  font-size: 28px;
+  line-height: 29px;
+  font-weight: 700;
+  margin: 0 8px 0 4px;
+  pointer-events: none;
+  position: relative;
+}
+
+.hoverLike a {
+  display: block;
+  float: left;
+  position: relative;
+  height: 25px;
+  width: 25px;
+  margin-top: 3px;
+  cursor: pointer;
+  text-align: center;
+  background-image: url(../images/like_large.png);
+  background-size: 25px;
+  background-repeat: no-repeat;
+  background-position: 0 -48px;
+}
+
+.hoverLike a:hover {
+  background-position: 0 -98px;
+}
+
+.hoverLike a.isLiked {
+  background-position: 0 0;
+}
+
+.hoverLike a.isLiked:hover {
+  background-position: 0 0;
 }
 
 div.bookInfoFooter {
@@ -238,6 +310,11 @@ div.bookInfoFooter {
 
 ul.bookInfoFooter {
   margin-top: 10px;
+}
+
+li.free span {
+  margin-left: 15px;
+  float: left;
 }
 
 li.like span {
@@ -316,12 +393,11 @@ div.meta-act {
   border-bottom: 1px solid #e0e0e0
 }
 
-div.meta-act span.meta-like,
 div.meta-act .meta-act-link {
   display: block;
   padding: 12px 12px 12px 35px;
-  font-size: 13px;
-  font-weight: normal;
+  font-size: 16px;
+  font-weight: bold;
   line-height: 1;
   color: #999999;
   background-repeat: no-repeat;
@@ -338,19 +414,30 @@ div.meta-act a.meta-act-link:hover {
   color: #444444
 }
 
-div.meta-act a.meta-like,
-div.meta-act span.meta-like {
-  background-position: 12px 10px;
-  background-image: url(../images/like_new.png)
+div.meta-act a.meta-like {
+  background-image: url(../images/like_large.png);
+  background-size: 18px auto;
 }
 
 div.meta-act a.meta-like:hover {
-  background-position: 12px -40px
+  background-position: 12px -59px
+}
+
+div.meta-act a.ILiked {
+  background-position: 12px 11px
+}
+
+div.meta-act a.ILiked:hover {
+  background-position: 12px 11px
 }
 
 div.meta-act div.evaluate {
   padding-left: 12px;
   padding-top: 5px;
+}
+
+div.noEvent {
+  pointer-events: none;
 }
 
 div.meta-act a.meta-evaluate {
@@ -372,9 +459,24 @@ div.meta-act a.meta-evaluate:hover {
   background-image: url(../images/star2.png);
 }
 
+div.meta-act a.moreRate {
+  background-image: url(../images/star2.png);
+}
+
 div.meta-act a.meta-share {
   background-position: 12px 8px;
   background-image: url(../images/borrow.png)
+}
+
+#BorrowBtn>a {
+  padding-left: 13px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#BorrowBtn>a.reserved:hover,
+#BorrowBtn>a.borrowed:hover {
+  color: #999999;
 }
 
 h3.meta-head {
@@ -425,6 +527,11 @@ ol.more-thumbs li a img {
 
 ol.more-thumbs li a:hover img {
   opacity: .8
+}
+
+li.multi-thumb {
+  width:103px;
+  height: 147px;
 }
 
 div.shot-desc {
@@ -702,19 +809,6 @@ span.comment-meta-likes {
   height: 119px;
   position: relative
 }
-
-
-/*#LoginPage #Header #logo {
-  margin: 0 auto;
-  display: block;
-  background-image: url(../images/logo.png);
-  background-repeat: no-repeat;
-  height: 41px;
-  width: 205px;
-  left: -20px;
-  color: transparent;
-  text-indent: -9999px;
-}*/
 
 .pageTitle {
   color: #444;
@@ -1136,6 +1230,6 @@ span.comment-meta-likes {
   margin-left: 5%;
 }
 
-span.red{
-  color:red;
+span.red {
+  color: red;
 }

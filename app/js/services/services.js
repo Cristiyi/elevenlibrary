@@ -24,6 +24,48 @@ serviceApp.factory('BooksService', function($http){
     getAllBooks: function(){
       return $http.get('/books');
     },
+    getOneBook: function(isbn, intrID){
+      return $http.get('/book/' + isbn + '?intrID=' + intrID);
+    },
+    getSimilarBooks: function(isbn){
+      return $http.get('/book/' + isbn + '/similar');
+    },
+    getPopularBooks: function(isbn){
+      return $http.get('/book/' + isbn + '/popular');
+    },
+    borrrowBook: function(isbn, intrID){
+      return $http.put('/book/' + isbn + '/borrow', {intrID: intrID});
+    },
+    likeBook: function(isbn, intrID, ifYou){
+      return $http.put('/book/' + isbn + '/like', {intrID: intrID, ifYou: ifYou});
+    },
+    rateBook: function(isbn, intrID, value){
+      return $http.put('/book/' + isbn + '/rate', {intrID: intrID, value: value});
+    },
+    commentBook: function(isbn, intrID, content){
+      return $http.put('/book/' + isbn + '/comment', {intrID: intrID, content: content});
+    },
     books: books
   }
+});
+
+serviceApp.factory('EventsService', function($http){
+  return {
+    getAllEvents: function(){
+      return $http.get('/admin/events');
+    },
+    acceptEvent: function(unqId, intrId){
+      return $http.put('/admin/events/' + unqId, {intrId: intrId});
+    }
+  }
 })
+
+serviceApp.constant('category', {
+  'Frontend': '1',
+  'Backend':'2',
+  'Database': '3',
+  'Big Data': '4',
+  'IOS/Android': '5',
+  'UI Design': '6',
+  'Other': '7'
+});

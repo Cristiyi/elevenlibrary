@@ -1,0 +1,30 @@
+<div id="Grid" infinite-scroll="showMoreBooks()">
+  <div masonry>
+    <div class="masonry-brick" ng-repeat="book in books | filter : cate=='userLiked'? {isLiked: true} : {category: cate}">
+      <div class="gridItem" ng-class="{aHover: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
+        <div class="bookShot">
+          <div>
+            <div class="hoverInfo">
+              <h4><strong>{{ book.name }}</strong></h4>
+              <h5>{{book.author}}</h5>
+              <h5>{{book.publisher}}</h5>
+            </div>
+            <div class="hoverLike">
+              <span>{{book.likes.length}}</span>
+              <a class="liked" ng-class="{isLiked: book.isLiked}" ng-click="like(book)"></a>
+            </div>
+            <a class="hoverLink" ng-href="#/book/{{book.isbn}}">
+              <img style="width:206px;" ng-src="{{ book.image }}" />
+            </a>
+          </div>
+          <div class="bookInfoFooter">
+            <ul class="bookInfoFooter">
+              <li class="comment"><span>{{ book.commentNum }}</span></li>
+              <li class="like"><span>{{ book.likeNum }}</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

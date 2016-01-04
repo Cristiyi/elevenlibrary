@@ -26,6 +26,7 @@ module.exports = function(app) {
                   book.lendTime = books[i].lendTime;
                   book.borrower = books[i].borrower;
                   book.name = booksprop[j].name;
+                  book.category = booksprop[j].category;
                   book.desc = booksprop[j].desc;
                   book.publisher = booksprop[j].publisher;
                   book.author = booksprop[j].author;
