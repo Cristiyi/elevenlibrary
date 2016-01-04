@@ -1,0 +1,98 @@
+<div id="content" class="group">
+  <h1>{{ book.name }}</h1>
+  <div class="group">
+    <div class="main-shot">
+      <div class="the-shot">
+        <div class="book-pic">
+          <a target="_blank" ng-href="{{book.image}}">
+            <img style="max-width: 210px; height: 290px" src="{{book.image}}" alt="" />
+          </a>
+        </div>
+        <div class="book-info">
+          <div class="meta-act">
+            <span>Author:{{book.author}}</span>
+          </div>
+          <div class="meta-act">
+            <span>ISBN：{{book.isbn}}</span>
+          </div>
+          <div class="meta-act">
+            <span>Publisher：{{book.publisher}}</span>
+          </div>
+          <div class="meta-act">
+            <span>Page Count: {{book.pageCount}}</span>
+          </div>
+          <div class="meta-act">
+            <span>Category: {{book.category}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="screenshot-meta">
+        <div class="social-media meta-act meta-act-full" id="BorrowBtn">
+          <a href="" class="meta-act-link free" ng-click="borrow()" ng-show="book.status==0"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Borrow</a>
+          <a href="" class="meta-act-link reserved" ng-show="book.status==1" data-toggle="tooltip" data-placement="top" title="Please get you book in two days"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Reserved</a>
+          <a href="" class="meta-act-link borrowed" ng-show="book.status==2"><span class="glyphicon glyphicon-share" aria-hidden="true"></span> Borrowed</a>
+        </div>
+        <div class="meta-act">
+          <div class="group fav">
+            <a class="meta-act-link meta-like" href="" ng-class="{ILiked: isLiked}" ng-click="like()">{{book.likes.length}} likes</a>
+          </div>
+        </div>
+        <div class="meta-act">
+          <div class="group fav evaluate" ng-class="{noEvent: isRated}">
+            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=1 || rateValue>=1}" ng-mouseenter="tarValue = 1" ng-mouseleave="tarValue = 0" ng-click="rate(1)"><span></span></a>
+            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=2 || rateValue>=2}" ng-mouseenter="tarValue = 2" ng-mouseleave="tarValue = 0" ng-click="rate(2)"><span></span></a>
+            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=3 || rateValue>=3}" ng-mouseenter="tarValue = 3" ng-mouseleave="tarValue = 0" ng-click="rate(3)"><span></span></a>
+            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=4 || rateValue>=4}" ng-mouseenter="tarValue = 4" ng-mouseleave="tarValue = 0" ng-click="rate(4)"><span></span></a>
+            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=5 || rateValue>=5}" ng-mouseenter="tarValue = 5" ng-mouseleave="tarValue = 0" ng-click="rate(5)"><span></span></a>
+            <a class="meta-act-link" href="">({{book.rates.length}} rates)</a>
+          </div>
+        </div>
+        <h3 class="meta-head">More Similar Books</h3>
+        <ol class="more-thumbs">
+          <li class="multi-thumb" ng-repeat="book in simBooks">
+            <a href="#/book/{{book.isbn}}">
+              <img ng-src="{{book.image}}">
+            </a>
+          </li>
+        </ol>
+        <h3 class="meta-head">More Popular Books</h3>
+        <ol class="more-thumbs">
+          <li class="multi-thumb" ng-repeat="book in popBooks">
+            <a href="#/book/{{book.isbn}}">
+              <img ng-src="{{book.image}}">
+            </a>
+          </li>
+        </ol>
+      </div>
+      <div class="shot-desc">
+        <p>{{book.desc}}</p>
+      </div>
+      <div id="comments-section">
+        <h2 class="count section ">{{book.comments.length}} Comments</h2>
+        <ol id="comments" class="comments">
+          <li class="response group " ng-repeat="comment in book.comments track by $index">
+            <div class="user_pic">
+              <img src="images/pic/head.jpg">
+            </div>
+            <div class="comments">
+            <span class="pull-right">{{$index + 1}}#</span>
+              <h2>{{comment.intrID}}</h2>
+              <div class="comment-body">
+                <p>{{comment.content}}</p>
+              </div>
+              <p class="comment-meta">
+                <a class="posted">{{comment.time | date:'yyyy-MM-dd HH:mm:ss'}}</a>
+              </p>
+            </div>
+          </li>
+        </ol>
+        <div class="form-group">
+          <legend class="color2"ng-hide="book.comments.length==0"></legend>
+          <textarea type="text" class="form-control" rows="5" style="border: 1px solid #dddddd; margin-bottom:5px;" ng-init="content=''" ng-model="content"></textarea>
+          <span style="margin-top:5px;">Count: {{content.length}}</span>
+          <a class="btn btn-default pull-right" role="button" ng-click="comment()">Submit</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
