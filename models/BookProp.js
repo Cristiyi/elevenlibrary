@@ -9,13 +9,11 @@ var BookPropSchema = new mongoose.Schema({
 	price: Number,
 	desc: String,
 	image: String,
-<<<<<<< HEAD
-	count: Number
-=======
+	count: Number,
+	
 	likes: [String],    // Likes
 	rates: [{intrID: String, value: Number}],   // Rates
 	comments: [{intrID: String, content: String, time: Date}], // Comments
->>>>>>> 3ae7d3a43d2bdd5fbb321e85b9bcaa9ff2e52ab1
 });
 
 module.exports = mongoose.model('BookProp', BookPropSchema);

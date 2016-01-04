@@ -60,14 +60,14 @@ module.exports = function(app) {
 
 
 	app.put('/book/:isbn/borrow', function(req, res){
-		console.log(req.body);
-		// var param = req.body;
+
 		var intrID = req.body.intrID;
+		console.log(intrID);
 		User.findOne({intrID: intrID}, function(err, user){
 			if(err) {
 	          console.log('[Find qualified user] Find user DB err : '+ err);
 	        }
-			else if(user.borrowedBooks.length > 2){
+			else if(user.borrowedBooks && user.borrowedBooks.length > 2){
 				res.json({
 					errType: 1
 				});
@@ -82,7 +82,7 @@ module.exports = function(app) {
 			        		errType: 2
 			        	});
 			        }else{
-			        	Book.update({unqId: book.unqId}, {status: 1, applyTime: new Date()}, function(err, resbook){
+			        	Book.update({unqId: book.unqId}, {status: 1, intrID: intrID, applyTime: new Date()}, function(err, resbook){
 			        		if(err) {
 					          console.log('[Update book status and time] Update book DB err : '+ err);
 					        }
@@ -129,6 +129,7 @@ module.exports = function(app) {
 	app.put('/admin/events/:unqId', function(req, res){
 		var unqId = req.params.unqId;
 		var intrID = req.body.intrID;
+		console.log(unqId, intrID);
 
 		Book.findOne({unqId: unqId}, function(err, resbook){
 			if(err){

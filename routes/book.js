@@ -20,6 +20,7 @@ module.exports = function(app) {
 			isbn: param.isbn,
 			status: 0,
 			name: param.name,
+			category: param.category,
 			intrID: param.intrID,
 		};
 
