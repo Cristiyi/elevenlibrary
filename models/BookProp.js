@@ -6,7 +6,7 @@ var BookPropSchema = new mongoose.Schema({
 	publisher: String,
 	author: String,
 	pageCount: Number,
-	price: Number,
+	price: String,
 	desc: String,
 	image: String,
 	count: Number,
