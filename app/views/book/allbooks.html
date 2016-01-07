@@ -1,6 +1,6 @@
 <div id="Grid" infinite-scroll="showMoreBooks()">
   <div masonry>
-    <div class="masonry-brick" ng-repeat="book in books | filter : cate=='userLiked'? {isLiked: true} : {category: cate}">
+    <div class="masonry-brick" ng-repeat="book in books | filter : cate=='userLiked'? {isLiked: true} : ( cate=='userBorrowed' ? {intrID: logInUser.intrID}: {category: cate})">
       <div class="gridItem" ng-class="{aHover: hover}" ng-mouseenter="hover = true" ng-mouseleave="hover = false">
         <div class="bookShot">
           <div>

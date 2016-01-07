@@ -75,16 +75,17 @@ adminApp.controller('ManageBooksCtrl', function($scope, $element, $http, $locati
     'showStatusValue': '',
     'showAllFilters': false,
     'showPublisher': true,
-    'showPageCount': true,
-    'showPrice': true,
+    'showPageCount': false,
+    'showPrice': false,
     'showLikes': true,
-    'showComments': true,
-    'showEvaluations': true
+    'showComments': false,
+    'showEvaluations': false
   };
 
   adminBooksService.getAllBooks(function(res) {
     adminBooksService.books = [];
     adminBooksService.books = adminBooksService.books.concat(res);
+    console.log(res, 'getAllBooks');
     initTable();
   }, function(res) {
     initTable();
@@ -190,11 +191,11 @@ adminApp.controller('ManageBooksCtrl', function($scope, $element, $http, $locati
     'showStatusValue': '',
     'showAllFilters': false,
     'showPublisher': true,
-    'showPageCount': true,
-    'showPrice': true,
+    'showPageCount': false,
+    'showPrice': false,
     'showLikes': true,
-    'showComments': true,
-    'showEvaluations': true,
+    'showComments': false,
+    'showEvaluations': false,
     'showStrict': false
   };
 
@@ -206,11 +207,11 @@ adminApp.controller('ManageBooksCtrl', function($scope, $element, $http, $locati
     'showStatusValue': '',
     'showAllFilters': false,
     'showPublisher': true,
-    'showPageCount': true,
-    'showPrice': true,
+    'showPageCount': false,
+    'showPrice': false,
     'showLikes': true,
-    'showComments': true,
-    'showEvaluations': true,
+    'showComments': false,
+    'showEvaluations': false,
     'showStrict': false
   };
 
@@ -450,19 +451,37 @@ adminApp.controller('NewBookCtrl', function($scope, $http, $timeout, $location, 
   };
 });
 
-adminApp.controller('ManageEventsCtrl', function($scope, $rootScope, EventsService, adminBooksService) {
+adminApp.controller('ManageEventsCtrl', function($scope, $rootScope, EventsService, NgTableParams, adminBooksService) {
   $scope.events = [];
+  $scope.curEvent = {};
   EventsService.getAllEvents().success(function(res){
     console.log(res, 'getAllEvents');
     $scope.events = res;
+    $scope.tableParams = new NgTableParams({
+      count: 10
+    }, {
+      counts: [5, 10, 25],
+      dataset: $scope.events
+    });
   });
 
   $scope.accept = function(event) {
+    $scope.curEvent = event;
     EventsService.acceptEvent(event.unqId, event.intrID).success(function(res) {
-      if (errType == 0) {
-        event.status=2;
+      if (res.errType == 0) {
+        for (var i = 0; i < $scope.events.length; i++){
+          if ($scope.events[i].unqId === event.unqId){
+            $scope.events.splice(i, 1);
+            break;
+          };
+        }
+      } else {
+        $('#warningModal').modal('show');
       };
-    })
+    }).error(function(res){
+      console.log(res);
+      $('#warningModal').modal('show');
+    });
   };
 
 });

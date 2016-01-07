@@ -9,7 +9,7 @@ bookApp.controller('AllBooksCtrl', function($scope, $rootScope, $timeout, BooksS
   BooksService.getAllBooks()
     .success(function(res) {
       BooksService.books = [];
-      console.log(res[0].likes, 'AllBooks');
+      console.log(res, 'AllBooks');
       for (var i = 0; i < res.length; i++) {
         res[i].image = res[i].image ? res[i].image : "images/gray.jpg";
         res[i].isLiked = false;
@@ -102,9 +102,16 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
       if (res.errType == 0) {
         $scope.book.intrID = $rootScope.logInUser.intrID;
         $scope.book.status = 1;
-      };
+      } else if (res.errType == 1){
+        $('#warningModal').modal('show');
+      } else if (res.errType == 2){
+        $('#noneModal').modal('show');
+      } else if (res.errType == 3){
+        $('#errorModal').modal('show');
+      }
     }).error(function(res) {
       console.log(res, "BorrowBook");
+      $('#errorModal').modal('show');
     });
   };
 

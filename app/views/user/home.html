@@ -11,12 +11,12 @@
       <ul class="profileLinks">
         <li>
           <a href="">
-            <span>2</span> Borrows
+            <span>{{borrowedBooks.length}}</span> Borrows
           </a>
         </li>
         <li>
           <a href="">
-            <span>14</span> Likes
+            <span>{{likedBooks.length}}</span> Likes
           </a>
         </li>
       </ul>
@@ -24,25 +24,20 @@
   </div>
   <div id="borrowedDiv">
     <h3>Books Borrowed</h3>
-    <ol>
-      <li>
-        <a href="#/books/28">
-          <img ng-src="images/img (28).jpg">
+    <div masonry>
+      <div class="masonry-brick" ng-repeat="book in borrowedBooks">
+        <a href="#/book/{{book.isbn}}">
+          <img ng-src="{{book.image}}" />
         </a>
-      </li>
-      <li>
-        <a href="#/books/29">
-          <img ng-src="images/img (29).jpg">
-        </a>
-      </li>
-    </ol>
+      </div>
+    </div>
   </div>
   <div id="likedDiv">
     <h3>Books Liked</h3>
     <div masonry>
-      <div class="masonry-brick" ng-repeat="likedBookId in logInUser.likedBooks">
-        <a href="#/books/{{likedBookId}}">
-          <img ng-src="images/img ({{likedBookId}}).jpg" />
+      <div class="masonry-brick" ng-repeat="book in likedBooks">
+        <a href="#/book/{{book.isbn}}">
+          <img ng-src="{{book.image}}" />
         </a>
       </div>
     </div>

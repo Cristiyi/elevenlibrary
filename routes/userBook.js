@@ -23,7 +23,9 @@ module.exports = function(app) {
                   book.isbn = books[i].isbn;
                   book.status = books[i].status;
                   book.applyTime = books[i].applyTime;
-                  book.lendTime = books[i].lendTime;
+                  book.borrowTime = books[i].borrowTime;
+                  book.returnTime = books[i].returnTime;
+                  book.intrID = books[i].intrID;
                   book.borrower = books[i].borrower;
                   book.name = booksprop[j].name;
                   book.category = booksprop[j].category;
@@ -63,7 +65,9 @@ module.exports = function(app) {
         myBook.isbn = book.isbn;
         myBook.status = book.status;
         myBook.applyTime = book.applyTime;
-        myBook.lendTime = book.lendTime;
+        myBook.borrowTime = book.borrowTime;
+        myBook.returnTime = book.returnTime;
+        myBook.intrID = book.intrID;
         myBook.borrower = book.borrower;
         BookProp.findOne({
           isbn: isbn

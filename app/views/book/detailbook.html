@@ -75,7 +75,7 @@
               <img src="images/pic/head.jpg">
             </div>
             <div class="comments">
-            <span class="pull-right">{{$index + 1}}#</span>
+              <span class="pull-right">{{$index + 1}}#</span>
               <h2>{{comment.intrID}}</h2>
               <div class="comment-body">
                 <p>{{comment.content}}</p>
@@ -87,11 +87,62 @@
           </li>
         </ol>
         <div class="form-group">
-          <legend class="color2"ng-hide="book.comments.length==0"></legend>
+          <legend class="color2" ng-hide="book.comments.length==0"></legend>
           <textarea type="text" class="form-control" rows="5" style="border: 1px solid #dddddd; margin-bottom:5px;" ng-init="content=''" ng-model="content"></textarea>
           <span style="margin-top:5px;">Count: {{content.length}}</span>
           <a class="btn btn-default pull-right" role="button" ng-click="comment()">Submit</a>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="warningModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Warning</h4>
+      </div>
+      <div class="modal-body">
+        <p>You have borrowed <strong>TWO</strong> books, please read them first.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="noneModal" tabindex="-1" role="dialog" aria-labelledby="noneModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Warning</h4>
+      </div>
+      <div class="modal-body">
+        <p>The book: <strong>{{book.name}}</strong> is out of stock.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Warning</h4>
+      </div>
+      <div class="modal-body">
+        <p>Server error! Please try again.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
       </div>
     </div>
   </div>
