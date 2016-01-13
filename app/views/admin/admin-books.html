@@ -35,6 +35,21 @@
       <td class="text-center" title="'Publisher'" ng-if="setting.showPublisher" filter="{ publisher: 'text'}" sortable="'publisher'">
         {{book.publisher}}
       </td>
+      <td class="text-center" title="'Borrower'" filter="{ borrower: 'text'}" sortable="'borrower'">
+        {{book.intrID}}
+      </td>
+      <td class="text-center" title="'History'"sortable="'history'">
+        <span ng-repeat="item in book.borrower">{{item.name}} </span>
+      </td>
+      <td class="text-center" title="'BorrowTime'" filter="{ borrowTime: 'text'}" sortable="'borrowTime'">
+        {{book.borrowTime | date:'yyyy-MM-dd'}}
+      </td>
+      <td class="text-center" title="'ReturnTime'" filter="{ returnTime: 'text'}" sortable="'returnTime'">
+        {{book.returnTime | date:'yyyy-MM-dd'}}
+      </td>
+      <td class="text-center" title="'ApplyTime'" filter="{ applyTime: 'text'}" sortable="'applyTime'">
+        {{book.applyTime | date:'yyyy-MM-dd'}}
+      </td>
       <td class="text-center" title="'PageCount'" ng-if="setting.showPageCount" filter="{ pageCount: 'number'}" sortable="'pageCount'">
         {{book.pageCount}}
       </td>
@@ -42,7 +57,7 @@
         {{book.price}}
       </td>
       <td class="text-center" title="'Likes'" ng-if="setting.showLikes" filter="{ likeNum: 'number'}" sortable="'likeNum'">
-        {{book.likeNum}}
+        {{book.likes.length}}
       </td>
       <td class="text-center" title="'Comments'" ng-if="setting.showComments" filter="{ commentNum: 'number'}" sortable="'commentNum'">
         {{book.commentNum}}

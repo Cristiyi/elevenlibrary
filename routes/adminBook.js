@@ -23,9 +23,12 @@ module.exports = function(app) {
                   book.isbn = books[i].isbn;
                   book.status = books[i].status;
                   book.applyTime = books[i].applyTime;
-                  book.lendTime = books[i].lendTime;
+                  book.borrowTime = books[i].borrowTime;
+                  book.returnTime = books[i].returnTime;
+                  book.intrID = books[i].intrID;
                   book.borrower = books[i].borrower;
                   book.name = booksprop[j].name;
+                  book.category = booksprop[j].category;
                   book.desc = booksprop[j].desc;
                   book.publisher = booksprop[j].publisher;
                   book.author = booksprop[j].author;
@@ -33,6 +36,9 @@ module.exports = function(app) {
                   book.price = booksprop[j].price;
                   book.count = booksprop[j].count;
                   book.image = booksprop[j].image;
+                  book.likes = booksprop[j].likes;
+                  book.rates = booksprop[j].rates;
+                  book.comments = booksprop[j].comments;
                   newBooks.push(book);
                   break;
                 };

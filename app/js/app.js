@@ -1,83 +1,66 @@
 var mainApp = angular.module('mainApp', [
-  'ngAnimate',
   'ui.router',
-  'ngMessages',
-  'serviceApp',
-  'wu.masonry',
-  'ngTable',
-  'bookListApp',
-  'bookDetailApp',
-  'bookManageApp',
+  'bookApp',
+  'adminApp',
   'userApp'
 ]);
 
 mainApp.config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/books/popular');
+  $urlRouterProvider.otherwise('/books');
 
   $stateProvider
     .state('main', {
       url: '',
-      templateUrl: 'views/main.html',
+      templateUrl: 'views/book/main.html',
       controller: 'MainBooksCtrl'
     })
-    .state('main.popular', {
-      url: '/books/popular',
-      templateUrl: 'views/popular.html',
-      controller: 'ShowPopularBooks'
-    })
-    .state('main.allbooks', {
-      url: '/books/allbooks',
-      templateUrl: 'views/allbooks.html',
-      controller: 'ShowAllBooks'
-    })
-    .state('main.free', {
-      url: '/books/free',
-      templateUrl: 'views/free.html',
-      controller: 'ShowFreeBooks'
-    })
-    .state('main.liked', {
-      url: '/books/liked',
-      templateUrl: 'views/popular.html',
-      controller: 'ShowPopularBooks'
-    })
-    .state('main.mybooks', {
-      url: '/books/mybooks',
-      templateUrl: 'views/mybooks.html',
-      controller: 'ShowMyBooks'
-    })
-    .state('main.tempdetail', {
-      url: '/books/:bookId',
-      templateUrl: 'views/tempdetail.html',
-      controller: 'BookTempDetailCtrl'
+    .state('main.list', {
+      url: '/books',
+      templateUrl: 'views/book/allbooks.html',
+      controller: 'AllBooksCtrl'
     })
     .state('main.detail', {
       url: '/book/:bookId',
-      templateUrl: 'views/detail.html',
-      controller: 'BookDetailCtrl'
+      templateUrl: 'views/book/detailbook.html',
+      controller: 'DetailBookCtrl'
     })
     .state('main.home', {
       url: '/home',
-      templateUrl: 'views/home.html',
-      controller: 'ShowMyBooks'
+      templateUrl: 'views/user/home.html',
+      controller: 'UserHomeCtrl'
     })
     .state('main.setting', {
       url: '/setting',
-      templateUrl: 'views/setting.html',
-      controller: 'ShowMyBooks'
+      templateUrl: 'views/user/setting.html',
+    })
+    .state('login', {
+      url: '/login',
+      templateUrl: 'views/user/login.html',
+      controller: 'LoginCtrl'
+    })
+    .state('register', {
+      url: '/register',
+      templateUrl: 'views/user/register.html',
+      controller: 'RegCtrl'
     })
     .state('manage', {
       url: '',
       templateUrl: 'views/admin/admin-main.html',
       controller: 'ManageCtrl'
     })
-    .state('manage.logs', {
-      url: '/manage/logs',
-      templateUrl: 'views/admin/admin-logs.html'
-    })
     .state('manage.books', {
       url: '/manage/books',
       templateUrl: 'views/admin/admin-books.html',
       controller: 'ManageBooksCtrl'
+    })
+    .state('manage.events', {
+      url: '/manage/events',
+      templateUrl: 'views/admin/admin-events.html',
+      controller: 'ManageEventsCtrl'
+    })
+    .state('manage.logs', {
+      url: '/manage/logs',
+      templateUrl: 'views/admin/admin-logs.html'
     })
     .state('manage.newBook', {
       url: '/manage/newBook',
@@ -88,16 +71,6 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
       url: '/manage/book/:bookId',
       templateUrl: 'views/admin/admin-item.html',
       controller: 'ManageBookCtrl'
-    })
-    .state('login', {
-      url: '/login',
-      templateUrl: 'views/login.html',
-      controller: 'LoginCtrl'
-    })
-    .state('register', {
-      url: '/register',
-      templateUrl: 'views/register.html',
-      controller: 'RegCtrl'
     })
     .state('adminLogin', {
       url: '/adminLogin',
@@ -134,7 +107,6 @@ mainApp.run(function($rootScope, $window, $http, $location) {
 
     // });
   }; //test token
-
 });
 
 mainApp.factory('authInterceptor', function($rootScope, $q, $window, $location) {
