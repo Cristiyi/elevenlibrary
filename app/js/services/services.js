@@ -24,14 +24,8 @@ serviceApp.factory('BooksService', function($http){
     getAllBooks: function(){
       return $http.get('/books');
     },
-    getOneBook: function(isbn, intrID){
-      return $http.get('/book/' + isbn + '?intrID=' + intrID);
-    },
     getSimilarBooks: function(isbn){
       return $http.get('/book/' + isbn + '/similar');
-    },
-    getPopularBooks: function(isbn){
-      return $http.get('/book/' + isbn + '/popular');
     },
     borrrowBook: function(isbn, intrID){
       return $http.put('/book/' + isbn + '/borrow', {intrID: intrID});

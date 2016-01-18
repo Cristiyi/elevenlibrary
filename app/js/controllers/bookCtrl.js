@@ -1,29 +1,90 @@
 var bookApp = angular.module('bookApp', ['wu.masonry', 'infinite-scroll', 'serviceApp']);
-bookApp.controller('MainBooksCtrl', function($scope) {});
-
-bookApp.controller('AllBooksCtrl', function($scope, $rootScope, $state, $timeout, BooksService) {
+bookApp.controller('MainBooksCtrl', function($scope, $state, $rootScope, BooksService) {
+  console.log('MainBooksCtrl Start');
   $scope.books = [];
-  var eachPageBooksCount = 10;
+  $scope.popBooks = [];
+  $scope.getDataOver = false;
   $scope.showScrollToTop = false;
+  var eachPageBooksCount = 10;
+
+  $scope.$watch(function() {
+    return $state.current.name;
+  }, function() {
+    if ($state.current.name == "main.all") {
+      $scope.cate = '';
+    } else if ($state.current.name == "main.frontend") {
+      $scope.cate = 'Frontend';
+    } else if ($state.current.name == "main.backend") {
+      $scope.cate = 'Backend';
+    } else if ($state.current.name == "main.database") {
+      $scope.cate = 'Database';
+    } else if ($state.current.name == "main.bigdata") {
+      $scope.cate = 'Big Data';
+    } else if ($state.current.name == "main.ios") {
+      $scope.cate = 'IOS/Android';
+    } else if ($state.current.name == "main.ui") {
+      $scope.cate = 'UI Design';
+    } else if ($state.current.name == "main.other") {
+      $scope.cate = 'Other';
+    } else if ($state.current.name == "main.liked") {
+      $scope.cate = 'userLiked';
+    } else if ($state.current.name == "main.borrowed") {
+      $scope.cate = 'userBorrowed';
+    };
+  });
+
+  $scope.updatePop = function() {
+    function sortLikes(a, b){
+      return b.likes.length - a.likes.length;
+    };
+    $scope.popBooks = BooksService.books.sort(sortLikes);
+  };
+
+
+  $scope.showMoreBooks = function() {
+    var start = $scope.books.length;
+    var end = Math.min(start + 10, BooksService.books.length);
+    for (var i = start; i < end; i++) {
+      $scope.books.push(BooksService.books[i]);
+    };
+    if (start >= eachPageBooksCount * 2) {
+      $scope.showScrollToTop = true;
+    };
+  };
 
   BooksService.getAllBooks()
     .success(function(res) {
+      $scope.books = [];
       BooksService.books = [];
-      console.log(res, 'AllBooks');
+      var intrID = $rootScope.logInUser.intrID;
+      var total = 0;
       for (var i = 0; i < res.length; i++) {
-        res[i].image = res[i].image ? res[i].image : "images/gray.jpg";
-        res[i].isLiked = false;
-        for (var j = 0; j < res[i].likes.length; j++) {
-          if (res[i].likes[j] === $rootScope.logInUser.intrID) {
+        for (var k = 0; k < res[i].likes.length; k++) {
+          if (res[i].likes[k] === intrID) {
             res[i].isLiked = true;
             break;
           };
-        }
+        };
+        total = 0;
+        for (var k = 0; k < res[i].rates.length; k++) {
+          total += res[i].rates[k].value;
+          if (res[i].rates[k].intrID === intrID) {
+            res[i].isRated = true;
+            res[i].rateValue = res[i].rates[k].value;
+          };
+        };
+        res[i].avaValue = res[i].rates.length == 0 ? 0 : parseFloat(total / res[i].rates.length).toFixed(1);
+        res[i].image = res[i].image ? res[i].image : "images/gray.jpg";
         BooksService.books.push(res[i]);
       };
+      $scope.updatePop();
       $scope.showMoreBooks();
+      $scope.getDataOver = true;
     });
+});
 
+bookApp.controller('AllBooksCtrl', function($scope, $rootScope, $state, $timeout, BooksService) {
+  console.log('AllBooksCtrl Start');
   var timeout;
   $scope.like = function(book) {
     if (!$rootScope.logInUser.intrID) {
@@ -41,75 +102,47 @@ bookApp.controller('AllBooksCtrl', function($scope, $rootScope, $state, $timeout
               break;
             };
           };
+          $scope.updatePop();
         });
       }, 500);
-    };
-  };
-
-  $scope.showMoreBooks = function showMoreBooks() {
-    var start = $scope.books.length;
-    var end = Math.min(start + 10, BooksService.books.length);
-    for (var i = start; i < end; i++) {
-      $scope.books.push(BooksService.books[i]);
-    };
-    if (start >= eachPageBooksCount * 2) {
-      $scope.showScrollToTop = true;
     };
   };
 });
 
 bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $state, $location, BooksService) {
-  $scope.book = {};
-  $scope.isLiked = false;
-  $scope.isRated = false;
-  $scope.tarValue = 0;
-  $scope.rateValue = 0;
+  console.log('DetailBookCtrl Start');
   $scope.simBooks = [];
-  $scope.popBooks = [];
+  $scope.tarValue = 0;
+  $scope.content = '';
+  $scope.index = 0;
 
-  function analyseData() {
-    var intrID = $rootScope.logInUser.intrID;
-    for (var i = 0; i < $scope.book.likes.length; i++) {
-      if ($scope.book.likes[i] === intrID) {
-        $scope.isLiked = true;
-        break;
+    $scope.$watch(function() {
+      return $scope.getDataOver;
+    }, function() {
+      for (var i = 0; i < $scope.books.length; i++) {
+        if ($scope.books[i].isbn === $state.params.bookId) {
+          $scope.index = i;
+          break;
+        };
       };
-    };
-    for (var i = 0; i < $scope.book.rates.length; i++) {
-      if ($scope.book.rates[i].intrID === intrID) {
-        $scope.isRated = true;
-        $scope.rateValue = $scope.book.rates[i].value;
-        break;
-      };
-    };
-  }
+    });
+
   $('[data-toggle="tooltip"]').tooltip();
-
-  BooksService.getOneBook($state.params.bookId, $rootScope.logInUser.intrID).success(function(res) {
-    res.image = res.image ? res.image : "images/gray.jpg";
-    $scope.book = res;
-    analyseData();
-  }).error(function(res) {
-    console.log(res);
-  });
 
   BooksService.getSimilarBooks($state.params.bookId).success(function(res) {
     $scope.simBooks = res;
-  });
-
-  BooksService.getPopularBooks($state.params.bookId).success(function(res) {
-    $scope.popBooks = res;
+    $scope.showSimilarBooks = $scope.simBooks.length != 0 ? true : false;
   });
 
   $scope.borrow = function() {
     if (!$rootScope.logInUser.intrID) {
       $state.go('login');
     } else {
-      BooksService.borrrowBook($scope.book.isbn, $rootScope.logInUser.intrID).success(function(res) {
+      BooksService.borrrowBook($state.params.bookId, $rootScope.logInUser.intrID).success(function(res) {
         console.log(res, "BorrowBook");
         if (res.errType == 0) {
-          $scope.book.intrID = $rootScope.logInUser.intrID;
-          $scope.book.status = 1;
+          $scope.books[$scope.index].intrID = $rootScope.logInUser.intrID;
+          $scope.books[$scope.index].status = 1;
         } else if (res.errType == 1) {
           $('#warningModal').modal('show');
         } else if (res.errType == 2) {
@@ -129,13 +162,13 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
     if (!$rootScope.logInUser.intrID) {
       $state.go('login');
     } else {
-      $scope.isLiked = !$scope.isLiked;
+      $scope.books[$scope.index].isLiked = !$scope.books[$scope.index].isLiked;
       if (timeout) $timeout.cancel(timeout);
       timeout = $timeout(function() {
-        BooksService.likeBook($scope.book.isbn, $rootScope.logInUser.intrID, $scope.isLiked).success(function(res) {
+        BooksService.likeBook($scope.books[$scope.index].isbn, $rootScope.logInUser.intrID, $scope.books[$scope.index].isLiked).success(function(res) {
           console.log(res, 'like');
-          $scope.book.likes = res;
-          analyseData();
+          $scope.books[$scope.index].likes = res;
+          $scope.updatePop();
         });
       }, 500);
     };
@@ -145,11 +178,10 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
     if (!$rootScope.logInUser.intrID) {
       $state.go('login');
     } else {
-      $scope.tarValue = value;
-      BooksService.rateBook($scope.book.isbn, $rootScope.logInUser.intrID, value).success(function(res) {
+      $scope.books[$scope.index].rateValue = value;
+      BooksService.rateBook($scope.books[$scope.index].isbn, $rootScope.logInUser.intrID, value).success(function(res) {
         console.log(res, 'rate');
-        $scope.book.rates = res;
-        analyseData();
+        $scope.books[$scope.index].rates = res;
       });
     };
   };
@@ -157,10 +189,10 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
   $scope.comment = function() {
     if (!$rootScope.logInUser.intrID) {
       $state.go('login');
-    } else if ($scope.content.length!=0){
-      BooksService.commentBook($scope.book.isbn, $rootScope.logInUser.intrID, $scope.content).success(function(res) {
+    } else if ($scope.content.length != 0) {
+      BooksService.commentBook($scope.books[$scope.index].isbn, $rootScope.logInUser.intrID, $scope.content).success(function(res) {
         console.log(res, 'comment');
-        $scope.book.comments = res;
+        $scope.books[$scope.index].comments = res;
         $scope.content = '';
       });
     };

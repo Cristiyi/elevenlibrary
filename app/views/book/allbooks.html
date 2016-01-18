@@ -11,7 +11,7 @@
             </div>
             <div class="hoverLike">
               <span>{{book.likes.length}}</span>
-              <a class="liked" ng-class="{isLiked: book.isLiked}" ng-click="like(book)"></a>
+              <a class="liked" ng-class="{isLiked: book.isLiked==true}" ng-click="like(book)"></a>
             </div>
             <a class="hoverLink" ng-href="#/book/{{book.isbn}}">
               <img style="width:206px;" ng-src="{{ book.image }}" />

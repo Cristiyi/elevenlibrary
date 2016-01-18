@@ -18,7 +18,6 @@ module.exports = function(app) {
               for (var j = 0; j < booksprop.length; j++) {
                 if (books[i].isbn == booksprop[j].isbn) {
                   var book = {};
-                  console.log(books[i]);
                   book.unqId = books[i].unqId;
                   book.isbn = books[i].isbn;
                   book.status = books[i].status;
@@ -49,49 +48,6 @@ module.exports = function(app) {
         });
       };
     });
-  });
-
-  app.get('/book/:isbn', function(req, res) {
-    var isbn = req.params.isbn;
-    var intrID = req.query.intrID;
-    var myBook = {};
-    Book.findOne({
-      isbn: isbn
-    }, function(err, book) {
-      if (!book) {
-        res.send(err);
-      } else {
-        myBook.unqId = book.unqId;
-        myBook.isbn = book.isbn;
-        myBook.status = book.status;
-        myBook.applyTime = book.applyTime;
-        myBook.borrowTime = book.borrowTime;
-        myBook.returnTime = book.returnTime;
-        myBook.intrID = book.intrID;
-        myBook.borrower = book.borrower;
-        BookProp.findOne({
-          isbn: isbn
-        }, function(err, bookProp) {
-          if (err) {
-            res.send(err);
-          } else {
-            myBook.name = bookProp.name;
-            myBook.desc = bookProp.desc;
-            myBook.publisher = bookProp.publisher;
-            myBook.category = bookProp.category;
-            myBook.author = bookProp.author;
-            myBook.pageCount = bookProp.pageCount;
-            myBook.price = bookProp.price;
-            myBook.count = bookProp.count;
-            myBook.image = bookProp.image;
-            myBook.likes = bookProp.likes;
-            myBook.rates = bookProp.rates;
-            myBook.comments = bookProp.comments;
-            res.send(myBook);
-          };
-        })
-      }
-    })
   });
 
   // Likes, Rates and Comments
@@ -198,38 +154,23 @@ module.exports = function(app) {
         var simBooks = [];
         BookProp.find({
           category: category,
-          isbn: {$ne: isbn},
-          count: {$ne: 0},
-        }, null, {sort: {likes:1}, limit: 4}, function(err, books){
+          isbn: {
+            $ne: isbn
+          },
+          count: {
+            $ne: 0
+          },
+        }, null, {
+          limit: 4
+        }, function(err, books) {
           console.log(books.length, 'books.length');
-          for (var index in books){
+          for (var index in books) {
             simBooks.push(books[index]);
           };
-          if (books.length < 4){
-            BookProp.find({
-              category: {$ne: category}
-            }, null, {sort: {likes:1}, limit: 4-books.length}, function(err, otherBooks){
-              for (var index in otherBooks){
-                simBooks.push(otherBooks[index]);
-              };
-              res.send(simBooks);
-            })
-          } else {
-            res.send(simBooks);
-          };
+          res.send(simBooks);
         });
       }
     });
   });
 
-  // GetPopularBooks
-  app.get('/book/:isbn/popular', function(req, res) {
-    var isbn = req.params.isbn;
-    BookProp.find({
-      isbn: {$ne: isbn},
-      count: {$ne: 0},
-    }, null, {sort: {likes:1}, limit: 4}, function(err, books){
-      res.send(books);
-    })
-  });
 };

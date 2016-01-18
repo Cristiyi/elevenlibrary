@@ -272,6 +272,10 @@ input[type=number] {
   opacity: 1;
   display: block;
   z-index: 3;
+  width:30%;
+  padding:0;
+  margin-left:25px;
+  margin-bottom: 25px;
 }
 
 .hoverLike span {

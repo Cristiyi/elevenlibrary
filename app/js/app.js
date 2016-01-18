@@ -14,8 +14,53 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: 'views/book/main.html',
       controller: 'MainBooksCtrl'
     })
-    .state('main.list', {
-      url: '/books',
+    .state('main.all', {
+      url: '/books/all',
+      templateUrl: 'views/book/allbooks.html',
+      controller: 'AllBooksCtrl'
+    })
+    .state('main.frontend', {
+      url: '/books/frontend',
+      templateUrl: 'views/book/allbooks.html',
+      controller: 'AllBooksCtrl'
+    })
+    .state('main.backend', {
+      url: '/books/backend',
+      templateUrl: 'views/book/allbooks.html',
+      controller: 'AllBooksCtrl'
+    })
+    .state('main.database', {
+      url: '/books/database',
+      templateUrl: 'views/book/allbooks.html',
+      controller: 'AllBooksCtrl'
+    })
+    .state('main.bigdata', {
+      url: '/books/bigdata',
+      templateUrl: 'views/book/allbooks.html',
+      controller: 'AllBooksCtrl'
+    })
+    .state('main.ios', {
+      url: '/books/ios&android',
+      templateUrl: 'views/book/allbooks.html',
+      controller: 'AllBooksCtrl'
+    })
+    .state('main.ui', {
+      url: '/books/ui',
+      templateUrl: 'views/book/allbooks.html',
+      controller: 'AllBooksCtrl'
+    })
+    .state('main.other', {
+      url: '/books/other',
+      templateUrl: 'views/book/allbooks.html',
+      controller: 'AllBooksCtrl'
+    })
+    .state('main.liked', {
+      url: '/books/liked',
+      templateUrl: 'views/book/allbooks.html',
+      controller: 'AllBooksCtrl'
+    })
+    .state('main.borrowed', {
+      url: '/books/borrowed',
       templateUrl: 'views/book/allbooks.html',
       controller: 'AllBooksCtrl'
     })
