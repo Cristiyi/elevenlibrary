@@ -6,8 +6,8 @@
           <div>
             <div class="hoverInfo">
               <h4><strong>{{ book.name }}</strong></h4>
-              <h5>{{book.author}}</h5>
-              <h5>{{book.publisher}}</h5>
+              <h5>- {{book.author}}</h5>
+              <h5>- {{book.publisher}}</h5>
             </div>
             <div class="hoverLike">
               <span>{{book.likes.length}}</span>
@@ -19,8 +19,8 @@
           </div>
           <div class="bookInfoFooter">
             <ul class="bookInfoFooter">
-              <li class="comment"><span>{{ book.commentNum }}</span></li>
-              <li class="like"><span>{{ book.likeNum }}</span></li>
+              <li class="comment"><span>{{ book.comments.length }}</span></li>
+              <li class="like"><span>{{ book.likes.length }}</span></li>
             </ul>
           </div>
         </div>

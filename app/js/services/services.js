@@ -50,13 +50,18 @@ serviceApp.factory('BooksService', function($http){
 });
 
 serviceApp.factory('EventsService', function($http){
+  var events = [];
   return {
     getAllEvents: function(){
       return $http.get('/admin/events');
     },
     acceptEvent: function(unqId, intrId){
       return $http.put('/admin/events/' + unqId, {intrId: intrId});
-    }
+    },
+    returnEvent: function(unqId){
+      return $http.put('/admin/events/' + unqId);
+    },
+    events: events
   }
 })
 

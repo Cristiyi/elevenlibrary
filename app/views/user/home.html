@@ -27,7 +27,7 @@
     <div masonry>
       <div class="masonry-brick" ng-repeat="book in borrowedBooks">
         <a href="#/book/{{book.isbn}}">
-          <img ng-src="{{book.image}}" />
+          <img ng-src="{{book.image}}" style="width: 130px" />
         </a>
       </div>
     </div>
@@ -37,7 +37,7 @@
     <div masonry>
       <div class="masonry-brick" ng-repeat="book in likedBooks">
         <a href="#/book/{{book.isbn}}">
-          <img ng-src="{{book.image}}" />
+          <img ng-src="{{book.image}}" style="width: 130px" />
         </a>
       </div>
     </div>

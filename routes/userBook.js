@@ -198,7 +198,8 @@ module.exports = function(app) {
         var simBooks = [];
         BookProp.find({
           category: category,
-          isbn: {$ne: isbn}
+          isbn: {$ne: isbn},
+          count: {$ne: 0},
         }, null, {sort: {likes:1}, limit: 4}, function(err, books){
           console.log(books.length, 'books.length');
           for (var index in books){
@@ -225,7 +226,8 @@ module.exports = function(app) {
   app.get('/book/:isbn/popular', function(req, res) {
     var isbn = req.params.isbn;
     BookProp.find({
-      isbn: {$ne: isbn}
+      isbn: {$ne: isbn},
+      count: {$ne: 0},
     }, null, {sort: {likes:1}, limit: 4}, function(err, books){
       res.send(books);
     })

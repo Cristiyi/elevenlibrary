@@ -35,6 +35,9 @@
       <td class="text-center" title="'Publisher'" ng-if="setting.showPublisher" filter="{ publisher: 'text'}" sortable="'publisher'">
         {{book.publisher}}
       </td>
+      <td class="text-center" title="'Category'" filter="{ category: 'select'}" sortable="'category'">
+        {{book.category}}
+      </td>
       <td class="text-center" title="'Borrower'" filter="{ borrower: 'text'}" sortable="'borrower'">
         {{book.intrID}}
       </td>

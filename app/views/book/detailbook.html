@@ -10,13 +10,13 @@
         </div>
         <div class="book-info">
           <div class="meta-act">
-            <span>Author:{{book.author}}</span>
+            <span>Author: {{book.author}}</span>
           </div>
           <div class="meta-act">
-            <span>ISBN：{{book.isbn}}</span>
+            <span>ISBN: {{book.isbn}}</span>
           </div>
           <div class="meta-act">
-            <span>Publisher：{{book.publisher}}</span>
+            <span>Publisher: {{book.publisher}}</span>
           </div>
           <div class="meta-act">
             <span>Page Count: {{book.pageCount}}</span>
@@ -29,7 +29,7 @@
       <div class="screenshot-meta">
         <div class="social-media meta-act meta-act-full" id="BorrowBtn">
           <a href="" class="meta-act-link free" ng-click="borrow()" ng-show="book.status==0"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Borrow</a>
-          <a href="" class="meta-act-link reserved" ng-show="book.status==1" data-toggle="tooltip" data-placement="top" title="Please get you book in two days"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Reserved</a>
+          <a href="" class="meta-act-link reserved" ng-show="book.status==1" data-toggle="tooltip" data-placement="top" title="Please get your book in two days"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Reserved</a>
           <a href="" class="meta-act-link borrowed" ng-show="book.status==2"><span class="glyphicon glyphicon-share" aria-hidden="true"></span> Borrowed</a>
         </div>
         <div class="meta-act">
@@ -90,7 +90,7 @@
           <legend class="color2" ng-hide="book.comments.length==0"></legend>
           <textarea type="text" class="form-control" rows="5" style="border: 1px solid #dddddd; margin-bottom:5px;" ng-init="content=''" ng-model="content"></textarea>
           <span style="margin-top:5px;">Count: {{content.length}}</span>
-          <a class="btn btn-default pull-right" role="button" ng-click="comment()">Submit</a>
+          <a class="btn btn-default pull-right" role="button" ng-click="comment()" ng-disabled="content.length==0">Submit</a>
         </div>
       </div>
     </div>

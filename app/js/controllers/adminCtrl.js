@@ -1,6 +1,6 @@
 var adminApp = angular.module('adminApp', ['ngMessages', 'ngTable']);
 
-adminApp.controller('ManageCtrl', function($scope, $state, $timeout, adminBooksService) {
+adminApp.controller('ManageCtrl', function($scope, $state, $timeout, adminBooksService, EventsService) {
   $scope.currentState = {
     route: 0,
     book: {
@@ -14,7 +14,10 @@ adminApp.controller('ManageCtrl', function($scope, $state, $timeout, adminBooksS
         type: 0,
         book: {}
       }
-    }
+    },
+    events: {
+      count: 0
+    },
   };
 
   $scope.alertMessage = function alertMessage(type, book) {
@@ -62,6 +65,12 @@ adminApp.controller('ManageCtrl', function($scope, $state, $timeout, adminBooksS
       };
     })
   });
+
+  $scope.$watch(function(){
+    return EventsService.events.length;
+  }, function(){
+    $scope.currentState.events.count = EventsService.events.length;
+  });
 });
 
 adminApp.controller('ManageBooksCtrl', function($scope, $element, $http, $location, $timeout, NgTableParams, adminBooksService) {
@@ -74,7 +83,7 @@ adminApp.controller('ManageBooksCtrl', function($scope, $element, $http, $locati
     },
     'showStatusValue': '',
     'showAllFilters': false,
-    'showPublisher': true,
+    'showPublisher': false,
     'showPageCount': false,
     'showPrice': false,
     'showLikes': true,
@@ -190,7 +199,7 @@ adminApp.controller('ManageBooksCtrl', function($scope, $element, $http, $locati
     },
     'showStatusValue': '',
     'showAllFilters': false,
-    'showPublisher': true,
+    'showPublisher': false,
     'showPageCount': false,
     'showPrice': false,
     'showLikes': true,
@@ -206,7 +215,7 @@ adminApp.controller('ManageBooksCtrl', function($scope, $element, $http, $locati
     },
     'showStatusValue': '',
     'showAllFilters': false,
-    'showPublisher': true,
+    'showPublisher': false,
     'showPageCount': false,
     'showPrice': false,
     'showLikes': true,
@@ -371,6 +380,7 @@ adminApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $locatio
     };
   };
   $scope.saveBook = function saveBook() {
+    $("#saveButton").button('loading');
     adminBooksService.setBook($scope.book, function(res) {
       if (res.errType == 0) {
         adminBooksService.books.splice($scope.findBook($scope.book.unqId), 1, $scope.book);
@@ -380,12 +390,15 @@ adminApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $locatio
         $scope.alertMessage(11, $scope.book);
       } else {
         $scope.alertMessage(12, $scope.book);
-      }
+      };
+      $("#saveButton").button('reset');
     }, function(res) {
+      $("#saveButton").button('reset');
       $scope.alertMessage(12, $scope.book);
     })
   };
   $scope.deleteBook = function deleteBook() {
+    $("#deleteButton").button('loading');
     adminBooksService.deleteOneBook($scope.book.unqId, function(res) {
       if (res.errType == 0) {
         adminBooksService.books.splice($scope.findBook($scope.book.unqId), 1);
@@ -397,8 +410,10 @@ adminApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $locatio
         $scope.alertMessage(7, $scope.book);
       } else {
         $scope.alertMessage(8, $scope.book);
-      }
+      };
+      $("#deleteButton").button('reset');
     }, function(res) {
+      $("#deleteButton").button('reset');
       $scope.alertMessage(8, $scope.book);
     });
     $('#deleteBookModal').modal('hide');
@@ -443,11 +458,12 @@ adminApp.controller('NewBookCtrl', function($scope, $http, $timeout, $location, 
         $scope.alertMessage(5, $scope.book);
       } else {
         $scope.alertMessage(6, $scope.book);
-      }
+      };
+      $('#addButton').button('reset');
     }, function(res) {
+      $('#addButton').button('reset');
       $scope.alertMessage(6, $scope.book);
     });
-    $('#addButton').button('reset');
   };
 });
 
@@ -455,13 +471,14 @@ adminApp.controller('ManageEventsCtrl', function($scope, $rootScope, EventsServi
   $scope.events = [];
   $scope.curEvent = {};
   EventsService.getAllEvents().success(function(res){
+    EventsService.events = [];
     console.log(res, 'getAllEvents');
-    $scope.events = res;
+    EventsService.events = res;
     $scope.tableParams = new NgTableParams({
       count: 10
     }, {
       counts: [5, 10, 25],
-      dataset: $scope.events
+      dataset: EventsService.events
     });
   });
 
@@ -469,9 +486,11 @@ adminApp.controller('ManageEventsCtrl', function($scope, $rootScope, EventsServi
     $scope.curEvent = event;
     EventsService.acceptEvent(event.unqId, event.intrID).success(function(res) {
       if (res.errType == 0) {
-        for (var i = 0; i < $scope.events.length; i++){
-          if ($scope.events[i].unqId === event.unqId){
-            $scope.events.splice(i, 1);
+        for (var i = 0; i < EventsService.events.length; i++){
+          if (EventsService.events[i].unqId === event.unqId){
+            EventsService.events[i].status = 2;
+            EventsService.events[i].borrowTime = res.borrowTime;
+            EventsService.events[i].returnTime = res.returnTime;
             break;
           };
         }
@@ -481,6 +500,25 @@ adminApp.controller('ManageEventsCtrl', function($scope, $rootScope, EventsServi
     }).error(function(res){
       console.log(res);
       $('#warningModal').modal('show');
+    });
+  };
+
+  $scope.return = function(event) {
+    $scope.curEvent = event;
+    EventsService.returnEvent(event.unqId, event.intrID).success(function(res) {
+      if (res.errType == 0) {
+        for (var i = 0; i < EventsService.events.length; i++){
+          if (EventsService.events[i].unqId === event.unqId){
+            EventsService.events.splice(i, 1);
+            break;
+          };
+        }
+      } else {
+        $('#returnModal').modal('show');
+      };
+    }).error(function(res){
+      console.log(res);
+      $('#returnModal').modal('show');
     });
   };
 
