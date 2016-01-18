@@ -183,6 +183,15 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
       BooksService.rateBook($scope.books[$scope.index].isbn, $rootScope.logInUser.intrID, value).success(function(res) {
         console.log(res, 'rate');
         $scope.books[$scope.index].rates = res;
+        var total = 0;
+        for (var i = 0; i < $scope.books[$scope.index].rates.length; i++) {
+          total += $scope.books[$scope.index].rates[i].value;
+          if ($scope.books[$scope.index].rates[i].intrID === $rootScope.logInUser.intrID) {
+            $scope.books[$scope.index].isRated = true;
+            $scope.books[$scope.index].rateValue = $scope.books[$scope.index].rates[i].value;
+          };
+        };
+        $scope.books[$scope.index].avaValue = $scope.books[$scope.index].rates.length == 0 ? 0 : parseFloat(total / $scope.books[$scope.index].rates.length).toFixed(1);
       });
     };
   };

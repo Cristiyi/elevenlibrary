@@ -39,11 +39,11 @@
         </div>
         <div class="meta-act">
           <div class="group fav evaluate" ng-class="{noEvent: books[index].isRated}">
-            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=1 || rateValue>=1}" ng-mouseenter="tarValue = 1" ng-mouseleave="tarValue = 0" ng-click="rate(1)"><span></span></a>
-            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=2 || rateValue>=2}" ng-mouseenter="tarValue = 2" ng-mouseleave="tarValue = 0" ng-click="rate(2)"><span></span></a>
-            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=3 || rateValue>=3}" ng-mouseenter="tarValue = 3" ng-mouseleave="tarValue = 0" ng-click="rate(3)"><span></span></a>
-            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=4 || rateValue>=4}" ng-mouseenter="tarValue = 4" ng-mouseleave="tarValue = 0" ng-click="rate(4)"><span></span></a>
-            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=5 || rateValue>=5}" ng-mouseenter="tarValue = 5" ng-mouseleave="tarValue = 0" ng-click="rate(5)"><span></span></a>
+            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=1 || books[index].rateValue>=1}" ng-mouseenter="tarValue = 1" ng-mouseleave="tarValue = 0" ng-click="rate(1)"><span></span></a>
+            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=2 || books[index].rateValue>=2}" ng-mouseenter="tarValue = 2" ng-mouseleave="tarValue = 0" ng-click="rate(2)"><span></span></a>
+            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=3 || books[index].rateValue>=3}" ng-mouseenter="tarValue = 3" ng-mouseleave="tarValue = 0" ng-click="rate(3)"><span></span></a>
+            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=4 || books[index].rateValue>=4}" ng-mouseenter="tarValue = 4" ng-mouseleave="tarValue = 0" ng-click="rate(4)"><span></span></a>
+            <a class="meta-evaluate" href="" ng-class="{moreRate: tarValue>=5 || books[index].rateValue>=5}" ng-mouseenter="tarValue = 5" ng-mouseleave="tarValue = 0" ng-click="rate(5)"><span></span></a>
             <a class="meta-act-link" href="" ng-show="books[index].avaValue">(Average:{{books[index].avaValue}})</a>
             <a class="meta-act-link" href="" ng-show="!books[index].avaValue">(No rates)</a>
           </div>
