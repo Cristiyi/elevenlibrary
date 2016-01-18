@@ -3,10 +3,6 @@ var Book = require('../models/Book.js');
 var BookProp = require('../models/BookProp.js');
 
 module.exports = function(app) {
-	app.get('/admin/events/', function(req, res){
-
-	});//test
-
 
 	app.put('/book/:isbn/borrow', function(req, res){
 
