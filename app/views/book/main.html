@@ -6,7 +6,7 @@
       <a ui-sref="register">Sign up</a>
     </li>
     <li ng-show="!logInUser.name">
-      <a ui-sref="login">Log in</a>
+      <a ui-sref="login">Login</a>
     </li>
     <li ng-show="logInUser.name">
       <div class="dropdown">
@@ -16,8 +16,8 @@
         </a>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
           <li><a ui-sref="main.home">Home</a></li>
-          <li><a ng-class="{selected: cate=='userLiked'}" ng-click="cate='userLiked'" ui-sref="main.list" >I Liked</a></li>
-          <li><a ng-class="{selected: cate=='userBorrowed'}" ng-click="cate='userBorrowed'" ui-sref="main.list">I Borrowed</a></li>
+          <li><a ng-class="{selected: cate=='userLiked'}" ng-click="cate='userLiked'" ui-sref="main.list" >My Favorites</a></li>
+          <li><a ng-class="{selected: cate=='userBorrowed'}" ng-click="cate='userBorrowed'" ui-sref="main.list">My Orders</a></li>
           <li role="separator" class="divider"></li>
           <li><a ui-sref="main.list" ng-click="logOut()">Logout</a></li>
         </ul>
@@ -46,8 +46,8 @@
           <li><a ng-class="{selected: cate=='UI Design'}" ng-click="cate='UI Design'" ui-sref="main.list">UI Design</a></li>
           <li><a ng-class="{selected: cate=='Other'}" ng-click="cate='Other'" ui-sref="main.list">Other</a></li>
           <span class="line" ng-show="logInUser.name"></span>
-          <li ng-show="logInUser.name"><a ng-class="{selected: cate=='userLiked'}" ng-click="cate='userLiked'" ui-sref="main.list">I Liked</a></li>
-          <li ng-show="logInUser.name"><a ng-class="{selected: cate=='userBorrowed'}" ng-click="cate='userBorrowed'" ui-sref="main.list">I Borrowed</a></li>
+          <li ng-show="logInUser.name"><a ng-class="{selected: cate=='userLiked'}" ng-click="cate='userLiked'" ui-sref="main.list">My Favorites</a></li>
+          <li ng-show="logInUser.name"><a ng-class="{selected: cate=='userBorrowed'}" ng-click="cate='userBorrowed'" ui-sref="main.list">My Orders</a></li>
         </ul>
       </div>
       <div ui-view></div>

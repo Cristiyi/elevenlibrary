@@ -60,7 +60,8 @@ app.post('/adminLogin', function(req, res){
           var token = jwt.sign(profile, 'elevenlibrary', { expiresIn: '1m' });
           res.json({
             'errType': 0,
-            'token': token
+            'token': token,
+            'name':profile.name
           });
         }else{
           console.log('[Login]Wrong Password');
