@@ -80,8 +80,8 @@
   </div>
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-success" id="addButton" ng-click="saveBook()" data-loading-text="Saving..." autocomplete="off">Save</button>
-      <button type="button" class="btn btn-danger" id="addButton" data-loading-text="Deleting..." data-toggle="modal" data-target="#deleteBookModal" autocomplete="off">Delete</button>
+      <button type="submit" class="btn btn-success" id="saveButton" ng-click="saveBook()" data-loading-text="Saving..." autocomplete="off">Save</button>
+      <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteBookModal" autocomplete="off">Delete</button>
       <a ng-href="#/manage/books" class="btn btn-default">Cancel</a>
       <div class="alert alert-danger bookAlert" role="alert" ng-show="currentState.book.message.type==7"><strong>Failed to delete!</strong>This book doesn't exist</div>
       <div class="alert alert-danger bookAlert" role="alert" ng-show="currentState.book.message.type==8"><strong>Failed to delete!</strong>Server Error, please try again.</div>
