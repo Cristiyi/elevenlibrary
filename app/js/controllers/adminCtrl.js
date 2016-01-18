@@ -480,6 +480,8 @@ adminApp.controller('ManageEventsCtrl', function($scope, $rootScope, EventsServi
       counts: [5, 10, 25],
       dataset: EventsService.events
     });
+  }).error(function(){
+    console.log(res, 'getAllEvents');
   });
 
   $scope.accept = function(event) {

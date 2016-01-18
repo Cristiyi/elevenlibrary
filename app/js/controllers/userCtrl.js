@@ -38,21 +38,18 @@ userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $
       };
       $http.post('/login', user)
         .success(function(res, status, headers, config) {
-
           if (res.errType === 0) {
 
             $window.sessionStorage.token = res.token;
             $location.path('/books/popular');
-
             var encodedProfile = res.token.split('.')[1];
             var profile = JSON.parse(url_base64_decode(encodedProfile));
-            console.log("Welcome " + profile.name);
 
-            $rootScope.logInUser.name = profile.name
+            $rootScope.logInUser.name = res.name;
             $rootScope.logInUser.intrID = user.intrID;
 
             $window.localStorage.setItem('intrID', $scope.user.intrID);
-            $window.localStorage.setItem('name', profile.name);
+            $window.localStorage.setItem('name', res.name);
 
           } else if (res.errType === 1) {
             $scope.userError = true;

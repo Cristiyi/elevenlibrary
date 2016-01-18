@@ -53,7 +53,7 @@ serviceApp.factory('EventsService', function($http){
       return $http.put('/admin/events/' + unqId, {intrId: intrId});
     },
     returnEvent: function(unqId){
-      return $http.put('/admin/events/' + unqId);
+      return $http.post('/admin/events/' + unqId);
     },
     events: events
   }
