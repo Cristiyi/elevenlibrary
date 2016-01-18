@@ -103,7 +103,9 @@ module.exports = function(app) {
 								});
 								console.log('[Borrow a book] Upate book status and time Successful');
 								res.json({
-									errType: 0
+									errType: 0,
+									borrowTime: bTime,
+									returnTime: rTime
 								});
 							}
 						});

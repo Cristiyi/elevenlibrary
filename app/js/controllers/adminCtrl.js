@@ -512,6 +512,7 @@ adminApp.controller('ManageEventsCtrl', function($scope, $rootScope, EventsServi
         for (var i = 0; i < EventsService.events.length; i++){
           if (EventsService.events[i].unqId === event.unqId){
             EventsService.events.splice(i, 1);
+            $scope.tableParams.reload();
             break;
           };
         }

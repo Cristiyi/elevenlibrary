@@ -80,6 +80,7 @@ bookApp.controller('MainBooksCtrl', function($scope, $state, $rootScope, BooksSe
       $scope.updatePop();
       $scope.showMoreBooks();
       $scope.getDataOver = true;
+      console.log(BooksService.books);
     });
 });
 

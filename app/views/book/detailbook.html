@@ -29,8 +29,8 @@
       <div class="screenshot-meta">
         <div class="social-media meta-act meta-act-full" id="BorrowBtn">
           <a href="" class="meta-act-link free" ng-click="borrow()" ng-show="books[index].status==0"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Borrow</a>
-          <a href="" class="meta-act-link reserved" ng-show="books[index].status==1" data-toggle="tooltip" data-placement="top" title="Please get your book in two days"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Reserved</a>
-          <a href="" class="meta-act-link borrowed" ng-show="books[index].status==2"><span class="glyphicon glyphicon-share" aria-hidden="true"></span> Borrowed</a>
+          <a href="" class="meta-act-link reserved" ng-show="books[index].status==1 && books[index].intrID == logInUser.intrID && logInUser.intrID" data-toggle="tooltip" data-placement="top" title="Please get your book in two days"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Reserved</a>
+          <a href="" class="meta-act-link borrowed" ng-show="books[index].status==2 || (books[index].status==1 && books[index].intrID != logInUser.intrID)"><span class="glyphicon glyphicon-share" aria-hidden="true"></span> Borrowed</a>
         </div>
         <div class="meta-act">
           <div class="group fav">
