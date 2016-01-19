@@ -37,7 +37,8 @@ bookApp.controller('MainBooksCtrl', function($scope, $state, $rootScope, BooksSe
     function sortLikes(a, b) {
       return b.likes.length - a.likes.length;
     };
-    $scope.popBooks = BooksService.books.sort(sortLikes);
+    var books = BooksService.books;
+    $scope.popBooks = books.sort(sortLikes);
   };
 
 
