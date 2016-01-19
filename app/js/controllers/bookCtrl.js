@@ -34,7 +34,7 @@ bookApp.controller('MainBooksCtrl', function($scope, $state, $rootScope, BooksSe
   });
 
   $scope.updatePop = function() {
-    function sortLikes(a, b){
+    function sortLikes(a, b) {
       return b.likes.length - a.likes.length;
     };
     $scope.popBooks = BooksService.books.sort(sortLikes);
@@ -78,7 +78,7 @@ bookApp.controller('MainBooksCtrl', function($scope, $state, $rootScope, BooksSe
         BooksService.books.push(res[i]);
       };
       $scope.updatePop();
-      $scope.showMoreBooks();
+      $scope.books = BooksService.books;
       $scope.getDataOver = true;
       console.log(BooksService.books);
     });
@@ -115,18 +115,27 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
   $scope.simBooks = [];
   $scope.tarValue = 0;
   $scope.content = '';
-  $scope.index = 0;
+  $scope.index = -1;
 
+  if (!$scope.getDataOver) {
     $scope.$watch(function() {
       return $scope.getDataOver;
     }, function() {
       for (var i = 0; i < $scope.books.length; i++) {
-        if ($scope.books[i].isbn === $state.params.bookId) {
+        if ($scope.books[i].isbn == $state.params.bookId) {
           $scope.index = i;
           break;
         };
       };
     });
+  } else {
+    for (var i = 0; i < $scope.books.length; i++) {
+      if ($scope.books[i].isbn === $state.params.bookId) {
+        $scope.index = i;
+        break;
+      };
+    };
+  }
 
   $('[data-toggle="tooltip"]').tooltip();
 
@@ -208,14 +217,14 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
     };
   };
 
-  $scope.deleteComment = function(id){
+  $scope.deleteComment = function(id) {
     if (!$rootScope.logInUser.intrID) {
       $state.go('login');
     } else {
-      BooksService.deleteComment($scope.books[$scope.index].isbn, id).success(function(res){
+      BooksService.deleteComment($scope.books[$scope.index].isbn, id).success(function(res) {
         console.log("deleteComment", res);
         $scope.books[$scope.index].comments = res;
-      }).error(function(res){
+      }).error(function(res) {
         console.error("deleteComment error", res);
       });
     }
