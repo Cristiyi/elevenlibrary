@@ -90,7 +90,6 @@ bookApp.controller('MainBooksCtrl', function($scope, $state, $rootScope, BooksSe
         console.log($scope.books);
       });
   };
-
 });
 
 bookApp.controller('AllBooksCtrl', function($scope, $rootScope, $state, $timeout, BooksService) {
