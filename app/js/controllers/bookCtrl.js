@@ -38,58 +38,64 @@ bookApp.controller('MainBooksCtrl', function($scope, $state, $rootScope, BooksSe
       return b.likes.length - a.likes.length;
     };
     var books = [];
-    for (var index in BooksService.books){
-      books.push(BooksService.books[index]);
+    $scope.popBooks = [];
+    for (var index in $scope.books) {
+      books.push($scope.books[index]);
     };
     $scope.popBooks = books.sort(sortLikes);
   };
 
 
   $scope.showMoreBooks = function() {
-    var start = $scope.books.length;
-    var end = Math.min(start + 10, BooksService.books.length);
-    for (var i = start; i < end; i++) {
-      $scope.books.push(BooksService.books[i]);
-    };
-    if (start >= eachPageBooksCount * 2) {
-      $scope.showScrollToTop = true;
-    };
+    // var start = $scope.books.length;
+    // var end = Math.min(start + 10, BooksService.books.length);
+    // for (var i = start; i < end; i++) {
+    //   $scope.books.push(BooksService.books[i]);
+    // };
+    // if (start >= eachPageBooksCount * 2) {
+    //   $scope.showScrollToTop = true;
+    // };
   };
 
-  BooksService.getAllBooks()
-    .success(function(res) {
-      $scope.books = [];
-      BooksService.books = [];
-      var intrID = $rootScope.logInUser.intrID;
-      var total = 0;
-      for (var i = 0; i < res.length; i++) {
-        for (var k = 0; k < res[i].likes.length; k++) {
-          if (res[i].likes[k] === intrID) {
-            res[i].isLiked = true;
-            break;
+  $scope.update = function() {
+    $scope.books = [];
+    $scope.getDataOver = false;
+    $scope.showScrollToTop = false;
+
+    BooksService.getAllBooks()
+      .success(function(res) {
+        var intrID = $rootScope.logInUser.intrID;
+        var total = 0;
+        for (var i = 0; i < res.length; i++) {
+          for (var k = 0; k < res[i].likes.length; k++) {
+            if (res[i].likes[k] === intrID) {
+              res[i].isLiked = true;
+              break;
+            };
           };
-        };
-        total = 0;
-        for (var k = 0; k < res[i].rates.length; k++) {
-          total += res[i].rates[k].value;
-          if (res[i].rates[k].intrID === intrID) {
-            res[i].isRated = true;
-            res[i].rateValue = res[i].rates[k].value;
+          total = 0;
+          for (var k = 0; k < res[i].rates.length; k++) {
+            total += res[i].rates[k].value;
+            if (res[i].rates[k].intrID === intrID) {
+              res[i].isRated = true;
+              res[i].rateValue = res[i].rates[k].value;
+            };
           };
+          res[i].avaValue = res[i].rates.length == 0 ? 0 : parseFloat(total / res[i].rates.length).toFixed(1);
+          res[i].image = res[i].image ? res[i].image : "images/gray.jpg";
+          $scope.books.push(res[i]);
         };
-        res[i].avaValue = res[i].rates.length == 0 ? 0 : parseFloat(total / res[i].rates.length).toFixed(1);
-        res[i].image = res[i].image ? res[i].image : "images/gray.jpg";
-        BooksService.books.push(res[i]);
-      };
-      $scope.updatePop();
-      $scope.books = BooksService.books;
-      $scope.getDataOver = true;
-      console.log(BooksService.books);
-    });
+        $scope.updatePop();
+        $scope.getDataOver = true;
+        console.log($scope.books);
+      });
+  };
+
 });
 
 bookApp.controller('AllBooksCtrl', function($scope, $rootScope, $state, $timeout, BooksService) {
   console.log('AllBooksCtrl Start');
+  $scope.update();
   var timeout;
   $scope.like = function(book) {
     if (!$rootScope.logInUser.intrID) {
@@ -120,26 +126,18 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
   $scope.tarValue = 0;
   $scope.content = '';
   $scope.index = -1;
+  $scope.update();
 
-  if (!$scope.getDataOver) {
-    $scope.$watch(function() {
-      return $scope.getDataOver;
-    }, function() {
-      for (var i = 0; i < $scope.books.length; i++) {
-        if ($scope.books[i].isbn == $state.params.bookId) {
-          $scope.index = i;
-          break;
-        };
-      };
-    });
-  } else {
+  $scope.$watch(function() {
+    return $scope.getDataOver;
+  }, function() {
     for (var i = 0; i < $scope.books.length; i++) {
-      if ($scope.books[i].isbn === $state.params.bookId) {
+      if ($scope.books[i].isbn == $state.params.bookId) {
         $scope.index = i;
         break;
       };
     };
-  }
+  });
 
   $('[data-toggle="tooltip"]').tooltip();
 
