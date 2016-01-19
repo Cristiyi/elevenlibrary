@@ -1,5 +1,5 @@
 <div id="content" class="group">
-  <h1>{{ books[index].name }}</h1>
+  <h1 style="margin-top:0">{{ books[index].name }}</h1>
   <div class="group">
     <div class="main-shot">
       <div class="the-shot">
@@ -91,7 +91,8 @@
               <img src="images/pic/head.jpg">
             </div>
             <div class="comments">
-              <span class="pull-right">{{$index + 1}}#</span>
+              <button type="button" class="close" aria-label="Close" ng-show="comment.intrID == logInUser.intrID" ng-click="deleteComment(comment._id)"><span aria-hidden="true">&times;</span></button>
+              <span class="pull-right" style="margin-right:15px">{{$index + 1}}#</span>
               <h2>{{comment.intrID}}</h2>
               <div class="comment-body">
                 <p>{{comment.content}}</p>

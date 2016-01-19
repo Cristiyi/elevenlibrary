@@ -39,6 +39,9 @@ serviceApp.factory('BooksService', function($http){
     commentBook: function(isbn, intrID, content){
       return $http.put('/book/' + isbn + '/comment', {intrID: intrID, content: content});
     },
+    deleteComment: function(isbn, _id){
+      return $http.delete('/book/' + isbn + '/comment/' + _id);
+    },
     books: books
   }
 });

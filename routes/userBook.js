@@ -141,6 +141,44 @@ module.exports = function(app) {
     })
   });
 
+  app.delete('/book/:isbn/comment/:id', function(req, res) {
+    var isbn = req.params.isbn;
+    var id = req.params.id;
+    console.log('id=', id);
+    BookProp.update({
+      isbn: isbn,
+      count: {
+        $ne: 0
+      }
+    }, {
+      $pull: {
+        comments: {
+          _id: id
+        }
+      }
+    }, function(err, book) {
+      if (err) {
+        console.log(err);
+        res.send(err);
+      } else {
+        BookProp.findOne({
+          isbn: isbn,
+          count: {
+            $ne: 0
+          }
+        }, function(err, newBook){
+          if (err){
+            console.log(err);
+            res.send(err);
+          } else {
+            console.log(newBook.comments);
+            res.send(newBook.comments);
+          }
+        })
+      }
+    });
+  })
+
   // GetSimilarBooks
   app.get('/book/:isbn/similar', function(req, res) {
     var isbn = req.params.isbn;

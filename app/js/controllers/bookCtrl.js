@@ -206,5 +206,18 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
         $scope.content = '';
       });
     };
+  };
+
+  $scope.deleteComment = function(id){
+    if (!$rootScope.logInUser.intrID) {
+      $state.go('login');
+    } else {
+      BooksService.deleteComment($scope.books[$scope.index].isbn, id).success(function(res){
+        console.log("deleteComment", res);
+        $scope.books[$scope.index].comments = res;
+      }).error(function(res){
+        console.error("deleteComment error", res);
+      });
+    }
   }
 });
