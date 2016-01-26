@@ -168,6 +168,14 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
     };
   };
 
+   $scope.cancel = function() {
+    BooksService.cancelBook($state.params.bookId, $rootScope.logInUser.intrID).success(function(res) {
+        console.log(res, "cancelBook");
+      }).error(function(res) {
+        console.log(res, "cancelBook error");
+      });
+  };
+
   var timeout;
   $scope.like = function() {
     if (!$rootScope.logInUser.intrID) {

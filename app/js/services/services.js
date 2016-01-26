@@ -30,6 +30,9 @@ serviceApp.factory('BooksService', function($http){
     borrrowBook: function(isbn, intrID){
       return $http.put('/book/' + isbn + '/borrow', {intrID: intrID});
     },
+    cancelBook: function(isbn, intrID){
+      return $http.put('/book/' + isbn + '/cancel', {intrID: intrID});
+    },
     likeBook: function(isbn, intrID, ifYou){
       return $http.put('/book/' + isbn + '/like', {intrID: intrID, ifYou: ifYou});
     },

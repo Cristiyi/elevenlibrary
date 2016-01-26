@@ -28,7 +28,7 @@
         {{event.status==0? 'Free':(event.status==1?'Reserved':'Borrowed')}}
       </td>
       <td class="text-center" title="'Manage'">
-        <button type="button" class="btn btn-success" ng-click="accept(event)" ng-hide="event.status!=1">Accept</button>
+        <button type="button" class="btn btn-success" ng-click="accept(event)" ng-hide="event.status!=1">Deliver</button>
         <button type="button" class="btn btn-danger" ng-click="return(event)"  ng-hide="event.status!=2">Return</button>
       </td>
     </tr>
@@ -44,7 +44,7 @@
         <h4 class="modal-title">Warning</h4>
       </div>
       <div class="modal-body">
-        <p>Failed to accept the <strong>{{curEvent.name}}</strong>, please try again.</p>
+        <p>Failed to deliver the <strong>{{curEvent.name}}</strong>, please try again.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
