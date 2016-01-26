@@ -201,7 +201,6 @@ module.exports = function(app) {
         }, null, {
           limit: 4
         }, function(err, books) {
-          console.log(books.length, 'books.length');
           for (var index in books) {
             simBooks.push(books[index]);
           };

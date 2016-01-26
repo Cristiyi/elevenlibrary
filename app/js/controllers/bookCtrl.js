@@ -133,6 +133,7 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
     for (var i = 0; i < $scope.books.length; i++) {
       if ($scope.books[i].isbn == $state.params.bookId) {
         $scope.index = i;
+        console.log('comments',$scope.books[$scope.index].comments);
         break;
       };
     };
