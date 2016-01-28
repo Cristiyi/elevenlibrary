@@ -174,21 +174,22 @@ module.exports = function(app) {
 
     bluepage.authenticate(intrID, pwd, function(success) {
       if (success) {
-        bluepage.getNameByIntranetID(intrID, function(result) {
-          if (result.error) {
+        bluepage.getPersonInfoByIntranetID(intrID, function(result) {
+          if (result === 'error') {
             res.send({
               errType: 1
             });
           } else {
+            var phoneNum = result.userTelephonenumber.slice(result.userTelephonenumber.indexOf('-')).replace(/[\-]+/g, '');
             var newUser = {
               'intrID': intrID,
-              'name': result.name,
-              'phoneNum': result.phoneNum
+              'name': result.userName,
+              'phoneNum': phoneNum
             };
             var profile = {
               intrID: intrID,
               pwd: pwd,
-              name: result.name
+              name: result.userName
             };
             var token = jwt.sign(profile, 'elevenlibrary', {
               expiresIn: '1m'
@@ -204,9 +205,9 @@ module.exports = function(app) {
                 User.create(newUser, function(err, user) {
                   res.send({
                     errType: 0,
-                    name: result.name,
-                    phoneNum: result.phoneNum,
-                    image: result.image,
+                    name: result.userName,
+                    phoneNum: phoneNum,
+                    image: result.userPhoto,
                     token: token
                   });
                 });
@@ -216,9 +217,9 @@ module.exports = function(app) {
                 }, newUser, function(err, user) {
                   res.send({
                     errType: 0,
-                    name: result.name,
-                    phoneNum: result.phoneNum,
-                    image: result.image,
+                    name: result.userName,
+                    phoneNum: phoneNum,
+                    image: result.userPhoto,
                     token: token
                   });
                 });
