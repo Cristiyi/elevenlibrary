@@ -169,7 +169,6 @@ module.exports = function(app) {
   });
 
   app.post('/intrIDLogin', function(req, res) {
-    console.log(req.body);
     var intrID = req.body.intrID;
     var pwd = req.body.pwd;
 
@@ -181,7 +180,11 @@ module.exports = function(app) {
               errType: 1
             });
           } else {
-            console.log('GetNameByIntranetID',result);
+            var newUser = {
+              'intrID': intrID,
+              'name': result.name,
+              'phoneNum': result.phoneNum
+            };
             var profile = {
               intrID: intrID,
               pwd: pwd,
@@ -190,13 +193,38 @@ module.exports = function(app) {
             var token = jwt.sign(profile, 'elevenlibrary', {
               expiresIn: '1m'
             });
-            res.send({
-              errType: 0,
-              name: result.name,
-              phoneNum: result.phoneNum,
-              image: result.image,
-              token: token
-            });
+            User.findOne({
+              'intrID': intrID
+            }, function(err, user) {
+              if (err) {
+                res.send({
+                  errType: 1
+                });
+              } else if (!user) {
+                User.create(newUser, function(err, user) {
+                  res.send({
+                    errType: 0,
+                    name: result.name,
+                    phoneNum: result.phoneNum,
+                    image: result.image,
+                    token: token
+                  });
+                });
+              } else {
+                User.findByIdAndUpdate({
+                  _id: user._id
+                }, newUser, function(err, user) {
+                  res.send({
+                    errType: 0,
+                    name: result.name,
+                    phoneNum: result.phoneNum,
+                    image: result.image,
+                    token: token
+                  });
+                });
+              };
+            })
+            console.log('GetNameByIntranetID', result);
           }
         });
       } else {
