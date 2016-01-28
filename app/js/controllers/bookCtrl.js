@@ -119,7 +119,7 @@ bookApp.controller('AllBooksCtrl', function($scope, $rootScope, $state, $timeout
   };
 });
 
-bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $state, $location, BooksService) {
+bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $state, $location, BooksService,$window) {
   console.log('DetailBookCtrl Start');
   $scope.simBooks = [];
   $scope.tarValue = 0;
@@ -167,6 +167,18 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
         $('#errorModal').modal('show');
       });
     };
+  };
+
+   $scope.cancel = function() {
+    if($window.confirm('Are you sure to cancel reserve this book?'))
+    {
+        BooksService.cancelBook($state.params.bookId, $rootScope.logInUser.intrID).success(function(res) {
+         $window.location.reload();
+        console.log("cancelBook");
+      }).error(function(res) {
+        console.log("cancelBook error");
+      });
+    }
   };
 
   var timeout;
