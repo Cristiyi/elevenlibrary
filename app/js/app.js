@@ -128,8 +128,8 @@ mainApp.run(function($rootScope, $window, $http, $location) {
   $rootScope.logInUser = {
     'name': $window.localStorage.name ? $window.localStorage.name : '',
     'intrID': $window.localStorage.intrID ? $window.localStorage.intrID : '',
-    'phoneNum': '',
-    'likedBooks': [78, 79, 80, 81, 82, 83, 84, 85, 86, 67, 68, 69, 71, 72]
+    'phoneNum': $window.localStorage.phoneNum ? $window.localStorage.phoneNum : '',
+    'image': $window.localStorage.image ? $window.localStorage.image : ''
   };
   $rootScope.logOut = function logOut() {
     $rootScope.logInUser = {};

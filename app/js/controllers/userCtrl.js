@@ -26,48 +26,54 @@ userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $
     $scope.userError = false;
     $scope.serverError = false;
     $scope.loginForm.submitted = false;
-
-  }
+  };
 
   $scope.login = function() {
     $scope.initState();
     if ($scope.loginForm.$valid) {
+      $('#loginBtn').button('loading');
       var user = {
         'intrID': $scope.user.intrID,
         'pwd': $scope.user.pwd
       };
-      $http.post('/login', user)
+      $http.post('/intrIDLogin', user)
         .success(function(res, status, headers, config) {
           if (res.errType === 0) {
-
             $window.sessionStorage.token = res.token;
+            $('#loginBtn').button('reset');
             $location.path('/books/popular');
             var encodedProfile = res.token.split('.')[1];
             var profile = JSON.parse(url_base64_decode(encodedProfile));
 
             $rootScope.logInUser.name = res.name;
+            $rootScope.logInUser.phoneNum = res.phoneNum;
+            $rootScope.logInUser.image = res.image;
             $rootScope.logInUser.intrID = user.intrID;
+            console.log(res);
+            console.log($rootScope.logInUser);
 
             $window.localStorage.setItem('intrID', $scope.user.intrID);
             $window.localStorage.setItem('name', res.name);
-
-          } else if (res.errType === 1) {
-            $scope.userError = true;
-            $timeout($scope.initState, 3000);
-          } else if (res.errType === 2) {
+            $window.localStorage.setItem('phoneNum', res.phoneNum);
+            $window.localStorage.setItem('image', res.image);
+          } else if (res.errType === 1 || res.errType === 2) {
+            $('#loginBtn').button('reset');
             $scope.pwdError = true;
             $timeout($scope.initState, 3000);
           } else {
+            $('#loginBtn').button('reset');
             $scope.serverError = true;
             $timeout($scope.initState, 3000);
           };
         })
         .error(function(res) {
+          $('#loginBtn').button('reset');
           delete $window.sessionStorage.token;
           $scope.serverError = true;
           $timeout($scope.initState, 3000);
         });
     } else {
+      $('#loginBtn').button('reset');
       $scope.loginForm.submitted = true;
       $timeout($scope.initState, 3000);
     };

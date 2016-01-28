@@ -3,20 +3,17 @@
   <a ui-sref="main.all" id="logo"></a>
   <ul class="list-inline pull-right" style="margin-top: 30px; margin-right: 100px">
     <li ng-show="!logInUser.name">
-      <a ui-sref="register">Sign up</a>
-    </li>
-    <li ng-show="!logInUser.name">
       <a ui-sref="login">Login</a>
     </li>
     <li ng-show="logInUser.name">
       <div class="dropdown">
-        <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:pointer">
+        <a class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="cursor:pointer"><img class="img-rounded" src="{{logInUser.image}}" alt="" style="width:25px">
           {{logInUser.name}}
           <span class="caret"></span>
         </a>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
           <li><a ui-sref="main.home">Home</a></li>
-          <li><a ng-class="{selected: cate=='userLiked'}" ng-click="cate='userLiked'" ui-sref="main.liked" >My Favorites</a></li>
+          <li><a ng-class="{selected: cate=='userLiked'}" ng-click="cate='userLiked'" ui-sref="main.liked">My Favorites</a></li>
           <li><a ng-class="{selected: cate=='userBorrowed'}" ng-click="cate='userBorrowed'" ui-sref="main.borrowed">My Orders</a></li>
           <li role="separator" class="divider"></li>
           <li><a ui-sref="main.all" ng-click="logOut()">Logout</a></li>
