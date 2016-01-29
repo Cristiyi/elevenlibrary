@@ -1273,3 +1273,9 @@ span.red {
   color: #999999;
   background-position: 0 3px;
 }
+.img-inset{
+  float: left;
+  margin: 5px 20px 12px 0;
+  padding: 0;
+  margin-left: 12px;
+}
