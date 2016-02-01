@@ -29,6 +29,7 @@
       <div class="screenshot-meta">
         <div class="social-media meta-act meta-act-full" id="BorrowBtn">
           <a href="" class="meta-act-link free" ng-click="borrow()" ng-show="books[index].status==0"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Borrow</a>
+          <p ng-show="books[index].status==1 && books[index].intrID == logInUser.intrID && logInUser.intrID" style="color:red">Contact Admin and take the book within two days.</p>
           <a href="" class="meta-act-link cancel" ng-click="cancel()" ng-show="books[index].status==1 && books[index].intrID == logInUser.intrID && logInUser.intrID"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel</a>
           <a href="" class="meta-act-link borrowed" ng-show="books[index].status==2 || (books[index].status==1 && books[index].intrID != logInUser.intrID)"><span class="glyphicon glyphicon-share" aria-hidden="true"></span> Borrowed</a>
         </div>
