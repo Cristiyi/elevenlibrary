@@ -6,8 +6,12 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var jwt = require('jsonwebtoken');
 var expressJwt = require('express-jwt');
+var fs = require('fs');
+var session = require('express-session');
 
 var db = require('./models/db');
+var log = require('./models/log');
+var domain = require('domain');
 // var mongoose = require('mongoose');
 // mongoose.connect('mongodb://localhost/elevenlibrary');
 
@@ -27,11 +31,48 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'app')));
 
-app.use('/elib', expressJwt({secret: 'elevenlibrary'}));
-app.use(function(err, req, res, next){
+app.use(session({
+  // genid: function(req) {
+  //   return genuuid() // use UUIDs for session IDs
+  // },
+  secret: 'elevenlibrary', // 建议使用 128 个字符的随机字符串
+  cookie: {
+    maxAge: 60 * 1000
+  },
+  saveUninitialized: true,
+  resave: false
+}));
+
+app.use(function(req, res, next) {
+  console.log('session=', req.session);
+  var views = req.session.views;
+
+  next();
+})
+
+app.use('/elib', expressJwt({
+  secret: 'elevenlibrary'
+}));
+
+app.use(function(err, req, res, next) {
   if (err.constructor.name === 'UnauthorizedError') {
     res.status(401).send('Unauthorized');
   }
+});
+
+app.use(function(req, res, next) {
+  var reqDomain = domain.create();
+  reqDomain.on('error', function(error) {
+    log.create({
+      url: req.originalUrl,
+      req: req.body,
+      err: error.stack
+    });
+    fs.appendFile('log.log', Date() + ' | ' + req.originalUrl + ' | ' + JSON.stringify(req.body) + ' | ' + error.stack + '\n');
+    console.log("Error req:", req.originalUrl, req.body, error.stack);
+    res.status(500).send(error.stack);
+  });
+  reqDomain.run(next);
 });
 
 require('./routes/user')(app);
@@ -39,6 +80,7 @@ require('./routes/book')(app);
 require('./routes/userBook')(app);
 require('./routes/adminBook')(app);
 require('./routes/borrowBook')(app);
+require('./routes/log')(app);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -46,5 +88,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
+
 
 module.exports = app;

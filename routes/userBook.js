@@ -2,6 +2,24 @@ var Book = require('../models/Book.js');
 var BookProp = require('../models/BookProp.js');
 
 module.exports = function(app) {
+  function cancelExpiredBook(_id) {
+    console.log(_id);
+    Book.findByIdAndUpdate({
+      _id: _id
+    }, {
+      status: 0,
+      $unset: {
+        intrID: '',
+        applyTime: null,
+        borrowTime: null,
+        returnTime: null
+      }
+    }, function(err, book){
+      if (err){
+        console.log("cancelExpiredBook Error: ", err);
+      }
+    });
+  };
   app.get('/books', function(req, res) {
     Book.find(function(err, books) {
       if (err) {
@@ -15,6 +33,14 @@ module.exports = function(app) {
           } else {
             var newBooks = [];
             for (var i = 0; i < books.length; i++) {
+              if (books[i].status == 1 && books[i].applyTime < new Date(new Date().valueOf() - 2 * 24 * 60 * 60 * 1000)) {
+                cancelExpiredBook(books[i]._id);
+                books[i].status = 0;
+                books[i].intrID = '';
+                delete books[i].applyTime;
+                delete books[i].borrowTime;
+                delete books[i].returnTime;
+              };
               for (var j = 0; j < booksprop.length; j++) {
                 if (books[i].isbn == booksprop[j].isbn) {
                   var book = {};
@@ -166,8 +192,8 @@ module.exports = function(app) {
           count: {
             $ne: 0
           }
-        }, function(err, newBook){
-          if (err){
+        }, function(err, newBook) {
+          if (err) {
             console.log(err);
             res.send(err);
           } else {

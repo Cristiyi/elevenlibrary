@@ -14,6 +14,7 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
+  min-width: 1160px;
 }
 
 a,
@@ -259,6 +260,35 @@ input[type=number] {
   overflow: hidden;
   cursor: pointer;
   z-index: 9999;
+}
+
+.freeInfo {
+  position: absolute;
+  top: 5px;
+  bottom: 25px;
+  left: 5px;
+  right: 5px;
+  padding: 20px;
+  display: none;
+  opacity: 0;
+  color: #888;
+  pointer-events: none;
+  font-size: 13px;
+  line-height: 2;
+  text-decoration: none;
+  background: #fff;
+  background: rgba(255, 255, 255, 0.96);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.notFree .freeInfo{
+  opacity: 0.7;
+  display: block;
+  z-index: 1;
+}
+.aHover .freeInfo {
+  opacity: 0;
 }
 
 .aHover .hoverInfo {

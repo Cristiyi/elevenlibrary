@@ -50,12 +50,11 @@
           </div>
         </div>
         <div id="contactDiv">
-     <span class="line"></span>
-   <h3 class="meta-head">Contact us</h3>
-   <p><a class="emial-link" href="mailto:lzishuo@cn.ibm.com?subject=11Library">E-mail Admin</a></p>
-   <p class="call-info">Call Admin: 86-411-88151122</p>
-  </div>
-
+          <span class="line"></span>
+          <h3 class="meta-head">Contact us</h3>
+          <p><a class="emial-link" href="mailto:lzishuo@cn.ibm.com?subject=11Library">E-mail Admin</a></p>
+          <p class="call-info">Call Admin: 86-411-88151122</p>
+        </div>
         <h3 class="meta-head" ng-show="showSimilarBooks">More Similar Books</h3>
         <ol class="more-thumbs" ng-show="showSimilarBooks">
           <li class="multi-thumb" ng-repeat="book in simBooks">
@@ -96,7 +95,7 @@
         <ol id="comments" class="comments">
           <li class="response group " ng-repeat="comment in books[index].comments track by $index">
             <div class="user_pic">
-              <img src="images/pic/head.jpg">
+              <img src="https://w3-connectionsapi.ibm.com/profiles/photo.do?email={{comment.intrID}}">
             </div>
             <div class="comments">
               <button type="button" class="close" aria-label="Close" ng-show="comment.intrID == logInUser.intrID" ng-click="deleteComment(comment._id)"><span aria-hidden="true">&times;</span></button>
@@ -121,7 +120,6 @@
     </div>
   </div>
 </div>
-
 <div class="modal fade" id="warningModal" tabindex="-1" role="dialog" aria-labelledby="warningModalLabel">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -138,7 +136,6 @@
     </div>
   </div>
 </div>
-
 <div class="modal fade" id="noneModal" tabindex="-1" role="dialog" aria-labelledby="noneModalLabel">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -155,7 +152,6 @@
     </div>
   </div>
 </div>
-
 <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel">
   <div class="modal-dialog">
     <div class="modal-content">

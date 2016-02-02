@@ -105,7 +105,8 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
     })
     .state('manage.logs', {
       url: '/manage/logs',
-      templateUrl: 'views/admin/admin-logs.html'
+      templateUrl: 'views/admin/admin-logs.html',
+      controller: 'ManageLogsCtrl'
     })
     .state('manage.newBook', {
       url: '/manage/newBook',

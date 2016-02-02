@@ -51,6 +51,8 @@ module.exports = function(app) {
       } else if (user) {
         if (user.pwd == req.body.pwd) {
           console.log('[Login]Successfully' + user);
+          req.session.user_id = req.body.intrID;
+          req.session.user_name = user.name;
           var profile = {
             intrID: user.intrID,
             pwd: user.pwd,

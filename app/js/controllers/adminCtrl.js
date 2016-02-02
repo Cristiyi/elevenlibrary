@@ -1,6 +1,6 @@
 var adminApp = angular.module('adminApp', ['ngMessages', 'ngTable']);
 
-adminApp.controller('ManageCtrl', function($scope, $state, $timeout, adminBooksService, EventsService) {
+adminApp.controller('ManageCtrl', function($scope, $state, $timeout, NgTableParams, adminBooksService, EventsService, LogsService) {
   $scope.currentState = {
     route: 0,
     book: {
@@ -16,6 +16,10 @@ adminApp.controller('ManageCtrl', function($scope, $state, $timeout, adminBooksS
       }
     },
     events: {
+      count: 0,
+      bCount: 0
+    },
+    logs: {
       count: 0
     },
   };
@@ -66,11 +70,68 @@ adminApp.controller('ManageCtrl', function($scope, $state, $timeout, adminBooksS
     })
   });
 
-  $scope.$watch(function(){
+  $scope.$watch(function() {
     return EventsService.events.length;
-  }, function(){
+  }, function() {
     $scope.currentState.events.count = EventsService.events.length;
   });
+
+  $scope.$watch(function() {
+    return LogsService.logs.length;
+  }, function() {
+    $scope.currentState.logs.count = LogsService.logs.length;
+  });
+
+  adminBooksService.books = [];
+  $scope.tableParams = new NgTableParams();
+  adminBooksService.getAllBooks(function(res) {
+    adminBooksService.books = adminBooksService.books.concat(res);
+    console.log('GetAllBooks', res);
+    $scope.tableParams = new NgTableParams({
+      count: 10
+    }, {
+      filterOptions: {
+        filterComparator: false
+      },
+      counts: [5, 10, 25],
+      dataset: adminBooksService.books
+    });
+  }, function(res) {
+    console.log('getAllBooks Error', res);
+  });
+
+
+  EventsService.events = [];
+  EventsService.getAllEvents().success(function(res) {
+    console.log('GetAllEvents', res);
+    EventsService.events = res;
+    $scope.eventTableParams = new NgTableParams({
+      count: 10
+    }, {
+      counts: [5, 10, 25],
+      dataset: EventsService.events
+    });
+  }).error(function(err) {
+    console.error('GetAllEvents', err);
+  });
+
+  LogsService.logs = [];
+  LogsService.getAllLogs().success(function(res) {
+    LogsService.logs = res;
+    console.log('GetAllLogs:', LogsService.logs);
+    $scope.logTableParams = new NgTableParams({
+      count: 25
+    }, {
+      filterOptions: {
+        filterComparator: false
+      },
+      counts: [25, 50, 100],
+      dataset: LogsService.logs
+    });
+  }).error(function(res) {
+    console.log('GetAllLogs Error:', res);
+  });
+
 });
 
 adminApp.controller('ManageBooksCtrl', function($scope, $element, $http, $location, $timeout, NgTableParams, adminBooksService) {
@@ -90,29 +151,6 @@ adminApp.controller('ManageBooksCtrl', function($scope, $element, $http, $locati
     'showComments': false,
     'showEvaluations': false
   };
-
-  adminBooksService.getAllBooks(function(res) {
-    adminBooksService.books = [];
-    adminBooksService.books = adminBooksService.books.concat(res);
-    console.log(res, 'getAllBooks');
-    initTable();
-  }, function(res) {
-    initTable();
-  });
-
-  $scope.tableParams = new NgTableParams;
-
-  var initTable = function() {
-    $scope.tableParams = new NgTableParams({
-      count: 10
-    }, {
-      filterOptions: {
-        filterComparator: false
-      },
-      counts: [5, 10, 25],
-      dataset: adminBooksService.books
-    });
-  }
 
   $scope.checkboxes = {
     checked: false,
@@ -468,28 +506,13 @@ adminApp.controller('NewBookCtrl', function($scope, $http, $timeout, $location, 
 });
 
 adminApp.controller('ManageEventsCtrl', function($scope, $rootScope, EventsService, NgTableParams, adminBooksService) {
-  $scope.events = [];
-  $scope.curEvent = {};
-  EventsService.getAllEvents().success(function(res){
-    EventsService.events = [];
-    console.log(res, 'getAllEvents');
-    EventsService.events = res;
-    $scope.tableParams = new NgTableParams({
-      count: 10
-    }, {
-      counts: [5, 10, 25],
-      dataset: EventsService.events
-    });
-  }).error(function(){
-    console.log(res, 'getAllEvents');
-  });
 
   $scope.accept = function(event) {
     $scope.curEvent = event;
     EventsService.acceptEvent(event.unqId, event.intrID).success(function(res) {
       if (res.errType == 0) {
-        for (var i = 0; i < EventsService.events.length; i++){
-          if (EventsService.events[i].unqId === event.unqId){
+        for (var i = 0; i < EventsService.events.length; i++) {
+          if (EventsService.events[i].unqId === event.unqId) {
             EventsService.events[i].status = 2;
             EventsService.events[i].borrowTime = res.borrowTime;
             EventsService.events[i].returnTime = res.returnTime;
@@ -499,30 +522,30 @@ adminApp.controller('ManageEventsCtrl', function($scope, $rootScope, EventsServi
       } else {
         $('#warningModal').modal('show');
       };
-    }).error(function(res){
+    }).error(function(res) {
       console.log(res);
       $('#warningModal').modal('show');
     });
   };
 
   $scope.return = function(event) {
-    $scope.curEvent = event;
     EventsService.returnEvent(event.unqId, event.intrID).success(function(res) {
       if (res.errType == 0) {
-        for (var i = 0; i < EventsService.events.length; i++){
-          if (EventsService.events[i].unqId === event.unqId){
+        for (var i = 0; i < EventsService.events.length; i++) {
+          if (EventsService.events[i].unqId === event.unqId) {
             EventsService.events.splice(i, 1);
-            $scope.tableParams.reload();
+            $scope.eventTableParams.reload();
             break;
           };
         }
       } else {
         $('#returnModal').modal('show');
       };
-    }).error(function(res){
+    }).error(function(res) {
       console.log(res);
       $('#returnModal').modal('show');
     });
   };
-
 });
+
+adminApp.controller('ManageLogsCtrl', function($scope) {})

@@ -3,16 +3,31 @@ var Book = require('../models/Book.js');
 var BookProp = require('../models/BookProp.js');
 
 module.exports = function(app) {
+  function cancelExpiredBook(_id) {
+    console.log(_id);
+    Book.findByIdAndUpdate({
+      _id: _id
+    }, {
+      status: 0,
+      $unset: {
+        intrID: '',
+        applyTime: null,
+        borrowTime: null,
+        returnTime: null
+      }
+    });
+  };
+
   app.put('/book/:isbn/borrow', function(req, res) {
 
     var intrID = req.body.intrID;
     console.log(intrID);
-    User.findOne({
+    Book.find({
       intrID: intrID
-    }, function(err, user) {
+    }, function(err, books) {
       if (err) {
-        console.log('[Find qualified user] Find user DB err : ' + err);
-      } else if (user.borrowedBooks && user.borrowedBooks.length > 2) {
+        console.log('[Find book] Find book DB err : ' + err);
+      } else if (books.length >= 2) {
         res.json({
           errType: 1
         });
@@ -34,7 +49,7 @@ module.exports = function(app) {
             }, {
               status: 1,
               intrID: intrID,
-              applyTime: new Date()
+              applyTime: Date()
             }, function(err, resbook) {
               if (err) {
                 console.log('[Update book status and time] Update book DB err : ' + err);
@@ -63,8 +78,19 @@ module.exports = function(app) {
       if (err) {
         console.log('[Find applied books] Find books DB err : ' + err);
       } else {
+        var eventBooks = [];
+        for (var i in books) {
+          if (books[i].status == 1 && books[i].applyTime < new Date(new Date().valueOf() - 2 * 24 * 60 * 60 * 1000)) {
+            cancelExpiredBook(books[i]._id);
+            books[i].status = 0;
+            delete books[i].applyTime;
+            delete books[i].intrID;
+            continue;
+          };
+          eventBooks.push(books[i]);
+        };
         console.log('[Find applied books] Find all reserved books Successful');
-        res.json(books);
+        res.json(eventBooks);
       }
     }).sort({
       applyTime: -1
@@ -162,10 +188,12 @@ module.exports = function(app) {
               unqId: unqId
             }, {
               status: 0,
-              applyTime: null,
-              borrowTime: null,
-              returnTime: null,
-              intrID: ''
+              $unset: {
+                intrID: '',
+                applyTime: null,
+                borrowTime: null,
+                returnTime: null
+              }
             }, function(err, bbook) {
               if (err) {
                 console.log('[Return a book] Upate book status and time DB err : ' + err);
@@ -233,11 +261,11 @@ module.exports = function(app) {
       status: 1,
       intrID: intrID
     }, {
-    	status: 0,
-    	$unset: {
-    		intrID: '',
-    		applyTime: null
-    	}
+      status: 0,
+      $unset: {
+        intrID: '',
+        applyTime: null
+      }
     }, function(err, book) {
       if (err) {
         req.send({

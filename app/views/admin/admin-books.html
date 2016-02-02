@@ -3,10 +3,10 @@
     <input type="checkbox" ng-model="checkboxes.checked" class="select-all" value="" />
   </script>
   <div class="row">
-    <button ui-sref="manage.newBook" class="btn btn-success navbar-btn">New</button>
-    <button class="btn btn-danger navbar-btn" ng-click="deleteBooks()">Delete</button>
-    <button class="btn btn-primary navbar-btn" ng-click="modifyBook()">Modify</button>
-    <button class="btn btn-warning navbar-btn pull-right" data-toggle="modal" data-target="#myModal" ng-click="setTable()">Setting</button>
+    <button ui-sref="manage.newBook" class="btn btn-success navbar-btn"><span class="glyphicon glyphicon-plus"></span> New</button>
+    <button class="btn btn-danger navbar-btn" ng-click="deleteBooks()"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+    <button class="btn btn-primary navbar-btn" ng-click="modifyBook()"><span class="glyphicon glyphicon-pencil"></span> Modify</button>
+    <button class="btn btn-warning navbar-btn pull-right" data-toggle="modal" data-target="#myModal" ng-click="setTable()"><span class="glyphicon glyphicon-cog"></span> Setting</button>
     <div class="alert alert-success bookAlert" role="alert" ng-show="currentState.book.message.type==1">Book&nbsp;(<strong>"{{currentState.book.message.book.unqId}}",&nbsp;"{{currentState.book.message.book.name}}"</strong>)&nbsp;has been added.</div>
     <div class="alert alert-success bookAlert" role="alert" ng-show="currentState.book.message.type==2">Book&nbsp;(<strong>"{{currentState.book.message.book.unqId}}",&nbsp;"{{currentState.book.message.book.name}}"</strong>)&nbsp;has been deleted.</div>
     <div class="alert alert-success bookAlert" role="alert" ng-show="currentState.book.message.type==3"><strong>{{currentState.book.message.book.count}}</strong>&nbsp;Book have been deleted.</div>

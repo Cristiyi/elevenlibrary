@@ -1,3 +1,22 @@
 <div>
-
+  <table ng-table="logTableParams" class="table table-condensed table-hover">
+    <tr ng-repeat="log in $data">
+      <td class="text-center" title="'#'">{{$index + 1}}
+      </td>
+      <td class="text-center" title="'_id'" sortable="'_id'">{{log._id}}
+      </td>
+      <td class="text-center" title="'Date'" sortable="'Date'">
+        {{log.time | date:'yyyy-MM-dd HH:mm:ss'}}
+      </td>
+      <td class="text-center" title="'URL'" sortable="'URL'">
+        {{log.url}}
+      </td>
+      <td class="text-center" title="'Request'" sortable="'Request'">
+        {{log.req}}
+      </td>
+      <td class="text-center" title="'Error'" sortable="'Error'">
+        {{log.err}}
+      </td>
+    </tr>
+  </table>
 </div>
