@@ -1,24 +1,10 @@
 var User = require('../models/User.js');
 var Book = require('../models/Book.js');
 var BookProp = require('../models/BookProp.js');
+var filter = require('../models/Filter.js');
 
 module.exports = function(app) {
-  function cancelExpiredBook(_id) {
-    console.log(_id);
-    Book.findByIdAndUpdate({
-      _id: _id
-    }, {
-      status: 0,
-      $unset: {
-        intrID: '',
-        applyTime: null,
-        borrowTime: null,
-        returnTime: null
-      }
-    });
-  };
-
-  app.put('/book/:isbn/borrow', function(req, res) {
+  app.put('/book/:isbn/borrow', filter.authorize, function(req, res) {
 
     var intrID = req.body.intrID;
     console.log(intrID);
@@ -81,7 +67,7 @@ module.exports = function(app) {
         var eventBooks = [];
         for (var i in books) {
           if (books[i].status == 1 && books[i].applyTime < new Date(new Date().valueOf() - 2 * 24 * 60 * 60 * 1000)) {
-            cancelExpiredBook(books[i]._id);
+            filter.cancelExpiredBook(books[i]._id);
             books[i].status = 0;
             delete books[i].applyTime;
             delete books[i].intrID;
@@ -252,7 +238,7 @@ module.exports = function(app) {
     return expTime;
   };
 
-  app.put('/book/:isbn/cancelBorrow', function(req, res) {
+  app.put('/book/:isbn/cancelBorrow', filter.authorize, function(req, res) {
     console.log('CancelBorrow start', req.body);
     var intrID = req.body.intrID;
     var isbn = req.params.isbn;

@@ -1,5 +1,4 @@
 var User = require('../models/User.js'); //User mocule
-var jwt = require('jsonwebtoken');
 var bluepage = require('ibm_bluepages');
 /*
  * GET users listing.
@@ -58,10 +57,6 @@ module.exports = function(app) {
             pwd: user.pwd,
             name: user.name
           };
-          // var token = jwt.sign(profile, 'elevenlibrary', { expiresInMinutes: 1 });
-          var token = jwt.sign(profile, 'elevenlibrary', {
-            expiresIn: '1m'
-          });
           res.json({
             'errType': 0,
             'token': token,
@@ -80,6 +75,12 @@ module.exports = function(app) {
           'errType': 1
         });
       }
+    });
+  });
+
+  app.post('/user/logOut', function(req, res){
+    req.session.destroy(function(err){
+      res.send(err);
     });
   });
 
@@ -162,13 +163,6 @@ module.exports = function(app) {
       });
     }
   });
-  /*************************************************** test */
-  app.get('/elib/restricted', function(req, res) {
-    console.log('user ' + req.intrID + ' is calling /restricted');
-    res.json({
-      name: req.intrID
-    });
-  });
 
   app.post('/intrIDLogin', function(req, res) {
     var intrID = req.body.intrID;
@@ -193,9 +187,8 @@ module.exports = function(app) {
               pwd: pwd,
               name: result.userName
             };
-            var token = jwt.sign(profile, 'elevenlibrary', {
-              expiresIn: '1m'
-            });
+            req.session.user_id = intrID;
+            req.session.user = result.userName;
             User.findOne({
               'intrID': intrID
             }, function(err, user) {
@@ -209,8 +202,7 @@ module.exports = function(app) {
                     errType: 0,
                     name: result.userName,
                     phoneNum: phoneNum,
-                    image: result.userPhoto,
-                    token: token
+                    image: 'https://w3-connectionsapi.ibm.com/profiles/photo.do?email=' + intrID,
                   });
                 });
               } else {
@@ -221,8 +213,7 @@ module.exports = function(app) {
                     errType: 0,
                     name: result.userName,
                     phoneNum: phoneNum,
-                    image: result.userPhoto,
-                    token: token
+                    image: 'https://w3-connectionsapi.ibm.com/profiles/photo.do?email=' + intrID,
                   });
                 });
               };

@@ -1,6 +1,7 @@
 var mainApp = angular.module('mainApp', [
   'ui.router',
   'bookApp',
+  'ngCookies',
   'adminApp',
   'userApp'
 ]);
@@ -125,48 +126,30 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
     });
 });
 
-mainApp.run(function($rootScope, $window, $http, $location) {
+mainApp.run(function($rootScope, $window, $cookies, $http, $location) {
+  var user = $cookies.getObject('user');
+  console.log('$cookies User=', user);
+
   $rootScope.logInUser = {
-    'name': $window.localStorage.name ? $window.localStorage.name : '',
-    'intrID': $window.localStorage.intrID ? $window.localStorage.intrID : '',
-    'phoneNum': $window.localStorage.phoneNum ? $window.localStorage.phoneNum : '',
-    'image': $window.localStorage.image ? $window.localStorage.image : ''
+    'name': user ? user.name : '',
+    'intrID': user ? user.intrID : '',
+    'phoneNum': user ? user.phoneNum : '',
+    'image': user ? user.image : ''
   };
-  $rootScope.logOut = function logOut() {
-    $rootScope.logInUser = {};
-    $window.localStorage.clear();
-    delete $window.sessionStorage.token;
+  $rootScope.logOut = function () {
+    $http.post('/user/logOut').success(function(res){
+      $rootScope.logInUser = {};
+      $cookies.remove('user');
+      $cookies.remove('connect.sid');
+    }).error(function(res){
+      console.log('Logout Failed!');
+    });
   };
-
-  //test token
-  $rootScope.callRestricted = function callRestricted() {
-    $http({
-        url: '/elib/restricted',
-        method: 'GET'
-      })
-      .success(function(data, status, headers, config) {
-        console.log("[callRestricted]still in seesion");
-
-      });
-    // .error(function (data, status, headers, config) {
-    //   console.log(data);
-
-    // });
-  }; //test token
 });
 
 mainApp.factory('authInterceptor', function($rootScope, $q, $window, $location) {
   return {
-    request: function(config) {
-      config.headers = config.headers || {};
-      if ($rootScope.logInUser.intrID) {
-
-        config.headers.Authorization = 'Bearer ' + $window.sessionStorage.token;
-      }
-      return config;
-    },
     responseError: function(rejection) {
-
       if (rejection.status === 401) {
         // handle the case where the user is not authenticated
         console.log("[responseError]session timeout");

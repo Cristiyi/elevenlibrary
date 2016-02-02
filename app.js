@@ -4,23 +4,17 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var jwt = require('jsonwebtoken');
-var expressJwt = require('express-jwt');
 var fs = require('fs');
 var session = require('express-session');
 
 var db = require('./models/db');
 var log = require('./models/log');
 var domain = require('domain');
-// var mongoose = require('mongoose');
-// mongoose.connect('mongodb://localhost/elevenlibrary');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, './app/views'));
-app.engine('html', require('ejs').renderFile);
-app.set('view engine', 'html');
 
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
@@ -32,13 +26,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'app')));
 
 app.use(session({
-  // genid: function(req) {
-  //   return genuuid() // use UUIDs for session IDs
-  // },
   secret: 'elevenlibrary', // 建议使用 128 个字符的随机字符串
   cookie: {
-    maxAge: 60 * 1000
+    maxAge: 24* 60 * 60 * 1000
   },
+  rolling: true,
   saveUninitialized: true,
   resave: false
 }));
@@ -46,19 +38,9 @@ app.use(session({
 app.use(function(req, res, next) {
   console.log('session=', req.session);
   var views = req.session.views;
-
   next();
 })
 
-app.use('/elib', expressJwt({
-  secret: 'elevenlibrary'
-}));
-
-app.use(function(err, req, res, next) {
-  if (err.constructor.name === 'UnauthorizedError') {
-    res.status(401).send('Unauthorized');
-  }
-});
 
 app.use(function(req, res, next) {
   var reqDomain = domain.create();
@@ -88,6 +70,5 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
 
 module.exports = app;

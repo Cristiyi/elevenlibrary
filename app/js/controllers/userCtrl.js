@@ -18,7 +18,7 @@ function url_base64_decode(str) {
   return window.atob(output); //polifyll https://github.com/davidchambers/Base64.js
 }
 
-userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $timeout, $window) {
+userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $timeout, $cookies) {
   $scope.user = {};
   $scope.submitted = false;
   $scope.initState = function initState() {
@@ -39,23 +39,26 @@ userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $
       $http.post('/intrIDLogin', user)
         .success(function(res, status, headers, config) {
           if (res.errType === 0) {
-            $window.sessionStorage.token = res.token;
             $('#loginBtn').button('reset');
             $location.path('/books/popular');
-            var encodedProfile = res.token.split('.')[1];
-            var profile = JSON.parse(url_base64_decode(encodedProfile));
 
             $rootScope.logInUser.name = res.name;
             $rootScope.logInUser.phoneNum = res.phoneNum;
             $rootScope.logInUser.image = res.image;
             $rootScope.logInUser.intrID = user.intrID;
-            console.log(res);
             console.log($rootScope.logInUser);
 
-            $window.localStorage.setItem('intrID', $scope.user.intrID);
-            $window.localStorage.setItem('name', res.name);
-            $window.localStorage.setItem('phoneNum', res.phoneNum);
-            $window.localStorage.setItem('image', res.image);
+            var expireDate = new Date();
+            expireDate.setDate(expireDate.getDate() + 1);
+            $cookies.putObject('user', {
+              intrID: $scope.user.intrID,
+              name: res.name,
+              phoneNum: res.phoneNum,
+              image: res.image
+            }, {
+              'expires': expireDate
+            });
+
           } else if (res.errType === 1 || res.errType === 2) {
             $('#loginBtn').button('reset');
             $scope.pwdError = true;
@@ -68,7 +71,6 @@ userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $
         })
         .error(function(res) {
           $('#loginBtn').button('reset');
-          delete $window.sessionStorage.token;
           $scope.serverError = true;
           $timeout($scope.initState, 3000);
         });
@@ -112,13 +114,10 @@ userApp.controller('RegCtrl', function($scope, $rootScope, $http, $location, $ti
         .success(function(res) {
           console.log(res);
           if (res.errType === 0) {
-            $window.sessionStorage.token = res.token;
             $location.path('/books/popular');
             $rootScope.logInUser.intrID = user.intrID;
             $rootScope.logInUser.name = user.name;
             console.log("check user name : " + user.name);
-            $window.localStorage.setItem('intrID', user.intrID);
-            $window.localStorage.setItem('name', user.name);
 
           } else if (res.errType === 1) {
             $scope.emailError = true;
@@ -193,7 +192,7 @@ userApp.controller('UserHomeCtrl', function($scope, $rootScope, $timeout, BooksS
       for (var i = 0; i < res.length; i++) {
         res[i].image = res[i].image ? res[i].image : "images/gray.jpg";
         res[i].isLiked = false;
-        if (res[i].intrID === $rootScope.logInUser.intrID){
+        if (res[i].intrID === $rootScope.logInUser.intrID) {
           $scope.borrowedBooks.push(res[i]);
         };
         for (var j = 0; j < res[i].likes.length; j++) {

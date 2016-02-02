@@ -14,7 +14,7 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
-  min-width: 1160px;
+  min-width: 1210px;
 }
 
 a,
@@ -380,7 +380,7 @@ li.comment span {
 
 #content {
   position: relative;
-  max-width: 1070px;
+  max-width: 1120px;
   margin: 0 auto;
   padding: 0;
   font-size: 1.2em
@@ -425,7 +425,7 @@ div.the-shot div.book-info div.meta-act {
 
 div.screenshot-meta {
   float: right;
-  width: 250px;
+  width: 300px;
   margin-top: -10px
 }
 
@@ -443,7 +443,8 @@ div.meta-act .meta-act-link {
   color: #999999;
   background-repeat: no-repeat;
   background-position: 12px 50%;
-  z-index: 555
+  z-index: 555;
+  cursor: pointer;
 }
 
 div.meta-act .meta-act-link em {
@@ -546,7 +547,7 @@ ol.more-thumbs {
 ol.more-thumbs li {
   float: left;
   width: 46%;
-  margin: 0 0 15px 0
+  margin: 0 0 50px 0
 }
 
 ol.more-thumbs li:nth-child(2n) {
@@ -1302,4 +1303,11 @@ span.red {
   padding: 0 0 0 16px !important;
   color: #999999;
   background-position: 0 3px;
+}
+.img-inset{
+  width:70px;
+  float: left;
+  margin: 10px 10px 12px 0;
+  padding: 0;
+  margin-left: 12px;
 }

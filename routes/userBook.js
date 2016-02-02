@@ -1,25 +1,8 @@
 var Book = require('../models/Book.js');
 var BookProp = require('../models/BookProp.js');
+var filter = require('../models/Filter.js');
 
 module.exports = function(app) {
-  function cancelExpiredBook(_id) {
-    console.log(_id);
-    Book.findByIdAndUpdate({
-      _id: _id
-    }, {
-      status: 0,
-      $unset: {
-        intrID: '',
-        applyTime: null,
-        borrowTime: null,
-        returnTime: null
-      }
-    }, function(err, book){
-      if (err){
-        console.log("cancelExpiredBook Error: ", err);
-      }
-    });
-  };
   app.get('/books', function(req, res) {
     Book.find(function(err, books) {
       if (err) {
@@ -77,7 +60,7 @@ module.exports = function(app) {
   });
 
   // Likes, Rates and Comments
-  app.put('/book/:isbn/like', function(req, res) {
+  app.put('/book/:isbn/like', filter.authorize, function(req, res) {
     var isbn = req.params.isbn;
     var intrID = req.body.intrID;
     var ifYou = req.body.ifYou;
@@ -112,7 +95,7 @@ module.exports = function(app) {
     };
   });
 
-  app.put('/book/:isbn/rate', function(req, res) {
+  app.put('/book/:isbn/rate', filter.authorize, function(req, res) {
     var isbn = req.params.isbn;
     var intrID = req.body.intrID;
     var value = req.body.value;
@@ -134,7 +117,7 @@ module.exports = function(app) {
     })
   });
 
-  app.put('/book/:isbn/comment', function(req, res) {
+  app.put('/book/:isbn/comment', filter.authorize, function(req, res) {
     var isbn = req.params.isbn;
     var intrID = req.body.intrID;
     var content = req.body.content;
@@ -167,7 +150,7 @@ module.exports = function(app) {
     })
   });
 
-  app.delete('/book/:isbn/comment/:id', function(req, res) {
+  app.delete('/book/:isbn/comment/:id', filter.authorize, function(req, res) {
     var isbn = req.params.isbn;
     var id = req.params.id;
     console.log('id=', id);

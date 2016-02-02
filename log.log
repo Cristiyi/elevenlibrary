@@ -40,3 +40,21 @@ Sat Jan 30 2016 15:58:35 GMT+0800 (China Standard Time) | /admin/events | {} | R
     at C:\workspace\elevenlibrary\node_modules\mongoose\node_modules\kareem\index.js:109:16
     at doNTCallback0 (node.js:408:9)
     at process._tickDomainCallback (node.js:378:13)
+Tue Feb 02 2016 14:59:14 GMT+0800 (China Standard Time) | /intrIDLogin | {"intrID":"dlzhjj@cn.ibm.com","pwd":"nlzq$1602"} | ReferenceError: token is not defined
+    at Query.<anonymous> (C:\workspace\elevenlibrary\routes\user.js:224:28)
+    at C:\workspace\elevenlibrary\node_modules\mongoose\node_modules\kareem\index.js:177:19
+    at C:\workspace\elevenlibrary\node_modules\mongoose\node_modules\kareem\index.js:109:16
+    at doNTCallback0 (node.js:408:9)
+    at process._tickDomainCallback (node.js:378:13)
+Tue Feb 02 2016 15:21:30 GMT+0800 (China Standard Time) | /intrIDLogin | {"intrID":"dlzhjj@cn.ibm.com","pwd":"nlzq$1602"} | Error: getaddrinfo ENOTFOUND bluepages.ibm.com bluepages.ibm.com:389
+    at errnoException (dns.js:26:10)
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:77:26)
+Tue Feb 02 2016 15:21:43 GMT+0800 (China Standard Time) | /intrIDLogin | {"intrID":"dlzhjj@cn.ibm.com","pwd":"nlzq$1602"} | Error: getaddrinfo ENOTFOUND bluepages.ibm.com bluepages.ibm.com:389
+    at errnoException (dns.js:26:10)
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:77:26)
+Tue Feb 02 2016 15:21:48 GMT+0800 (China Standard Time) | /intrIDLogin | {"intrID":"dlzhjj@cn.ibm.com","pwd":"nlzq$1602"} | Error: getaddrinfo ENOTFOUND bluepages.ibm.com bluepages.ibm.com:389
+    at errnoException (dns.js:26:10)
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:77:26)
+Tue Feb 02 2016 15:58:08 GMT+0800 (China Standard Time) | /intrIDLogin | {"intrID":"liuyibin@cn.ibm.com","pwd":"brian201601"} | Error: getaddrinfo ENOTFOUND bluepages.ibm.com bluepages.ibm.com:389
+    at errnoException (dns.js:26:10)
+    at GetAddrInfoReqWrap.onlookup [as oncomplete] (dns.js:77:26)

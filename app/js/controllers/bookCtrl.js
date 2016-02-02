@@ -97,29 +97,25 @@ bookApp.controller('AllBooksCtrl', function($scope, $rootScope, $state, $timeout
   $scope.update();
   var timeout;
   $scope.like = function(book) {
-    if (!$rootScope.logInUser.intrID) {
-      $state.go('login');
-    } else {
-      book.isLiked = !book.isLiked;
-      if (timeout) $timeout.cancel(timeout);
-      timeout = $timeout(function() {
-        BooksService.likeBook(book.isbn, $rootScope.logInUser.intrID, book.isLiked).success(function(res) {
-          console.log(res, 'like');
-          book.likes = res;
-          for (var i = 0; i < book.likes.length; i++) {
-            if (book.likes[i] === $rootScope.logInUser.intrID) {
-              book.isLiked = true;
-              break;
-            };
+    book.isLiked = !book.isLiked;
+    if (timeout) $timeout.cancel(timeout);
+    timeout = $timeout(function() {
+      BooksService.likeBook(book.isbn, $rootScope.logInUser.intrID, book.isLiked).success(function(res) {
+        console.log(res, 'like');
+        book.likes = res;
+        for (var i = 0; i < book.likes.length; i++) {
+          if (book.likes[i] === $rootScope.logInUser.intrID) {
+            book.isLiked = true;
+            break;
           };
-          $scope.updatePop();
-        });
-      }, 500);
-    };
+        };
+        $scope.updatePop();
+      });
+    }, 500);
   };
 });
 
-bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $state, $location, BooksService,$window) {
+bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $state, $location, BooksService, $window) {
   console.log('DetailBookCtrl Start');
   $scope.simBooks = [];
   $scope.tarValue = 0;
@@ -133,7 +129,7 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
     for (var i = 0; i < $scope.books.length; i++) {
       if ($scope.books[i].isbn == $state.params.bookId) {
         $scope.index = i;
-        console.log('comments',$scope.books[$scope.index].comments);
+        console.log('comments', $scope.books[$scope.index].comments);
         break;
       };
     };
@@ -147,33 +143,28 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
   });
 
   $scope.borrow = function() {
-    if (!$rootScope.logInUser.intrID) {
-      $state.go('login');
-    } else {
-      BooksService.borrrowBook($state.params.bookId, $rootScope.logInUser.intrID).success(function(res) {
-        console.log(res, "BorrowBook");
-        if (res.errType == 0) {
-          $scope.books[$scope.index].intrID = $rootScope.logInUser.intrID;
-          $scope.books[$scope.index].status = 1;
-        } else if (res.errType == 1) {
-          $('#warningModal').modal('show');
-        } else if (res.errType == 2) {
-          $('#noneModal').modal('show');
-        } else if (res.errType == 3) {
-          $('#errorModal').modal('show');
-        }
-      }).error(function(res) {
-        console.log(res, "BorrowBook");
+    BooksService.borrrowBook($state.params.bookId, $rootScope.logInUser.intrID).success(function(res) {
+      console.log(res, "BorrowBook");
+      if (res.errType == 0) {
+        $scope.books[$scope.index].intrID = $rootScope.logInUser.intrID;
+        $scope.books[$scope.index].status = 1;
+      } else if (res.errType == 1) {
+        $('#warningModal').modal('show');
+      } else if (res.errType == 2) {
+        $('#noneModal').modal('show');
+      } else if (res.errType == 3) {
         $('#errorModal').modal('show');
-      });
-    };
+      }
+    }).error(function(res) {
+      console.log(res, "BorrowBook");
+    });
   };
 
-   $scope.cancel = function() {
-    if($window.confirm('Are you sure to cancel reserve this book?'))
-    {
-        BooksService.cancelBook($state.params.bookId, $rootScope.logInUser.intrID).success(function(res) {
-         $window.location.reload();
+  $scope.cancel = function() {
+    if ($window.confirm('Are you sure to cancel to reserve this book?')) {
+      BooksService.cancelBook($state.params.bookId, $rootScope.logInUser.intrID).success(function(res) {
+        delete $scope.books[$scope.index].intrID;
+        $scope.books[$scope.index].status = 0;
         console.log("cancelBook");
       }).error(function(res) {
         console.log("cancelBook error");
@@ -183,46 +174,36 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
 
   var timeout;
   $scope.like = function() {
-    if (!$rootScope.logInUser.intrID) {
-      $state.go('login');
-    } else {
-      $scope.books[$scope.index].isLiked = !$scope.books[$scope.index].isLiked;
-      if (timeout) $timeout.cancel(timeout);
-      timeout = $timeout(function() {
-        BooksService.likeBook($scope.books[$scope.index].isbn, $rootScope.logInUser.intrID, $scope.books[$scope.index].isLiked).success(function(res) {
-          console.log(res, 'like');
-          $scope.books[$scope.index].likes = res;
-          $scope.updatePop();
-        });
-      }, 500);
-    };
+    $scope.books[$scope.index].isLiked = !$scope.books[$scope.index].isLiked;
+    if (timeout) $timeout.cancel(timeout);
+    timeout = $timeout(function() {
+      BooksService.likeBook($scope.books[$scope.index].isbn, $rootScope.logInUser.intrID, $scope.books[$scope.index].isLiked).success(function(res) {
+        console.log(res, 'like');
+        $scope.books[$scope.index].likes = res;
+        $scope.updatePop();
+      });
+    }, 500);
   };
 
   $scope.rate = function(value) {
-    if (!$rootScope.logInUser.intrID) {
-      $state.go('login');
-    } else {
-      $scope.books[$scope.index].rateValue = value;
-      BooksService.rateBook($scope.books[$scope.index].isbn, $rootScope.logInUser.intrID, value).success(function(res) {
-        console.log(res, 'rate');
-        $scope.books[$scope.index].rates = res;
-        var total = 0;
-        for (var i = 0; i < $scope.books[$scope.index].rates.length; i++) {
-          total += $scope.books[$scope.index].rates[i].value;
-          if ($scope.books[$scope.index].rates[i].intrID === $rootScope.logInUser.intrID) {
-            $scope.books[$scope.index].isRated = true;
-            $scope.books[$scope.index].rateValue = $scope.books[$scope.index].rates[i].value;
-          };
+    $scope.books[$scope.index].rateValue = value;
+    BooksService.rateBook($scope.books[$scope.index].isbn, $rootScope.logInUser.intrID, value).success(function(res) {
+      console.log(res, 'rate');
+      $scope.books[$scope.index].rates = res;
+      var total = 0;
+      for (var i = 0; i < $scope.books[$scope.index].rates.length; i++) {
+        total += $scope.books[$scope.index].rates[i].value;
+        if ($scope.books[$scope.index].rates[i].intrID === $rootScope.logInUser.intrID) {
+          $scope.books[$scope.index].isRated = true;
+          $scope.books[$scope.index].rateValue = $scope.books[$scope.index].rates[i].value;
         };
-        $scope.books[$scope.index].avaValue = $scope.books[$scope.index].rates.length == 0 ? 0 : parseFloat(total / $scope.books[$scope.index].rates.length).toFixed(1);
-      });
-    };
+      };
+      $scope.books[$scope.index].avaValue = $scope.books[$scope.index].rates.length == 0 ? 0 : parseFloat(total / $scope.books[$scope.index].rates.length).toFixed(1);
+    });
   };
 
   $scope.comment = function() {
-    if (!$rootScope.logInUser.intrID) {
-      $state.go('login');
-    } else if ($scope.content.length != 0) {
+    if ($scope.content.length != 0) {
       BooksService.commentBook($scope.books[$scope.index].isbn, $rootScope.logInUser.intrID, $scope.content).success(function(res) {
         console.log(res, 'comment');
         $scope.books[$scope.index].comments = res;
@@ -232,15 +213,11 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
   };
 
   $scope.deleteComment = function(id) {
-    if (!$rootScope.logInUser.intrID) {
-      $state.go('login');
-    } else {
-      BooksService.deleteComment($scope.books[$scope.index].isbn, id).success(function(res) {
-        console.log("deleteComment", res);
-        $scope.books[$scope.index].comments = res;
-      }).error(function(res) {
-        console.error("deleteComment error", res);
-      });
-    }
+    BooksService.deleteComment($scope.books[$scope.index].isbn, id).success(function(res) {
+      console.log("deleteComment", res);
+      $scope.books[$scope.index].comments = res;
+    }).error(function(res) {
+      console.error("deleteComment error", res);
+    });
   }
 });

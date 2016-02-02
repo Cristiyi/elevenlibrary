@@ -29,7 +29,7 @@
       <div class="screenshot-meta">
         <div class="social-media meta-act meta-act-full" id="BorrowBtn">
           <a href="" class="meta-act-link free" ng-click="borrow()" ng-show="books[index].status==0"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Borrow</a>
-          <a href="" class="meta-act-link reserved" ng-show="books[index].status==1 && books[index].intrID == logInUser.intrID && logInUser.intrID" data-toggle="tooltip" data-placement="top" title="Please get your book from Charlene in two days"><span class="glyphicon glyphicon-check" aria-hidden="true"></span> Reserved</a>
+          <p ng-show="books[index].status==1 && books[index].intrID == logInUser.intrID && logInUser.intrID" style="color:red;position:absolute;top:-45px">Contact Admin and take the book within two days.</p>
           <a href="" class="meta-act-link cancel" ng-click="cancel()" ng-show="books[index].status==1 && books[index].intrID == logInUser.intrID && logInUser.intrID"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel</a>
           <a href="" class="meta-act-link borrowed" ng-show="books[index].status==2 || (books[index].status==1 && books[index].intrID != logInUser.intrID)"><span class="glyphicon glyphicon-share" aria-hidden="true"></span> Borrowed</a>
         </div>
@@ -49,11 +49,13 @@
             <a class="meta-act-link" href="" ng-show="!books[index].avaValue">(No rates)</a>
           </div>
         </div>
-        <div id="contactDiv">
-          <span class="line"></span>
-          <h3 class="meta-head">Contact us</h3>
-          <p><a class="emial-link" href="mailto:lzishuo@cn.ibm.com?subject=11Library">E-mail Admin</a></p>
-          <p class="call-info">Call Admin: 86-411-88151122</p>
+        <div id="contactDiv" class="meta-act">
+          <h3 class="meta-head">Contact Admin</h3>
+          <img src="../images/thumb_admin.jpg" alt="admin" class="img-inset">
+          <a class="meta-act-link" style="padding: 10px 0;">Charlene</a>
+          <a href="mailto:lzishuo@cn.ibm.com?subject=11Library" class="meta-act-link" style="padding: 0 0;"><span class="glyphicon glyphicon-envelope"></span> lzishuo@cn.ibm.com</a>
+          <a class="meta-act-link" style="padding: 10px 0;"><span class="glyphicon glyphicon-phone"></span>17709812886</a>
+          <br />
         </div>
         <h3 class="meta-head" ng-show="showSimilarBooks">More Similar Books</h3>
         <ol class="more-thumbs" ng-show="showSimilarBooks">
