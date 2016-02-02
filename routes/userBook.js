@@ -17,7 +17,7 @@ module.exports = function(app) {
             var newBooks = [];
             for (var i = 0; i < books.length; i++) {
               if (books[i].status == 1 && books[i].applyTime < new Date(new Date().valueOf() - 2 * 24 * 60 * 60 * 1000)) {
-                cancelExpiredBook(books[i]._id);
+                filter.cancelExpiredBook(books[i]._id);
                 books[i].status = 0;
                 books[i].intrID = '';
                 delete books[i].applyTime;
