@@ -82,56 +82,63 @@ adminApp.controller('ManageCtrl', function($scope, $state, $timeout, NgTablePara
     $scope.currentState.logs.count = LogsService.logs.length;
   });
 
-  adminBooksService.books = [];
-  $scope.tableParams = new NgTableParams();
-  adminBooksService.getAllBooks(function(res) {
-    adminBooksService.books = adminBooksService.books.concat(res);
-    console.log('GetAllBooks', res);
-    $scope.tableParams = new NgTableParams({
-      count: 10
-    }, {
-      filterOptions: {
-        filterComparator: false
-      },
-      counts: [5, 10, 25],
-      dataset: adminBooksService.books
+  $scope.getBookData = function() {
+    $scope.tableParams = new NgTableParams();
+    adminBooksService.getAllBooks(function(res) {
+      adminBooksService.books = [];
+      adminBooksService.books = adminBooksService.books.concat(res);
+      console.log('GetAllBooks', res);
+      $scope.tableParams = new NgTableParams({
+        count: 10
+      }, {
+        filterOptions: {
+          filterComparator: false
+        },
+        counts: [5, 10, 25],
+        dataset: adminBooksService.books
+      });
+    }, function(res) {
+      console.log('getAllBooks Error', res);
     });
-  }, function(res) {
-    console.log('getAllBooks Error', res);
-  });
+  };
 
-
-  EventsService.events = [];
-  EventsService.getAllEvents().success(function(res) {
-    console.log('GetAllEvents', res);
-    EventsService.events = res;
-    $scope.eventTableParams = new NgTableParams({
-      count: 10
-    }, {
-      counts: [5, 10, 25],
-      dataset: EventsService.events
+  $scope.getEventData = function() {
+    EventsService.getAllEvents().success(function(res) {
+      EventsService.events = [];
+      console.log('GetAllEvents', res);
+      EventsService.events = res;
+      $scope.eventTableParams = new NgTableParams({
+        count: 10
+      }, {
+        counts: [5, 10, 25],
+        dataset: EventsService.events
+      });
+    }).error(function(err) {
+      console.error('GetAllEvents', err);
     });
-  }).error(function(err) {
-    console.error('GetAllEvents', err);
-  });
+  };
 
-  LogsService.logs = [];
-  LogsService.getAllLogs().success(function(res) {
-    LogsService.logs = res;
-    console.log('GetAllLogs:', LogsService.logs);
-    $scope.logTableParams = new NgTableParams({
-      count: 25
-    }, {
-      filterOptions: {
-        filterComparator: false
-      },
-      counts: [25, 50, 100],
-      dataset: LogsService.logs
+  $scope.getLogData = function() {
+    LogsService.getAllLogs().success(function(res) {
+      LogsService.logs = [];
+      LogsService.logs = res;
+      console.log('GetAllLogs:', LogsService.logs);
+      $scope.logTableParams = new NgTableParams({
+        count: 25
+      }, {
+        filterOptions: {
+          filterComparator: false
+        },
+        counts: [25, 50, 100],
+        dataset: LogsService.logs
+      });
+    }).error(function(res) {
+      console.log('GetAllLogs Error:', res);
     });
-  }).error(function(res) {
-    console.log('GetAllLogs Error:', res);
-  });
-
+  };
+  $scope.getBookData();
+  $scope.getEventData();
+  $scope.getLogData();
 });
 
 adminApp.controller('ManageBooksCtrl', function($scope, $element, $http, $location, $timeout, NgTableParams, adminBooksService) {
@@ -151,6 +158,7 @@ adminApp.controller('ManageBooksCtrl', function($scope, $element, $http, $locati
     'showComments': false,
     'showEvaluations': false
   };
+  $scope.getBookData();
 
   $scope.checkboxes = {
     checked: false,
@@ -507,6 +515,7 @@ adminApp.controller('NewBookCtrl', function($scope, $http, $timeout, $location, 
 
 adminApp.controller('ManageEventsCtrl', function($scope, $rootScope, EventsService, NgTableParams, adminBooksService) {
 
+  $scope.getEventData();
   $scope.accept = function(event) {
     $scope.curEvent = event;
     EventsService.acceptEvent(event.unqId, event.intrID).success(function(res) {
@@ -548,4 +557,17 @@ adminApp.controller('ManageEventsCtrl', function($scope, $rootScope, EventsServi
   };
 });
 
-adminApp.controller('ManageLogsCtrl', function($scope) {})
+adminApp.controller('ManageLogsCtrl', function($scope, LogsService) {
+  $scope.getLogData();
+  $scope.deleteLog = function(_id) {
+    LogsService.deleteLog(_id).success(function(res) {
+      for (var i = 0; i < LogsService.logs.length; i++) {
+        if (LogsService.logs[i]._id == _id) {
+          LogsService.logs.splice(i, 1);
+          $scope.logTableParams.reload();
+          break;
+        };
+      }
+    });
+  }
+})

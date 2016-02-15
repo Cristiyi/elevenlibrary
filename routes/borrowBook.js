@@ -55,7 +55,7 @@ module.exports = function(app) {
 
   }); //apply one book
 
-  app.get('/admin/events', function(req, res) {
+  app.get('/admin/events', filter.adminAuthorize, function(req, res) {
     Book.find({
       status: {
         '$in': [1, 2]
@@ -83,7 +83,7 @@ module.exports = function(app) {
     });
   }); //apply books list
 
-  app.put('/admin/events/:unqId', function(req, res) {
+  app.put('/admin/events/:unqId', filter.adminAuthorize, function(req, res) {
     var unqId = req.params.unqId;
     var intrID = req.body.intrId;
 
@@ -154,7 +154,7 @@ module.exports = function(app) {
     });
   }); //borrow one book
 
-  app.post('/admin/events/:unqId', function(req, res) {
+  app.post('/admin/events/:unqId', filter.adminAuthorize, function(req, res) {
     var unqId = req.params.unqId;
     // var intrID = req.body.intrId;
 

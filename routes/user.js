@@ -1,5 +1,7 @@
 var User = require('../models/User.js'); //User mocule
 var bluepage = require('ibm_bluepages');
+var filter = require('../models/Filter.js');
+
 /*
  * GET users listing.
  */
@@ -7,15 +9,14 @@ var bluepage = require('ibm_bluepages');
 // exports.list = function(req, res){
 //   res.send("respond with a resource");
 // };
-
 module.exports = function(app) {
-
   app.post('/adminLogin', function(req, res) {
     var intrID = req.body.intrID;
     var pwd = req.body.pwd;
     if (intrID && pwd) {
-      if ('libadmin@cn.ibm.com' == intrID) {
-        if ('libadmin' == pwd) {
+      if (filter.admin.id == intrID) {
+        if (filter.admin.pwd == pwd) {
+          req.session.adminUserID = filter.admin.id;
           console.log('[AdminLogin]Login Successfully');
           res.json({
             'errType': 0
@@ -51,7 +52,6 @@ module.exports = function(app) {
         if (user.pwd == req.body.pwd) {
           console.log('[Login]Successfully' + user);
           req.session.user_id = req.body.intrID;
-          req.session.user_name = user.name;
           var profile = {
             intrID: user.intrID,
             pwd: user.pwd,
@@ -79,6 +79,12 @@ module.exports = function(app) {
   });
 
   app.post('/user/logOut', function(req, res){
+    req.session.destroy(function(err){
+      res.send(err);
+    });
+  });
+
+  app.post('/admin/logOut', function(req, res){
     req.session.destroy(function(err){
       res.send(err);
     });

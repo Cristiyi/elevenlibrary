@@ -58,12 +58,12 @@ textarea.form-control {
 
 input[type=number]::-webkit-outer-spin-button,
 input[type=number]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 input[type=number] {
-    -moz-appearance:textfield;
+  -moz-appearance: textfield;
 }
 
 #selectdiv {
@@ -282,11 +282,12 @@ input[type=number] {
   cursor: pointer;
 }
 
-.notFree .freeInfo{
+.notFree .freeInfo {
   opacity: 0.7;
   display: block;
   z-index: 1;
 }
+
 .aHover .freeInfo {
   opacity: 0;
 }
@@ -301,9 +302,9 @@ input[type=number] {
   opacity: 1;
   display: block;
   z-index: 3;
-  width:30%;
-  padding:0;
-  margin-left:25px;
+  width: 30%;
+  padding: 0;
+  margin-left: 25px;
   margin-bottom: 25px;
 }
 
@@ -573,7 +574,7 @@ ol.more-thumbs li a:hover img {
 }
 
 li.multi-thumb {
-  width:103px;
+  width: 103px;
   height: 147px;
 }
 
@@ -973,6 +974,16 @@ span.comment-meta-likes {
   box-sizing: content-box;
 }
 
+#adminLoginBtn {
+  background-color: #f44336;
+  border-color: #f44336;
+}
+
+#adminLoginBtn:hover {
+  background-color: #d50000;
+  border-color: #d50000;
+}
+
 #LoginBelow {
   color: #999;
   font-size: 15px;
@@ -996,8 +1007,8 @@ span.comment-meta-likes {
 }
 
 #LoginBelow .signupText {
-  width:300px;
-  margin:auto;
+  width: 300px;
+  margin: auto;
 }
 
 .formError {
@@ -1277,11 +1288,15 @@ span.comment-meta-likes {
 span.red {
   color: red;
 }
+
+
 /*Contact us link icon */
-#contactDiv p{
+
+#contactDiv p {
   margin-left: 12px;
 }
-.emial-link{
+
+.emial-link {
   background-image: url(../images/icon-email.png);
   background-repeat: no-repeat;
   padding: 0 0 0 16px !important;
@@ -1289,7 +1304,8 @@ span.red {
   color: #999999;
   background-position: 0 3px;
 }
-.emial-link:hover{
+
+.emial-link:hover {
   text-decoration: underline;
   background-image: url(../images/icon-email.png);
   background-repeat: no-repeat;
@@ -1297,17 +1313,49 @@ span.red {
   color: #999999;
   background-position: 0 3px;
 }
-.call-info{
+
+.call-info {
   background-image: url(../images/icon-call.png);
   background-repeat: no-repeat;
   padding: 0 0 0 16px !important;
   color: #999999;
   background-position: 0 3px;
 }
-.img-inset{
-  width:70px;
+
+.img-inset {
+  width: 70px;
   float: left;
   margin: 10px 10px 12px 0;
   padding: 0;
   margin-left: 12px;
+}
+
+.warningBox {
+  color: rgb(34, 34, 34);
+  width: 45%;
+  min-width: 500px;
+  position: absolute;
+  top: -133px;
+  text-align: center;
+  left: 27.5%;
+  z-index: 10;
+}
+
+.warningBox a {
+  color: #3c763d;
+  font-size: 16px;
+  font-weight: 700;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.warningBox a:hover {
+  color: red;
+}
+
+.logTd {
+  max-width:400px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }

@@ -1,9 +1,11 @@
 var Book = require('../models/Book.js');
 var BookProp = require('../models/BookProp.js');
 var History = require('../models/History.js');
+var filter = require('../models/Filter.js');
+
 
 module.exports = function(app) {
-  app.get('/admin/books', function(req, res) {
+  app.get('/admin/books', filter.adminAuthorize, function(req, res) {
     Book.find(function(err, books) {
       if (err) {
         console.log("[Query books] DB error !");

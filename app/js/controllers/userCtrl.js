@@ -156,28 +156,32 @@ userApp.controller('AdminLoginCtrl', function($scope, $http, $location, $timeout
 
   $scope.login = function() {
     $scope.initState();
-    var user = {
-      'intrID': $scope.user.intrID,
-      'pwd': $scope.user.pwd
-    };
-
-    $http.post('/adminLogin', user)
-      .success(function(res) {
-        if (res.errType === 0) {
-          $location.path('/manage/books');
-        } else if (res.errType === 1) {
-          $scope.adminemailError = true;
+    if ($scope.loginForm.$valid) {
+      $('#adminLoginBtn').button('loading');
+      var user = {
+        'intrID': $scope.user.intrID,
+        'pwd': $scope.user.pwd
+      };
+      $http.post('/adminLogin', user)
+        .success(function(res) {
+          if (res.errType === 0) {
+            $location.path('/manage/books');
+          } else if (res.errType === 1) {
+            $scope.adminemailError = true;
+            $timeout($scope.initState, 3000);
+          } else {
+            $scope.adminloginError = true;
+            $timeout($scope.adminloginError, 3000);
+          };
+          $('#adminLoginBtn').button('reset');
+        })
+        .error(function(res) {
+          $('#adminLoginBtn').button('reset');
+          $scope.serverError = true;
           $timeout($scope.initState, 3000);
-        } else {
-          $scope.adminloginError = true;
-          $timeout($scope.adminloginError, 3000);
-        }
-      })
-      .error(function(res) {
-        $scope.serverError = true;
-        $timeout($scope.initState, 3000);
-        console.log('Error: ' + res);
-      });
+          console.log('Error: ' + res);
+        });
+    };
   };
 });
 

@@ -75,10 +75,6 @@ mainApp.config(function($stateProvider, $urlRouterProvider) {
       templateUrl: 'views/user/home.html',
       controller: 'UserHomeCtrl'
     })
-    .state('main.setting', {
-      url: '/setting',
-      templateUrl: 'views/user/setting.html',
-    })
     .state('login', {
       url: '/login',
       templateUrl: 'views/user/login.html',
@@ -145,16 +141,27 @@ mainApp.run(function($rootScope, $window, $cookies, $http, $location) {
       console.log('Logout Failed!');
     });
   };
+
+  $rootScope.adminLogOut = function () {
+    $http.post('/admin/logOut').success(function(res){
+      $location.path('/adminLogin');
+    }).error(function(res){
+      console.log('Admin Logout Failed!');
+    });
+  };
 });
 
 mainApp.factory('authInterceptor', function($rootScope, $q, $window, $location) {
   return {
     responseError: function(rejection) {
-      if (rejection.status === 401) {
+      console.log('rejection', rejection);
+      if (rejection.status === 401 && rejection.data === 'User') {
         // handle the case where the user is not authenticated
         console.log("[responseError]session timeout");
         $location.path('/login');
-      }
+      } else if (rejection.status === 401 && rejection.data === 'Admin'){
+        $location.path('/adminLogin');
+      };
       return $q.reject(rejection);
     }
   };

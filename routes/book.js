@@ -1,10 +1,11 @@
 var Book = require('../models/Book.js');
 var BookProp = require('../models/BookProp.js');
 var History = require('../models/History.js');
+var filter = require('../models/Filter.js');
+
 
 module.exports = function(app) {
-
-	app.get('/admin/add/book/:isbn',function(req, res){
+	app.get('/admin/add/book/:isbn', filter.adminAuthorize, function(req, res){
 		BookProp.findOne({isbn: req.params.isbn}, function(err, bookprop){
 			res.json(bookprop);
 		});
@@ -119,7 +120,7 @@ module.exports = function(app) {
 										'errType': 3
 										});
 							        }
-								});	
+								});
 
 				            }else{
 				            	var newBookProp = {
@@ -166,7 +167,7 @@ module.exports = function(app) {
 
 	});// add one book
 
-	app.delete('/admin/book/:unqId', function(req, res){
+	app.delete('/admin/book/:unqId', filter.adminAuthorize, function(req, res){
 		//console.log(req.params);
 		var delunqID = req.params.unqId;
 		Book.findOne({
@@ -200,7 +201,7 @@ module.exports = function(app) {
 				// };
 				// console.log("delete book useless attribute : ");
 				// console.log(hisbook);
-	        	
+
             	Book.remove({unqId: book.unqId}, function(err, delBook){
 					if(err) {
 			          console.log('[Delete a book]DB delete a book err : '+ err);
@@ -236,7 +237,7 @@ module.exports = function(app) {
 										            }
 									        	});
 								            }else{}
-							        	});	
+							        	});
 				            			res.json({
 				            				errType: 0
 				            			});
@@ -250,12 +251,12 @@ module.exports = function(app) {
 			        	console.log("[Delete book Fail]");
 			        	// console.log(delBook);
 			        }
-            	});	        	
+            	});
 	        }
 	    });
 	});// delete one book
 
-	app.put('/admin/book/unqId', function(req, res){
+	app.put('/admin/book/unqId', filter.adminAuthorize, function(req, res){
 		// console.log(req.body);
 		var param = req.body;
 		var mdfBook = {

@@ -86,6 +86,9 @@ serviceApp.factory('LogsService', function($http) {
     getAllLogs: function() {
       return $http.get('/admin/logs');
     },
+    deleteLog: function(_id) {
+      return $http.delete('/admin/log/' + _id);
+    },
     logs: logs
   }
 });

@@ -122,6 +122,7 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
   $scope.content = '';
   $scope.index = -1;
   $scope.update();
+  $scope.expireDate = new Date();
 
   $scope.$watch(function() {
     return $scope.getDataOver;
@@ -130,12 +131,14 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
       if ($scope.books[i].isbn == $state.params.bookId) {
         $scope.index = i;
         console.log('comments', $scope.books[$scope.index].comments);
+        if ($scope.books[i].applyTime) {
+          $scope.expireDate = new Date($scope.books[i].applyTime).setDate(new Date($scope.expireDate).getDate() + 2);
+          console.log('$scope.expireDate', $scope.expireDate);
+        };
         break;
       };
     };
   });
-
-  $('[data-toggle="tooltip"]').tooltip();
 
   BooksService.getSimilarBooks($state.params.bookId).success(function(res) {
     $scope.simBooks = res;
@@ -148,20 +151,22 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
       if (res.errType == 0) {
         $scope.books[$scope.index].intrID = $rootScope.logInUser.intrID;
         $scope.books[$scope.index].status = 1;
+        $scope.showMsg = true;
       } else if (res.errType == 1) {
         $('#warningModal').modal('show');
       } else if (res.errType == 2) {
         $('#noneModal').modal('show');
       } else if (res.errType == 3) {
         $('#errorModal').modal('show');
-      }
+      };
+      console.log('applyTime() = ', $scope.books[$scope.index].applyTime());
     }).error(function(res) {
       console.log(res, "BorrowBook");
     });
   };
 
   $scope.cancel = function() {
-    if ($window.confirm('Are you sure to cancel to reserve this book?')) {
+    $timeout(function() {
       BooksService.cancelBook($state.params.bookId, $rootScope.logInUser.intrID).success(function(res) {
         delete $scope.books[$scope.index].intrID;
         $scope.books[$scope.index].status = 0;
@@ -169,7 +174,7 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
       }).error(function(res) {
         console.log("cancelBook error");
       });
-    }
+    }, 200);
   };
 
   var timeout;
