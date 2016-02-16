@@ -18,7 +18,7 @@ function url_base64_decode(str) {
   return window.atob(output); //polifyll https://github.com/davidchambers/Base64.js
 }
 
-userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $timeout, $cookies) {
+userApp.controller('LoginCtrl', ['$scope', '$rootScope', '$http', '$location', '$timeout', '$cookies', function($scope, $rootScope, $http, $location, $timeout, $cookies) {
   $scope.user = {};
   $scope.submitted = false;
   $scope.initState = function initState() {
@@ -81,10 +81,10 @@ userApp.controller('LoginCtrl', function($scope, $rootScope, $http, $location, $
     };
   };
 
-});
+}]);
 
 
-userApp.controller('RegCtrl', function($scope, $rootScope, $http, $location, $timeout, $window) {
+userApp.controller('RegCtrl', ['$scope', '$rootScope', '$http', '$location', '$timeout', '$window', function($scope, $rootScope, $http, $location, $timeout, $window) {
   $scope.submitted = false;
   $scope.user = {};
   $scope.initState = function initState() {
@@ -142,10 +142,10 @@ userApp.controller('RegCtrl', function($scope, $rootScope, $http, $location, $ti
       $timeout($scope.initState, 3000);
     }
   };
-});
+}]);
 
 /* Admin log in*/
-userApp.controller('AdminLoginCtrl', function($scope, $http, $location, $timeout) {
+userApp.controller('AdminLoginCtrl', ['$scope', '$http', '$location', '$timeout', function($scope, $http, $location, $timeout) {
   $scope.user = {};
   $scope.submitted = false;
   $scope.initState = function initState() {
@@ -183,9 +183,9 @@ userApp.controller('AdminLoginCtrl', function($scope, $http, $location, $timeout
         });
     };
   };
-});
+}]);
 
-userApp.controller('UserHomeCtrl', function($scope, $rootScope, $timeout, BooksService) {
+userApp.controller('UserHomeCtrl', ['$scope', '$rootScope', '$timeout', 'BooksService', function($scope, $rootScope, $timeout, BooksService) {
   $scope.books = [];
   $scope.likedBooks = [];
   $scope.borrowedBooks = [];
@@ -209,4 +209,4 @@ userApp.controller('UserHomeCtrl', function($scope, $rootScope, $timeout, BooksS
         BooksService.books.push(res[i]);
       };
     });
-});
+}]);

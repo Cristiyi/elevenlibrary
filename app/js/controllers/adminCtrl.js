@@ -1,6 +1,6 @@
 var adminApp = angular.module('adminApp', ['ngMessages', 'ngTable']);
 
-adminApp.controller('ManageCtrl', function($scope, $state, $timeout, NgTableParams, adminBooksService, EventsService, LogsService) {
+adminApp.controller('ManageCtrl', ['$scope', '$state', '$timeout', 'NgTableParams', 'adminBooksService', 'EventsService', 'LogsService', function($scope, $state, $timeout, NgTableParams, adminBooksService, EventsService, LogsService) {
   $scope.currentState = {
     route: 0,
     book: {
@@ -139,9 +139,9 @@ adminApp.controller('ManageCtrl', function($scope, $state, $timeout, NgTablePara
   $scope.getBookData();
   $scope.getEventData();
   $scope.getLogData();
-});
+}]);
 
-adminApp.controller('ManageBooksCtrl', function($scope, $element, $http, $location, $timeout, NgTableParams, adminBooksService) {
+adminApp.controller('ManageBooksCtrl', ['$scope', '$element', '$http', '$location', '$timeout', 'NgTableParams', 'adminBooksService', function($scope, $element, $http, $location, $timeout, NgTableParams, adminBooksService) {
 
   $scope.bookRoute = true;
   $scope.setting = {
@@ -385,9 +385,9 @@ adminApp.controller('ManageBooksCtrl', function($scope, $element, $http, $locati
       $location.path('/manage/book/' + modifyBookList[0]);
     };
   }
-});
+}]);
 
-adminApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $location, $stateParams, adminBooksService) {
+adminApp.controller('ManageBookCtrl', ['$scope', '$http', '$timeout', '$location', '$stateParams', 'adminBooksService', function($scope, $http, $timeout, $location, $stateParams, adminBooksService) {
   $scope.book = {};
   $scope.initBook = function initBook() {
     for (var index = 0; index < adminBooksService.books.length; index++) {
@@ -464,9 +464,9 @@ adminApp.controller('ManageBookCtrl', function($scope, $http, $timeout, $locatio
     });
     $('#deleteBookModal').modal('hide');
   };
-});
+}]);
 
-adminApp.controller('NewBookCtrl', function($scope, $http, $timeout, $location, adminBooksService) {
+adminApp.controller('NewBookCtrl', [function($scope, $http, $timeout, $location, adminBooksService) {
   $scope.book = {};
   $scope.book.status = 0;
 
@@ -511,9 +511,9 @@ adminApp.controller('NewBookCtrl', function($scope, $http, $timeout, $location, 
       $scope.alertMessage(6, $scope.book);
     });
   };
-});
+}]);
 
-adminApp.controller('ManageEventsCtrl', function($scope, $rootScope, EventsService, NgTableParams, adminBooksService) {
+adminApp.controller('ManageEventsCtrl', ['$scope', '$rootScope', 'EventsService', 'NgTableParams', 'adminBooksService', function($scope, $rootScope, EventsService, NgTableParams, adminBooksService) {
 
   $scope.getEventData();
   $scope.accept = function(event) {
@@ -555,9 +555,9 @@ adminApp.controller('ManageEventsCtrl', function($scope, $rootScope, EventsServi
       $('#returnModal').modal('show');
     });
   };
-});
+}]);
 
-adminApp.controller('ManageLogsCtrl', function($scope, LogsService) {
+adminApp.controller('ManageLogsCtrl', ['$scope', 'LogsService', function($scope, LogsService) {
   $scope.getLogData();
   $scope.deleteLog = function(_id) {
     LogsService.deleteLog(_id).success(function(res) {
@@ -570,4 +570,4 @@ adminApp.controller('ManageLogsCtrl', function($scope, LogsService) {
       }
     });
   }
-})
+}])

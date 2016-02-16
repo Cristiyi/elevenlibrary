@@ -1,5 +1,5 @@
 var bookApp = angular.module('bookApp', ['wu.masonry', 'infinite-scroll', 'serviceApp']);
-bookApp.controller('MainBooksCtrl', function($scope, $state, $rootScope, BooksService) {
+bookApp.controller('MainBooksCtrl', ['$scope', '$state', '$rootScope', 'BooksService', function($scope, $state, $rootScope, BooksService) {
   console.log('MainBooksCtrl Start');
   $scope.books = [];
   $scope.popBooks = [];
@@ -90,9 +90,9 @@ bookApp.controller('MainBooksCtrl', function($scope, $state, $rootScope, BooksSe
         console.log($scope.books);
       });
   };
-});
+}]);
 
-bookApp.controller('AllBooksCtrl', function($scope, $rootScope, $state, $timeout, BooksService) {
+bookApp.controller('AllBooksCtrl', ['$scope', '$rootScope', '$state', '$timeout', 'BooksService',function($scope, $rootScope, $state, $timeout, BooksService) {
   console.log('AllBooksCtrl Start');
   $scope.update();
   var timeout;
@@ -113,9 +113,9 @@ bookApp.controller('AllBooksCtrl', function($scope, $rootScope, $state, $timeout
       });
     }, 500);
   };
-});
+}]);
 
-bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $state, $location, BooksService, $window) {
+bookApp.controller('DetailBookCtrl', ['$scope', '$rootScope', '$timeout', '$state', '$location', 'BooksService', '$window', function($scope, $rootScope, $timeout, $state, $location, BooksService, $window) {
   console.log('DetailBookCtrl Start');
   $scope.simBooks = [];
   $scope.tarValue = 0;
@@ -225,4 +225,4 @@ bookApp.controller('DetailBookCtrl', function($scope, $rootScope, $timeout, $sta
       console.error("deleteComment error", res);
     });
   }
-});
+}]);

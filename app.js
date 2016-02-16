@@ -36,7 +36,6 @@ app.use(session({
 }));
 
 app.use(function(req, res, next) {
-  console.log('session=', req.session);
   var views = req.session.views;
   next();
 })

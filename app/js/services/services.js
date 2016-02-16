@@ -1,5 +1,5 @@
 var serviceApp = angular.module('serviceApp', []);
-serviceApp.factory('adminBooksService', function($http) {
+serviceApp.factory('adminBooksService', ['$http', function($http) {
   var books = [];
   return {
     addBook: function(book, success, error) {
@@ -16,9 +16,9 @@ serviceApp.factory('adminBooksService', function($http) {
     },
     books: books
   };
-});
+}]);
 
-serviceApp.factory('BooksService', function($http) {
+serviceApp.factory('BooksService', ['$http', function($http) {
   var books = [];
   return {
     getAllBooks: function() {
@@ -60,9 +60,9 @@ serviceApp.factory('BooksService', function($http) {
     },
     books: books
   }
-});
+}]);
 
-serviceApp.factory('EventsService', function($http) {
+serviceApp.factory('EventsService', ['$http', function($http) {
   var events = [];
   return {
     getAllEvents: function() {
@@ -78,9 +78,9 @@ serviceApp.factory('EventsService', function($http) {
     },
     events: events
   }
-});
+}]);
 
-serviceApp.factory('LogsService', function($http) {
+serviceApp.factory('LogsService', ['$http', function($http) {
   var logs = [];
   return {
     getAllLogs: function() {
@@ -91,7 +91,7 @@ serviceApp.factory('LogsService', function($http) {
     },
     logs: logs
   }
-});
+}]);
 
 serviceApp.constant('category', {
   'Frontend': '1',

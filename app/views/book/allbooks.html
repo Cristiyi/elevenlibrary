@@ -17,7 +17,7 @@
               <a class="liked" ng-class="{isLiked: book.isLiked==true}" ng-click="like(book)"></a>
             </div>
             <a class="hoverLink" ng-href="#/book/{{book.isbn}}">
-              <img style="width:206px;" ng-src="{{ book.image }}" />
+              <img style="width:206px; min-width: 206px; min-height: 206px;" ng-src="{{ book.image }}" />
             </a>
           </div>
           <div class="bookInfoFooter">
