@@ -20,7 +20,6 @@ module.exports = function(grunt) {
             dist: {
                 files: {
                     'app/dist/app.js': ['app/dist/app.js'],
-                    'app/dist/libs.js': ['app/dist/libs.js']
                 },
                 options: {
                     mangle: false
@@ -44,7 +43,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-html2js');
-    grunt.loadNpmTasks('grunt-bower-task');
     //register grunt default task
     grunt.registerTask('default', ['html2js:dist', 'concat:dist', 'uglify:dist', 'clean:temp']);
 };

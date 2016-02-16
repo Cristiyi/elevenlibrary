@@ -151,7 +151,12 @@ bookApp.controller('DetailBookCtrl', ['$scope', '$rootScope', '$timeout', '$stat
       if (res.errType == 0) {
         $scope.books[$scope.index].intrID = $rootScope.logInUser.intrID;
         $scope.books[$scope.index].status = 1;
+        $scope.books[$scope.index].applyTime = res.applyTime;
         $scope.showMsg = true;
+        if ($scope.books[i].applyTime) {
+          $scope.expireDate = new Date($scope.books[i].applyTime).setDate(new Date($scope.expireDate).getDate() + 2);
+          console.log('$scope.expireDate', $scope.expireDate);
+        };
       } else if (res.errType == 1) {
         $('#warningModal').modal('show');
       } else if (res.errType == 2) {
@@ -159,7 +164,7 @@ bookApp.controller('DetailBookCtrl', ['$scope', '$rootScope', '$timeout', '$stat
       } else if (res.errType == 3) {
         $('#errorModal').modal('show');
       };
-      console.log('applyTime() = ', $scope.books[$scope.index].applyTime());
+      console.log('applyTime = ', $scope.books[$scope.index].applyTime);
     }).error(function(res) {
       console.log(res, "BorrowBook");
     });

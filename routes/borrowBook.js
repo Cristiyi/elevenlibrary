@@ -30,12 +30,13 @@ module.exports = function(app) {
               errType: 2
             });
           } else {
+            var applyTime = Date();
             Book.update({
               unqId: book.unqId
             }, {
               status: 1,
               intrID: intrID,
-              applyTime: Date()
+              applyTime: applyTime
             }, function(err, resbook) {
               if (err) {
                 console.log('[Update book status and time] Update book DB err : ' + err);
@@ -44,7 +45,8 @@ module.exports = function(app) {
               } else {
                 console.log('[Update book status and time] Update book Successful');
                 res.json({
-                  errType: 0
+                  errType: 0,
+                  applyTime: applyTime
                 });
               }
             });
