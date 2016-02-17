@@ -466,7 +466,7 @@ adminApp.controller('ManageBookCtrl', ['$scope', '$http', '$timeout', '$location
   };
 }]);
 
-adminApp.controller('NewBookCtrl', [function($scope, $http, $timeout, $location, adminBooksService) {
+adminApp.controller('NewBookCtrl', ['$scope', '$http', '$timeout', '$location', 'adminBooksService', function($scope, $http, $timeout, $location, adminBooksService) {
   $scope.book = {};
   $scope.book.status = 0;
 

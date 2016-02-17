@@ -46,7 +46,6 @@ userApp.controller('LoginCtrl', ['$scope', '$rootScope', '$http', '$location', '
             $rootScope.logInUser.phoneNum = res.phoneNum;
             $rootScope.logInUser.image = res.image;
             $rootScope.logInUser.intrID = user.intrID;
-            console.log($rootScope.logInUser);
 
             var expireDate = new Date();
             expireDate.setDate(expireDate.getDate() + 1);
@@ -112,7 +111,6 @@ userApp.controller('RegCtrl', ['$scope', '$rootScope', '$http', '$location', '$t
       };
       $http.post('/register', user)
         .success(function(res) {
-          console.log(res);
           if (res.errType === 0) {
             $location.path('/books/popular');
             $rootScope.logInUser.intrID = user.intrID;
@@ -192,7 +190,6 @@ userApp.controller('UserHomeCtrl', ['$scope', '$rootScope', '$timeout', 'BooksSe
   BooksService.getAllBooks()
     .success(function(res) {
       BooksService.books = [];
-      console.log(res, 'HomePage');
       for (var i = 0; i < res.length; i++) {
         res[i].image = res[i].image ? res[i].image : "images/gray.jpg";
         res[i].isLiked = false;

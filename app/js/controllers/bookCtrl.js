@@ -87,7 +87,6 @@ bookApp.controller('MainBooksCtrl', ['$scope', '$state', '$rootScope', 'BooksSer
         };
         $scope.updatePop();
         $scope.getDataOver = true;
-        console.log($scope.books);
       });
   };
 }]);
@@ -101,7 +100,6 @@ bookApp.controller('AllBooksCtrl', ['$scope', '$rootScope', '$state', '$timeout'
     if (timeout) $timeout.cancel(timeout);
     timeout = $timeout(function() {
       BooksService.likeBook(book.isbn, $rootScope.logInUser.intrID, book.isLiked).success(function(res) {
-        console.log(res, 'like');
         book.likes = res;
         for (var i = 0; i < book.likes.length; i++) {
           if (book.likes[i] === $rootScope.logInUser.intrID) {
@@ -130,10 +128,8 @@ bookApp.controller('DetailBookCtrl', ['$scope', '$rootScope', '$timeout', '$stat
     for (var i = 0; i < $scope.books.length; i++) {
       if ($scope.books[i].isbn == $state.params.bookId) {
         $scope.index = i;
-        console.log('comments', $scope.books[$scope.index].comments);
         if ($scope.books[i].applyTime) {
-          $scope.expireDate = new Date($scope.books[i].applyTime).setDate(new Date($scope.expireDate).getDate() + 2);
-          console.log('$scope.expireDate', $scope.expireDate);
+          $scope.expireDate = new Date($scope.books[i].applyTime).setDate(new Date($scope.books[i].applyTime).getDate() + 2);
         };
         break;
       };
@@ -147,15 +143,13 @@ bookApp.controller('DetailBookCtrl', ['$scope', '$rootScope', '$timeout', '$stat
 
   $scope.borrow = function() {
     BooksService.borrrowBook($state.params.bookId, $rootScope.logInUser.intrID).success(function(res) {
-      console.log(res, "BorrowBook");
       if (res.errType == 0) {
         $scope.books[$scope.index].intrID = $rootScope.logInUser.intrID;
         $scope.books[$scope.index].status = 1;
         $scope.books[$scope.index].applyTime = res.applyTime;
         $scope.showMsg = true;
-        if ($scope.books[i].applyTime) {
-          $scope.expireDate = new Date($scope.books[i].applyTime).setDate(new Date($scope.expireDate).getDate() + 2);
-          console.log('$scope.expireDate', $scope.expireDate);
+        if ($scope.books[$scope.index].applyTime) {
+          $scope.expireDate = new Date($scope.books[$scope.index].applyTime).setDate(new Date($scope.books[$scope.index].applyTime).getDate() + 2);
         };
       } else if (res.errType == 1) {
         $('#warningModal').modal('show');
@@ -164,7 +158,6 @@ bookApp.controller('DetailBookCtrl', ['$scope', '$rootScope', '$timeout', '$stat
       } else if (res.errType == 3) {
         $('#errorModal').modal('show');
       };
-      console.log('applyTime = ', $scope.books[$scope.index].applyTime);
     }).error(function(res) {
       console.log(res, "BorrowBook");
     });
@@ -175,7 +168,6 @@ bookApp.controller('DetailBookCtrl', ['$scope', '$rootScope', '$timeout', '$stat
       BooksService.cancelBook($state.params.bookId, $rootScope.logInUser.intrID).success(function(res) {
         delete $scope.books[$scope.index].intrID;
         $scope.books[$scope.index].status = 0;
-        console.log("cancelBook");
       }).error(function(res) {
         console.log("cancelBook error");
       });
@@ -188,7 +180,6 @@ bookApp.controller('DetailBookCtrl', ['$scope', '$rootScope', '$timeout', '$stat
     if (timeout) $timeout.cancel(timeout);
     timeout = $timeout(function() {
       BooksService.likeBook($scope.books[$scope.index].isbn, $rootScope.logInUser.intrID, $scope.books[$scope.index].isLiked).success(function(res) {
-        console.log(res, 'like');
         $scope.books[$scope.index].likes = res;
         $scope.updatePop();
       });
@@ -198,7 +189,6 @@ bookApp.controller('DetailBookCtrl', ['$scope', '$rootScope', '$timeout', '$stat
   $scope.rate = function(value) {
     $scope.books[$scope.index].rateValue = value;
     BooksService.rateBook($scope.books[$scope.index].isbn, $rootScope.logInUser.intrID, value).success(function(res) {
-      console.log(res, 'rate');
       $scope.books[$scope.index].rates = res;
       var total = 0;
       for (var i = 0; i < $scope.books[$scope.index].rates.length; i++) {
@@ -215,7 +205,6 @@ bookApp.controller('DetailBookCtrl', ['$scope', '$rootScope', '$timeout', '$stat
   $scope.comment = function() {
     if ($scope.content.length != 0) {
       BooksService.commentBook($scope.books[$scope.index].isbn, $rootScope.logInUser.intrID, $scope.content).success(function(res) {
-        console.log(res, 'comment');
         $scope.books[$scope.index].comments = res;
         $scope.content = '';
       });
@@ -224,7 +213,6 @@ bookApp.controller('DetailBookCtrl', ['$scope', '$rootScope', '$timeout', '$stat
 
   $scope.deleteComment = function(id) {
     BooksService.deleteComment($scope.books[$scope.index].isbn, id).success(function(res) {
-      console.log("deleteComment", res);
       $scope.books[$scope.index].comments = res;
     }).error(function(res) {
       console.error("deleteComment error", res);
