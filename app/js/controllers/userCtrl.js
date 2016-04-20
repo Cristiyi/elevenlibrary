@@ -28,6 +28,7 @@ userApp.controller('LoginCtrl', ['$scope', '$rootScope', '$http', '$location', '
     $scope.loginForm.submitted = false;
   };
 
+
   $scope.login = function() {
     $scope.initState();
     if ($scope.loginForm.$valid) {
@@ -40,7 +41,7 @@ userApp.controller('LoginCtrl', ['$scope', '$rootScope', '$http', '$location', '
         .success(function(res, status, headers, config) {
           if (res.errType === 0) {
             $('#loginBtn').button('reset');
-            $location.path('/books/popular');
+            $location.path($rootScope.fromStage);
 
             $rootScope.logInUser.name = res.name;
             $rootScope.logInUser.phoneNum = res.phoneNum;

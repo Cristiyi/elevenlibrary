@@ -132,6 +132,7 @@ mainApp.run(function($rootScope, $window, $cookies, $http, $location) {
     'phoneNum': user ? user.phoneNum : '',
     'image': user ? user.image : ''
   };
+  $rootScope.fromStage="";
   $rootScope.logOut = function () {
     $http.post('/user/logOut').success(function(res){
       $rootScope.logInUser = {};
@@ -155,9 +156,12 @@ mainApp.factory('authInterceptor', function($rootScope, $q, $window, $location) 
   return {
     responseError: function(rejection) {
       console.log('rejection', rejection);
+
       if (rejection.status === 401 && rejection.data === 'User') {
         // handle the case where the user is not authenticated
-        console.log("[responseError]session timeout");
+        console.log("[responseError]session timeout---from");
+        $rootScope.fromStage = $location.path();
+        console.log('$location.path',$location.path());
         $location.path('/login');
       } else if (rejection.status === 401 && rejection.data === 'Admin'){
         $location.path('/adminLogin');
